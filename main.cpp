@@ -1,4 +1,8 @@
 #include "graph.h"
+#include "model.h"
+
+#include <QApplication>
+#include <QTableView>
 
 #include <iostream>
 using std::cout;
@@ -8,61 +12,17 @@ void info(Graph* x) {
     cout<<endl<<x->getRows()<<" "<<x->getColumns()<<" "<<x->t.size()<<"x"<<x->t[0].size()<<" "<<x->t.capacity()<<"x"<<x->t[0].capacity()<<endl;
 }
 
-int main() {
+int main(int argc, char *argv[]) {
 
-    Graph* x=new Graph(5, 8, "x di test");
-    for(size_t i=0; i<5; ++i)
-        for(size_t j=0; j<8; ++j)
-            (*x)[i][j]=5;
+    QApplication app(argc, argv);
+    QTableView tableView;
+    Model model;
 
-    x->printName();
-    info(x);
-    x->printTable();
-    cout<<endl;
+    model.newColumns(3);
+    model.newRows(3);
 
-    x->newColumns();
+    tableView.setModel(&model);
+    tableView.show();
 
-    x->printName();
-    info(x);
-    x->printTable();
-    cout<<endl;
-
-    x->newRows();
-
-    x->printName();
-    info(x);
-    x->printTable();
-    cout<<endl;
-
-    x->insertColumn(3);
-
-    x->printName();
-    info(x);
-    x->printTable();
-    cout<<endl;
-
-    x->insertRow(3);
-
-    x->printName();
-    info(x);
-    x->printTable();
-    cout<<endl;
-
-    x->removeRow(3);
-
-    x->printName();
-    info(x);
-    x->printTable();
-    cout<<endl;
-
-    x->removeColumn(3);
-    x->removeColumn(8);
-    x->removeRow(5);
-
-    x->printName();
-    info(x);
-    x->printTable();
-    cout<<endl;
-
-    return 0;
+    return app.exec();
 }

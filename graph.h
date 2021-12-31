@@ -19,6 +19,8 @@ public:
     Labels lC;
 public:
     Graph(size_t =0, size_t =0, std::string ="graph");
+    Graph(const Graph&);
+    ~Graph() =default;
 
     std::string getName();
 

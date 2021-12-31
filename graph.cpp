@@ -6,6 +6,8 @@ using std::string;
 
 Graph::Graph(size_t r, size_t c, std::string n): Table(r, c), name(n), lR(Labels(r)), lC(Labels(c)) {}
 
+Graph::Graph(const Graph& g): Table(g.rows, g.columns), name(g.name), lR(g.lR), lC(g.lC) {}
+
 std::string Graph::getName() {
     return name;
 }

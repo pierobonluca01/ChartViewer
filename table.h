@@ -24,8 +24,8 @@ public:
     Table(const Table&);
     ~Table() =default;
 
-    int getRows();
-    int getColumns();
+    int getRows() const;
+    int getColumns() const;
 
     void newColumns(size_t =1);
     void insertColumn(size_t);

@@ -10,11 +10,11 @@ Table::Table(size_t r, size_t c): rows(r), columns(c), t(r, vector<double>(c, 0)
 
 Table::Table(const Table& t): rows(t.rows), columns(t.columns), t(t.t) {}
 
-int Table::getRows() {
+int Table::getRows() const {
     return rows;
 }
 
-int Table::getColumns() {
+int Table::getColumns() const {
     return columns;
 }
 

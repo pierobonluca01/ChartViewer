@@ -1,3 +1,9 @@
+TEMPLATE = app
+
+TARGET = ProgettoQt
+
+QT = core gui widgets
+
 HEADERS += \
     graph.h \
     labels.h \

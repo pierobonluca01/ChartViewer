@@ -12,12 +12,18 @@ using std::vector;
 using std::string;
 
 class Model: public QAbstractTableModel {
+    Q_OBJECT
+
 private:
     Graph* graph;
-public:
-    Model();
-    int rowCount() const;
 
+public:
+    Model(QObject* =nullptr);
+    ~Model();
+
+    int rowCount(const QModelIndex& =QModelIndex()) const override;
+    int columnCount(const QModelIndex& =QModelIndex()) const override;
+    QVariant data(const QModelIndex&, int =Qt::DisplayRole) const override;
 
 public slots:
     void newColumns(size_t =1);
