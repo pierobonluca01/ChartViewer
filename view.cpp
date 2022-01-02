@@ -6,9 +6,7 @@ View::View(QWidget* parent): QWidget(parent) {
     addMenus(mainLayout);
     addTable(mainLayout);
 
-    mainLayout->setSpacing(0);
     setLayout(mainLayout);
-    resize(QSize(1024, 720));
 }
 
 void View::addMenus(QVBoxLayout* layout) {
@@ -26,6 +24,6 @@ void View::addTable(QVBoxLayout* layout) {
     layout->addWidget(table);
 }
 
-void View::setModel(QAbstractItemModel* model) {
+void View::setModel(QAbstractItemModel* model) { //test
     table->setModel(model);
 }

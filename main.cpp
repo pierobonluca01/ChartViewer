@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
     model.newColumns(3); //test
     model.newRows(3);   //test
 
-    view.setModel(&model);
+    view.setModel(&model); //test
     view.show();
 
     return app.exec();

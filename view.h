@@ -22,7 +22,7 @@ public:
     View(QWidget* =nullptr);
     ~View() =default;
 
-    void setModel(QAbstractItemModel*);
+    void setModel(QAbstractItemModel*); //test //TODO: da spostare nel Controller
 };
 
 #endif // VIEW_H
