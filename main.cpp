@@ -1,5 +1,6 @@
-#include "graph.h"
 #include "model.h"
+#include "view.h"
+#include "controller.h"
 
 #include <QApplication>
 #include <QTableView>
@@ -8,17 +9,19 @@
 using std::cout;
 using std::endl;
 
-int main(int argc, char *argv[]) {
+int main(int argc, char** argv) {
 
     QApplication app(argc, argv);
-    QTableView tableView;
+
     Model model;
+    View view;
+    Controller controller;
 
-    model.newColumns(3);
-    model.newRows(3);
+    model.newColumns(3); //test
+    model.newRows(3);   //test
 
-    tableView.setModel(&model);
-    tableView.show();
+    view.setModel(&model);
+    view.show();
 
     return app.exec();
 }

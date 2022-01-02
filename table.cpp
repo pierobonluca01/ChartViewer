@@ -4,9 +4,7 @@ using std::cout;
 using std::endl;
 using std::string;
 
-Table::Table(size_t r, size_t c): rows(r), columns(c), t(r, vector<double>(c, 0)) {
-    std::cout<<"\n [*] Costruzione di una Table.\n";
-}
+Table::Table(size_t r, size_t c): rows(r), columns(c), t(r, vector<double>(c, 0)) {}
 
 Table::Table(const Table& t): rows(t.rows), columns(t.columns), t(t.t) {}
 
