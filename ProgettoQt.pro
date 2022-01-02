@@ -22,3 +22,6 @@ SOURCES += \
     model.cpp \
     table.cpp \
     view.cpp
+
+RESOURCES += \
+    resources.qrc

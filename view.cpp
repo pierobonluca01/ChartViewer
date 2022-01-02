@@ -1,6 +1,8 @@
 #include "view.h"
 
 View::View(QWidget* parent): QWidget(parent) {
+    setWindowIcon(QIcon(":/images/chart"));
+
     QVBoxLayout* mainLayout=new QVBoxLayout;
 
     addMenus(mainLayout);

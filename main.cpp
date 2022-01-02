@@ -17,8 +17,8 @@ int main(int argc, char** argv) {
     View view;
     Controller controller;
 
-    model.newColumns(3); //test
     model.newRows(3);   //test
+    model.newColumns(3); //test
 
     view.setModel(&model); //test
     view.show();
