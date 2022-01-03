@@ -42,12 +42,20 @@ void Graph::removeRow(size_t ir) {
     lR.removeLabel(ir);
 }
 
-string& Graph::getRowLabel(size_t ir) {
+string Graph::getRowLabel(size_t ir) const {
     return lR.getLabel(ir);
 }
 
-string& Graph::getColumnLabel(size_t ic) {
+string Graph::getColumnLabel(size_t ic) const {
     return lC.getLabel(ic);
+}
+
+string& Graph::setRowLabel(size_t ir) {
+    return lR.setLabel(ir);
+}
+
+string& Graph::setColumnLabel(size_t ic) {
+    return lC.setLabel(ic);
 }
 
 double Graph::getRowPercentage(size_t r, size_t c) {

@@ -4,7 +4,11 @@ Labels::Labels(size_t n): l(vector<string>(n, "label")) {}
 
 Labels::Labels(const Labels& lc): l(lc.l) {}
 
-string& Labels::getLabel(size_t i) {
+string Labels::getLabel(size_t i) const {
+    return l[i];
+}
+
+string& Labels::setLabel(size_t i) {
     return l[i];
 }
 

@@ -14,7 +14,7 @@ using std::string;
 class Model: public QAbstractTableModel {
     Q_OBJECT
 
-private:
+public:
     Graph* graph;
 
 public:
@@ -23,8 +23,13 @@ public:
 
     int rowCount(const QModelIndex& =QModelIndex()) const override;
     int columnCount(const QModelIndex& =QModelIndex()) const override;
+
     QVariant data(const QModelIndex&, int =Qt::DisplayRole) const override;
+    bool setData(const QModelIndex&, const QVariant&, int =Qt::EditRole) override;
     QVariant headerData(int, Qt::Orientation, int) const override;
+    bool setHeaderData(int, Qt::Orientation, const QVariant&, int =Qt::EditRole) override; //TODO: Da aggiungere il signal relativo.
+
+    //Qt::ItemFlags flags(const QModelIndex&) const override;
 
 public slots:
     void newColumns(size_t =1);

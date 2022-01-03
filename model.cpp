@@ -22,6 +22,13 @@ QVariant Model::data(const QModelIndex& index, int role) const {
     return QVariant();
 }
 
+bool Model::setData(const QModelIndex& index, const QVariant& value, int role) {
+    if(role==Qt::EditRole) {
+        graph->setData(index.row(), index.column())=value.toDouble();
+    }
+    return true;
+}
+
 QVariant Model::headerData(int section, Qt::Orientation orientation, int role) const {
     if(role==Qt::DisplayRole) {
         if(orientation==Qt::Horizontal)
@@ -31,6 +38,20 @@ QVariant Model::headerData(int section, Qt::Orientation orientation, int role) c
     }
     return QVariant();
 }
+
+bool Model::setHeaderData(int section, Qt::Orientation orientation, const QVariant& value, int role) {
+    if(role==Qt::EditRole) {
+        if(orientation==Qt::Horizontal)
+            graph->setColumnLabel(section)=value.toString().toStdString();
+        else if(orientation==Qt::Vertical)
+            graph->setRowLabel(section)=value.toString().toStdString();
+    }
+    return true;
+}
+
+//Qt::ItemFlags Model::flags(const QModelIndex& index) const {
+//    return Qt::ItemIsEditable | QAbstractTableModel::flags(index);
+//}
 
 void Model::newColumns(size_t nc) {
     graph->newColumns(nc);

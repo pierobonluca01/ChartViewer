@@ -16,7 +16,8 @@ private:
     Labels(size_t);
     Labels(const Labels&);
 
-    string& getLabel(size_t);
+    string getLabel(size_t) const;
+    string& setLabel(size_t);
 
     void newLabels(size_t);
     void insertLabel(size_t);

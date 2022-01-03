@@ -33,8 +33,10 @@ public:
     void insertRow(size_t);
     void removeRow(size_t);
 
-    string& getRowLabel(size_t);
-    string& getColumnLabel(size_t);
+    string getRowLabel(size_t) const;
+    string getColumnLabel(size_t) const;
+    string& setRowLabel(size_t);
+    string& setColumnLabel(size_t);
 
     double getRowPercentage(size_t, size_t);
     double getColumnPercentage(size_t, size_t);

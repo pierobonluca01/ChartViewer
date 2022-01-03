@@ -16,7 +16,11 @@ int Table::getColumns() const {
     return columns;
 }
 
-double& Table::getData(size_t ir, size_t ic) {
+double& Table::setData(size_t ir, size_t ic) {
+    return t[ir][ic];
+}
+
+double Table::getData(size_t ir, size_t ic) const {
     return t[ir][ic];
 }
 
