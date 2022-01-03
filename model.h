@@ -24,6 +24,7 @@ public:
     int rowCount(const QModelIndex& =QModelIndex()) const override;
     int columnCount(const QModelIndex& =QModelIndex()) const override;
     QVariant data(const QModelIndex&, int =Qt::DisplayRole) const override;
+    QVariant headerData(int, Qt::Orientation, int) const override;
 
 public slots:
     void newColumns(size_t =1);

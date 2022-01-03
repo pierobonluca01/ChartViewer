@@ -4,6 +4,10 @@ Labels::Labels(size_t n): l(vector<string>(n, "label")) {}
 
 Labels::Labels(const Labels& lc): l(lc.l) {}
 
+string& Labels::getLabel(size_t i) {
+    return l[i];
+}
+
 void Labels::newLabels(size_t n) {
     for(size_t i=0; i<n; i++)
         l.push_back("label");

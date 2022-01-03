@@ -11,8 +11,10 @@
 using std::vector;
 using std::string;
 
+//define private public //test
+
 class Graph: public Table {
-public:
+private:
     std::string name;
 
     Labels lR;
@@ -30,6 +32,9 @@ public:
     void newRows(size_t =1);
     void insertRow(size_t);
     void removeRow(size_t);
+
+    string& getRowLabel(size_t);
+    string& getColumnLabel(size_t);
 
     double getRowPercentage(size_t, size_t);
     double getColumnPercentage(size_t, size_t);

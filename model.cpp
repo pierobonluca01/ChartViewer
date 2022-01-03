@@ -18,7 +18,17 @@ int Model::columnCount(const QModelIndex& parent) const {
 
 QVariant Model::data(const QModelIndex& index, int role) const {
     if(role==Qt::DisplayRole)
-       return (*graph)[index.row()][index.column()];
+       return graph->getData(index.row(), index.column());
+    return QVariant();
+}
+
+QVariant Model::headerData(int section, Qt::Orientation orientation, int role) const {
+    if(role==Qt::DisplayRole) {
+        if(orientation==Qt::Horizontal)
+            return QString::fromStdString(graph->getColumnLabel(section));
+        else if(orientation==Qt::Vertical)
+            return QString::fromStdString(graph->getRowLabel(section));
+    }
     return QVariant();
 }
 

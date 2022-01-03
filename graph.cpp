@@ -42,6 +42,14 @@ void Graph::removeRow(size_t ir) {
     lR.removeLabel(ir);
 }
 
+string& Graph::getRowLabel(size_t ir) {
+    return lR.getLabel(ir);
+}
+
+string& Graph::getColumnLabel(size_t ic) {
+    return lC.getLabel(ic);
+}
+
 double Graph::getRowPercentage(size_t r, size_t c) {
     double rSum=0;
     vector<vector<double>>::const_iterator itR=t.begin()+r;

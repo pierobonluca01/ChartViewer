@@ -10,7 +10,7 @@
 using std::vector;
 using std::string;
 
-#define protected public
+//#define protected public //test
 
 class Table {
 protected:
@@ -26,6 +26,8 @@ public:
 
     int getRows() const;
     int getColumns() const;
+
+    double& getData(size_t, size_t);
 
     void newColumns(size_t =1);
     void insertColumn(size_t);

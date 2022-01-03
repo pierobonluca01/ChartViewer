@@ -16,6 +16,10 @@ int Table::getColumns() const {
     return columns;
 }
 
+double& Table::getData(size_t ir, size_t ic) {
+    return t[ir][ic];
+}
+
 void Table::newColumns(size_t nc) {
     for(vector<vector<double>>::iterator itR=t.begin(); itR!=t.end(); ++itR)
         for(size_t i=0; i<nc; ++i)
