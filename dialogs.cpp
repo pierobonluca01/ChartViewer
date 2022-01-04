@@ -1,27 +1,45 @@
 #include "dialogs.h"
 
 NewDialog::NewDialog(QWidget* parent): QDialog(parent) {
+    setWindowTitle(QString("Nuovo..."));
 
     QLineEdit* nameLine=new QLineEdit;
-    nameLine->setPlaceholderText(QString("senzatitolo"));
+    nameLine->setPlaceholderText(QString("senza_titolo"));
+    nameLine->setMaxLength(30);
     QLineEdit* rowsLine=new QLineEdit;
     rowsLine->setPlaceholderText(QString("0"));
     QLineEdit* columnsLine=new QLineEdit;
     columnsLine->setPlaceholderText(QString("0"));
+    QPushButton* confirmation=new QPushButton("Conferma");
+    QPushButton* cancel=new QPushButton("Annulla");
 
-    QGridLayout* grid=new QGridLayout();
+    QHBoxLayout *line1=new QHBoxLayout;
+    line1->addWidget(new QLabel("Nome:"));
+    line1->addWidget(nameLine);
 
-    grid->addWidget(new QLabel("Nome:"), 0, 0);
-    grid->addWidget(nameLine, 0, 1);
-    grid->setVerticalSpacing(20);
-    grid->addWidget(new QLabel("Righe:"), 1, 0);
-    grid->addWidget(rowsLine, 1, 1);
-    grid->addWidget(new QLabel("Colonne:"), 1, 2);
-    grid->addWidget(columnsLine, 1, 3);
+    QHBoxLayout *line2=new QHBoxLayout;
+    line2->addWidget(new QLabel("Righe:"));
+    line2->addWidget(rowsLine);
+    line2->addWidget(new QLabel("Colonne:"));
+    line2->addWidget(columnsLine);
 
-    setLayout(grid);
+    QHBoxLayout *line3=new QHBoxLayout;
+    line3->addSpacerItem(new QSpacerItem(150, 0));
+    line3->addWidget(cancel);
+    line3->addWidget(confirmation);
 
-    //QPushButton* conferma=new QPushButton("C", this);
+    QVBoxLayout *layout=new QVBoxLayout;
+    layout->addLayout(line1);
+    layout->addLayout(line2);
+    layout->addSpacerItem(new QSpacerItem(0, 20));
+    layout->addLayout(line3);
+
+    layout->setSizeConstraint(QLayout::SetFixedSize);
+    setLayout(layout);
+
+    name=nameLine->text();
+
+    connect(cancel, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 QString NewDialog::getName() {

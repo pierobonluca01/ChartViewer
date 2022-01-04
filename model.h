@@ -18,7 +18,7 @@ public:
     Graph* graph;
 
 public:
-    Model(size_t =0, size_t =0, QString ="untitled_graph", QObject* =nullptr);
+    Model(size_t =0, size_t =0, QString ="senza_titolo", QObject* =nullptr);
     virtual ~Model() =default;
 
     QString getName() const;
