@@ -13,14 +13,14 @@ int main(int argc, char** argv) {
 
     QApplication app(argc, argv);
 
-    Model model;
+    Model model(3, 3);
     View view;
     Controller controller;
 
-    model.newRows(3);   //test
-    model.newColumns(3); //test
+    controller.setModel(&model);
+    controller.setView(&view);
+    view.setController(&controller);
 
-    view.setModel(&model); //test
     view.show();
 
     return app.exec();

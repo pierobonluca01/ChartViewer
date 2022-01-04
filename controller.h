@@ -4,15 +4,26 @@
 #include "model.h"
 #include "view.h"
 
-class Controller {
+class Controller: public QObject {
+    Q_OBJECT
+
 private:
     Model* model;
     View* view;
 public:
-    Controller();
+    Controller(QObject* =nullptr);
+    virtual ~Controller() =default;
 
-    void setModel(Model*);
     void setView(View*);
+    void setModel(Model*);
+
+public slots:
+    void newColumns(size_t =1) const;
+    void insertColumn(size_t) const;
+    void removeColumn(size_t) const;
+    void newRows(size_t =1) const;
+    void insertRow(size_t) const;
+    void removeRow(size_t) const;
 };
 
 #endif // CONTROLLER_H

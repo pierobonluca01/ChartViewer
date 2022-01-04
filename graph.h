@@ -24,7 +24,8 @@ public:
     Graph(const Graph&);
     ~Graph() =default;
 
-    std::string getName();
+    std::string getName() const;
+    std::string& setName();
 
     void newColumns(size_t =1);
     void insertColumn(size_t);
@@ -38,11 +39,11 @@ public:
     string& setRowLabel(size_t);
     string& setColumnLabel(size_t);
 
-    double getRowPercentage(size_t, size_t);
-    double getColumnPercentage(size_t, size_t);
+    double getRowPercentage(size_t, size_t) const;
+    double getColumnPercentage(size_t, size_t) const;
 
     //Console
-    void printName();
+    void printName() const;
     void printTable();
 };
 

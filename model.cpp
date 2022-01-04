@@ -1,9 +1,13 @@
 #include "model.h"
 
-Model::Model(QObject* parent): QAbstractTableModel(parent), graph(new Graph()) {}
+Model::Model(size_t r, size_t c, QString n, QObject* parent): QAbstractTableModel(parent), graph(new Graph(r, c, n.toStdString())) {}
 
-Model::~Model() {
-    delete graph;
+QString Model::getName() const {
+    return QString::fromStdString(graph->getName());
+}
+
+void Model::setName(const QString& n) {
+    graph->setName()=n.toStdString();
 }
 
 int Model::rowCount(const QModelIndex& parent) const {
@@ -49,9 +53,9 @@ bool Model::setHeaderData(int section, Qt::Orientation orientation, const QVaria
     return true;
 }
 
-//Qt::ItemFlags Model::flags(const QModelIndex& index) const {
-//    return Qt::ItemIsEditable | QAbstractTableModel::flags(index);
-//}
+Qt::ItemFlags Model::flags(const QModelIndex& index) const {
+    return Qt::ItemIsEditable | QAbstractTableModel::flags(index);
+}
 
 void Model::newColumns(size_t nc) {
     graph->newColumns(nc);

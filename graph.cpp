@@ -8,7 +8,11 @@ Graph::Graph(size_t r, size_t c, std::string n): Table(r, c), name(n), lR(Labels
 
 Graph::Graph(const Graph& g): Table(g.rows, g.columns), name(g.name), lR(g.lR), lC(g.lC) {}
 
-std::string Graph::getName() {
+std::string Graph::getName() const {
+    return name;
+}
+
+std::string& Graph::setName() {
     return name;
 }
 
@@ -58,7 +62,7 @@ string& Graph::setColumnLabel(size_t ic) {
     return lC.setLabel(ic);
 }
 
-double Graph::getRowPercentage(size_t r, size_t c) {
+double Graph::getRowPercentage(size_t r, size_t c) const {
     double rSum=0;
     vector<vector<double>>::const_iterator itR=t.begin()+r;
     for(vector<double>::const_iterator itC=itR->begin(); itC!=itR->end(); ++itC)
@@ -66,7 +70,7 @@ double Graph::getRowPercentage(size_t r, size_t c) {
     return t[r][c]/rSum;
 }
 
-double Graph::getColumnPercentage(size_t r, size_t c) {
+double Graph::getColumnPercentage(size_t r, size_t c) const {
     double cSum=0;
     for(vector<vector<double>>::const_iterator itR=t.begin(); itR!=t.end(); ++itR)
         cSum+=*(itR->begin()+c);
@@ -77,8 +81,8 @@ double Graph::getColumnPercentage(size_t r, size_t c) {
 
 //Console
 
-void Graph::printName() {
-    cout<<"Graph "<<name;
+void Graph::printName() const {
+    cout<<"Graph "<<getName();
 }
 
 void Graph::printTable() {
