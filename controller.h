@@ -24,6 +24,8 @@ public slots:
     void newRows(size_t =1) const;
     void insertRow(size_t) const;
     void removeRow(size_t) const;
+
+    void newGraph();
 };
 
 #endif // CONTROLLER_H

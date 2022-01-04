@@ -35,5 +35,5 @@ void View::setModel(QAbstractItemModel* m) {
 
 void View::setController(Controller* c) {
     controller=c;
-    //connect(file->actions()[0], SIGNAL(triggered()), controller, SLOT(newGraph()));
+    connect(file->actions().at(0), SIGNAL(triggered()), controller, SLOT(newGraph()));
 }

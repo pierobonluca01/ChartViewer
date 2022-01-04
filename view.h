@@ -31,4 +31,6 @@ public:
     void setController(Controller*);
 };
 
+
+
 #endif // VIEW_H

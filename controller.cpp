@@ -1,4 +1,5 @@
 #include "controller.h"
+#include "dialogs.h"
 
 Controller::Controller(QObject* parent): QObject(parent), model(nullptr), view(nullptr) {}
 
@@ -36,4 +37,9 @@ void Controller::setModel(Model* m) {
     model=m;
     if(view)
         view->setModel(model);
+}
+
+void Controller::newGraph() {
+    NewDialog win;
+    win.exec();
 }

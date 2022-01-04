@@ -8,6 +8,7 @@ QMAKE_CXXFLAGS += -Wno-deprecated-copy
 
 HEADERS += \
     controller.h \
+    dialogs.h \
     graph.h \
     labels.h \
     model.h \
@@ -16,6 +17,7 @@ HEADERS += \
 
 SOURCES += \
     controller.cpp \
+    dialogs.cpp \
     graph.cpp \
     labels.cpp \
     main.cpp \
