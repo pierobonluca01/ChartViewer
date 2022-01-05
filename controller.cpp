@@ -42,4 +42,6 @@ void Controller::setModel(Model* m) {
 void Controller::newGraph() {
     NewDialog win;
     win.exec();
+    setModel(new Model(win.getRows(), win.getColumns(), win.getName()));
+    //TODO: Crash se annullo la finestra di dialogo.
 }

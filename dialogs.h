@@ -8,6 +8,7 @@ using std::size_t;
 #include <QPushButton>
 #include <QLabel>
 #include <QLineEdit>
+#include <QValidator>
 #include <QDialog>
 #include <QApplication>
 #include <QBoxLayout>
@@ -20,12 +21,19 @@ private:
     unsigned int rows;
     unsigned int columns;
 
+    QLineEdit* nameLine;
+    QLineEdit* rowsLine;
+    QLineEdit* columnsLine;
+
 public:
     NewDialog(QWidget* =nullptr);
 
-    QString getName();
-    unsigned int getRows();
-    unsigned int getColumns();
+    QString getName() const;
+    unsigned int getRows() const;
+    unsigned int getColumns() const;
+
+public slots:
+    void getText();
 };
 
 #endif // DIALOGS_H

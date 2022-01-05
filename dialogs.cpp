@@ -3,13 +3,18 @@
 NewDialog::NewDialog(QWidget* parent): QDialog(parent) {
     setWindowTitle(QString("Nuovo..."));
 
-    QLineEdit* nameLine=new QLineEdit;
+    nameLine=new QLineEdit;
     nameLine->setPlaceholderText(QString("senza_titolo"));
     nameLine->setMaxLength(30);
-    QLineEdit* rowsLine=new QLineEdit;
+
+    rowsLine=new QLineEdit;
     rowsLine->setPlaceholderText(QString("0"));
-    QLineEdit* columnsLine=new QLineEdit;
+    rowsLine->setValidator(new QIntValidator(0, 999));
+
+    columnsLine=new QLineEdit;
     columnsLine->setPlaceholderText(QString("0"));
+    columnsLine->setValidator(new QIntValidator(0, 999));
+
     QPushButton* confirmation=new QPushButton("Conferma");
     QPushButton* cancel=new QPushButton("Annulla");
 
@@ -37,19 +42,28 @@ NewDialog::NewDialog(QWidget* parent): QDialog(parent) {
     layout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(layout);
 
-    name=nameLine->text();
-
     connect(cancel, SIGNAL(clicked()), this, SLOT(close()));
+    connect(confirmation, SIGNAL(clicked()), this, SLOT(getText()));
+    connect(confirmation, SIGNAL(clicked()), this, SLOT(close()));
 }
 
-QString NewDialog::getName() {
+void NewDialog::getText() {
+    name=nameLine->text();
+    if(name=="")
+        name="senza_nome";
+    rows=rowsLine->text().toUInt();
+    columns=columnsLine->text().toUInt();
+
+}
+
+QString NewDialog::getName() const {
     return name;
 }
 
-unsigned int NewDialog::getRows() {
+unsigned int NewDialog::getRows() const {
     return rows;
 }
 
-unsigned int NewDialog::getColumns() {
+unsigned int NewDialog::getColumns() const {
     return columns;
 }
