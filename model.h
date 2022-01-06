@@ -34,6 +34,8 @@ public:
 
     Qt::ItemFlags flags(const QModelIndex&) const override;
 
+    void renewGraph(size_t =0, size_t =0, QString ="senza_titolo");
+
     void newColumns(size_t =1);
     void insertColumn(size_t);
     void removeColumn(size_t);

@@ -18,8 +18,8 @@ class NewDialog: public QDialog {
 
 private:
     QString name;
-    unsigned int rows;
-    unsigned int columns;
+    size_t rows;
+    size_t columns;
 
     QLineEdit* nameLine;
     QLineEdit* rowsLine;
@@ -29,11 +29,11 @@ public:
     NewDialog(QWidget* =nullptr);
 
     QString getName() const;
-    unsigned int getRows() const;
-    unsigned int getColumns() const;
+    size_t getRows() const;
+    size_t getColumns() const;
 
 public slots:
-    void getText();
+    void updateText();
 };
 
 #endif // DIALOGS_H

@@ -1,7 +1,21 @@
 #include "controller.h"
-#include "dialogs.h"
 
 Controller::Controller(QObject* parent): QObject(parent), model(nullptr), view(nullptr) {}
+
+void Controller::setView(View* v) {
+    view=v;
+    if(model)
+        view->setModel(model);
+}
+
+void Controller::setModel(Model* m) {
+    model=m;
+    if(view)
+        view->setModel(model);
+}
+
+
+/*slots*/
 
 void Controller::newColumns(size_t nc) const {
     model->newColumns(nc);
@@ -25,23 +39,4 @@ void Controller::insertRow(size_t ir) const{
 
 void Controller::removeRow(size_t ir) const {
     model->removeColumn(ir);
-}
-
-void Controller::setView(View* v) {
-    view=v;
-    if(model)
-        view->setModel(model);
-}
-
-void Controller::setModel(Model* m) {
-    model=m;
-    if(view)
-        view->setModel(model);
-}
-
-void Controller::newGraph() {
-    NewDialog win;
-    win.exec();
-    setModel(new Model(win.getRows(), win.getColumns(), win.getName()));
-    //TODO: Crash se annullo la finestra di dialogo.
 }

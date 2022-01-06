@@ -42,28 +42,30 @@ NewDialog::NewDialog(QWidget* parent): QDialog(parent) {
     layout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(layout);
 
-    connect(cancel, SIGNAL(clicked()), this, SLOT(close()));
-    connect(confirmation, SIGNAL(clicked()), this, SLOT(getText()));
-    connect(confirmation, SIGNAL(clicked()), this, SLOT(close()));
-}
-
-void NewDialog::getText() {
-    name=nameLine->text();
-    if(name=="")
-        name="senza_nome";
-    rows=rowsLine->text().toUInt();
-    columns=columnsLine->text().toUInt();
-
+    connect(cancel, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(confirmation, SIGNAL(clicked()), this, SLOT(accept()));
 }
 
 QString NewDialog::getName() const {
     return name;
 }
 
-unsigned int NewDialog::getRows() const {
+size_t NewDialog::getRows() const {
     return rows;
 }
 
-unsigned int NewDialog::getColumns() const {
+size_t NewDialog::getColumns() const {
     return columns;
+}
+
+
+/*slots*/
+
+void NewDialog::updateText() {
+    name=nameLine->text();
+    if(name=="")
+        name="senza_nome";
+    rows=rowsLine->text().toUInt();
+    columns=columnsLine->text().toUInt();
+
 }

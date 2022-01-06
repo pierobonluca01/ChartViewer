@@ -57,6 +57,13 @@ Qt::ItemFlags Model::flags(const QModelIndex& index) const {
     return Qt::ItemIsEditable | QAbstractTableModel::flags(index);
 }
 
+void Model::renewGraph(size_t r, size_t c, QString n) {
+    beginResetModel();
+    delete graph;
+    graph=new Graph(r, c, n.toStdString());
+    endResetModel();
+}
+
 void Model::newColumns(size_t nc) {
     graph->newColumns(nc);
 }
