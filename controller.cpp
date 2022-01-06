@@ -40,3 +40,12 @@ void Controller::insertRow(size_t ir) const{
 void Controller::removeRow(size_t ir) const {
     model->removeColumn(ir);
 }
+
+void Controller::renewGraph() const {
+    NewDialog* ng=new NewDialog;
+    if(ng->exec()==QDialog::Accepted) {
+        model->renewGraph(ng->getRows(), ng->getColumns(), ng->getName());
+        view->setWindowTitle(QString("ChartViewer: ")+ng->getName());
+    }
+    delete ng;
+}

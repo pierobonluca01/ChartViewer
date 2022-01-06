@@ -2,7 +2,7 @@ TEMPLATE = app
 
 TARGET = ProgettoQt
 
-QT = core gui widgets
+QT = core gui widgets charts
 
 QMAKE_CXXFLAGS += -Wno-deprecated-copy
 

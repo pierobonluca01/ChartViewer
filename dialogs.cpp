@@ -43,6 +43,7 @@ NewDialog::NewDialog(QWidget* parent): QDialog(parent) {
     setLayout(layout);
 
     connect(cancel, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(confirmation, SIGNAL(clicked()), this, SLOT(updateText()));
     connect(confirmation, SIGNAL(clicked()), this, SLOT(accept()));
 }
 

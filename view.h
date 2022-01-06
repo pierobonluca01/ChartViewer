@@ -2,6 +2,7 @@
 #define VIEW_H
 
 #include <QWidget>
+#include <QtCharts>
 #include <QMainWindow>
 #include <QPushButton>
 #include <QMenuBar>
@@ -19,9 +20,11 @@ private:
     QMenu* file;
 
     QTableView* tableView;
+    QChartView* chartView;
 
     void addMenus(QVBoxLayout*);
-    void addTable(QVBoxLayout*);
+    void addTable(QHBoxLayout*);
+    void addChart(QHBoxLayout*);
 
 public:
     View(QWidget* =nullptr);
