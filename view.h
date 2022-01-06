@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QMenuBar>
 #include <QVBoxLayout>
+#include <QSplitter>
 #include <QTableView>
 
 class Controller;
@@ -18,13 +19,15 @@ private:
     Controller* controller;
 
     QMenu* file;
+    QMenu* view;
 
+    QSplitter* graphSplitter;
     QTableView* tableView;
     QChartView* chartView;
 
     void addMenus(QVBoxLayout*);
-    void addTable(QHBoxLayout*);
-    void addChart(QHBoxLayout*);
+    void addTable(QSplitter*);
+    void addChart(QSplitter*);
 
 public:
     View(QWidget* =nullptr);
@@ -32,6 +35,9 @@ public:
 
     void setModel(QAbstractItemModel*);
     void setController(Controller*);
+
+public slots:
+    void splitView(int) const;
 };
 
 
