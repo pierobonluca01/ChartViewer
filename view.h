@@ -24,6 +24,14 @@ private:
     QSplitter* graphSplitter;
     QTableView* tableView;
 
+    //TEST
+    QChart* chart;
+    QBarSeries* series;
+    QVBarModelMapper* chartMapper;
+    QChartView* chartView;
+    void addChart(QSplitter*);
+    //ENDTEST
+
     void addMenus(QVBoxLayout*);
     void addTable(QSplitter*);
 

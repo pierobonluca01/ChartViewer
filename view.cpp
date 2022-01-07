@@ -9,7 +9,7 @@ View::View(QWidget* parent): QWidget(parent) {
     addMenus(mainLayout);
     graphSplitter=new QSplitter;
     addTable(graphSplitter);
-    //addChart(graphSplitter);
+    addChart(graphSplitter);
     graphSplitter->setSizes({this->width()/2, this->width()/2});
     mainLayout->addWidget(graphSplitter);
 
@@ -48,15 +48,31 @@ void View::addTable(QSplitter* splitter) {
     splitter->addWidget(tableView);
 }
 
+void View::addChart(QSplitter* splitter) {
+    chart=new QChart;
+    chart->setAnimationOptions(QChart::AllAnimations);
+    series=new QBarSeries;
+    chartMapper=new QVBarModelMapper(this);
+    chartMapper->setFirstBarSetColumn(0);
+    chartMapper->setLastBarSetColumn(2);
+    chartMapper->setFirstRow(0);
+    chartMapper->setRowCount(2);
+    chartMapper->setSeries(series);
+    chart->addSeries(series);
+
+    chartView=new QChartView(chart);
+
+    splitter->addWidget(chartView);
+}
+
 void View::setModel(QAbstractItemModel* m) {
     tableView->setModel(m);
+    chartMapper->setModel(m);
 }
 
 void View::setController(Controller* c) {
     controller=c;
     connect(file->actions().at(0), SIGNAL(triggered()), controller, SLOT(renewGraph()));
-
-
 }
 
 void View::setSplitter(int split) const {
@@ -69,7 +85,7 @@ void View::setSplitter(int split) const {
         width={view->width(), 0};
         break;
     default:
-        width={view->width()/2, view->width()/2};
+        width={view->width(), view->width()};
     }
     graphSplitter->setSizes(width);
 }

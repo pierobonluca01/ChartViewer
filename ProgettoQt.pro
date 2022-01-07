@@ -7,6 +7,7 @@ QT = core gui widgets charts
 QMAKE_CXXFLAGS += -Wno-deprecated-copy
 
 HEADERS += \
+    chartview.h \
     controller.h \
     dialogs.h \
     graph.h \
@@ -16,6 +17,7 @@ HEADERS += \
     view.h
 
 SOURCES += \
+    chartview.cpp \
     controller.cpp \
     dialogs.cpp \
     graph.cpp \
