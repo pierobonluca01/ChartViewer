@@ -2,15 +2,15 @@
 
 Controller::Controller(QObject* parent): QObject(parent), model(nullptr), view(nullptr) {}
 
-void Controller::setView(View* v) {
-    view=v;
-    if(model)
-        view->setModel(model);
-}
-
 void Controller::setModel(Model* m) {
     model=m;
     if(view)
+        view->setModel(model);
+}
+
+void Controller::setView(View* v) {
+    view=v;
+    if(model)
         view->setModel(model);
 }
 

@@ -23,11 +23,9 @@ private:
 
     QSplitter* graphSplitter;
     QTableView* tableView;
-    QChartView* chartView;
 
     void addMenus(QVBoxLayout*);
     void addTable(QSplitter*);
-    void addChart(QSplitter*);
 
 public:
     View(QWidget* =nullptr);
@@ -37,7 +35,7 @@ public:
     void setController(Controller*);
 
 public slots:
-    void splitView(int) const;
+    void setSplitter(int) const;
 };
 
 

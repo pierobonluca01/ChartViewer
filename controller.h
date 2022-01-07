@@ -16,8 +16,8 @@ public:
     Controller(QObject* =nullptr);
     virtual ~Controller() =default;
 
-    void setView(View*);
     void setModel(Model*);
+    void setView(View*);
 
 public slots:
     void newColumns(size_t =1) const;
