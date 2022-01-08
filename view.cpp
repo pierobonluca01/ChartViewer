@@ -18,6 +18,7 @@ View::View(QWidget* parent): QWidget(parent) {
 
 void View::addMenus(QVBoxLayout* layout) {
     QMenuBar* menuBar=new QMenuBar(this);
+    menuBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     file=new QMenu("File", menuBar);
     view=new QMenu("Vista", menuBar);
@@ -53,10 +54,10 @@ void View::addChart(QSplitter* splitter) {
     chart->setAnimationOptions(QChart::AllAnimations);
     series=new QBarSeries;
     chartMapper=new QVBarModelMapper(this);
-    chartMapper->setFirstBarSetColumn(0);
-    chartMapper->setLastBarSetColumn(2);
-    chartMapper->setFirstRow(0);
-    chartMapper->setRowCount(2);
+//    chartMapper->setFirstBarSetColumn(0);
+//    chartMapper->setLastBarSetColumn(2);
+//    chartMapper->setFirstRow(0);
+//    chartMapper->setRowCount(2);
     chartMapper->setSeries(series);
     chart->addSeries(series);
 

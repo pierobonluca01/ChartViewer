@@ -1,22 +1,22 @@
-#ifndef CHARTVIEW_H
-#define CHARTVIEW_H
+//#ifndef CHARTVIEW_H
+//#define CHARTVIEW_H
 
-#include <QtCharts>
-#include <QHXYModelMapper>
+//#include <QtCharts>
+//#include <QHXYModelMapper>
 
-class ChartView: public QWidget {
-    Q_OBJECT
+//class ChartView: public QWidget {
+//    Q_OBJECT
 
-private:
-    QChart* chart;
-    QBarSeries* series;
-    QVBarModelMapper* mapper;
+//private:
+//    QChart* chart;
+//    QBarSeries* series;
+//    QVBarModelMapper* mapper;
 
-public:
-    ChartView(QWidget*);
-    virtual ~ChartView() =default;
+//public:
+//    ChartView(QWidget*);
+//    virtual ~ChartView() =default;
 
-    void setModel(QAbstractItemModel*);
-};
+//    void setModel(QAbstractItemModel*);
+//};
 
-#endif // CHARTVIEW_H
+//#endif // CHARTVIEW_H
