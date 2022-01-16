@@ -21,16 +21,17 @@ int Model::columnCount(const QModelIndex& parent) const {
 }
 
 QVariant Model::data(const QModelIndex& index, int role) const {
-    if(role==Qt::DisplayRole)
+    if(index.isValid() && role==Qt::DisplayRole)
        return graph->getData(index.row(), index.column());
     return QVariant();
 }
 
 bool Model::setData(const QModelIndex& index, const QVariant& value, int role) {
-    if(role==Qt::EditRole) {
+    if(index.isValid() && role==Qt::EditRole) {
         graph->setData(index.row(), index.column())=value.toDouble();
+        return true;
     }
-    return true;
+    return false;
 }
 
 QVariant Model::headerData(int section, Qt::Orientation orientation, int role) const {
