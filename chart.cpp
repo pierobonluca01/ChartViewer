@@ -14,6 +14,15 @@ void Chart::setController(Controller* c) {
 
 BarChart::BarChart() {
     chart->setTitle("Bar Chart");
+    QStackedBarSeries *series = new QStackedBarSeries(chart);
+    for(unsigned int i=0; i<controller->columnCount(); i++) {
+//        QBarSet *set = new QBarSet("Bar set " + QString::number(i));
+//        for (const Data &data : m_dataTable[i])
+//            *set << data.first.y();
+//        series->append(set);
+    }
+    chart->addSeries(series);
+    chart->createDefaultAxes();
 }
 
 LineChart::LineChart() {

@@ -14,7 +14,7 @@ using std::string;
 class Model: public QAbstractTableModel {
     Q_OBJECT
 
-public:
+private:
     Graph* graph;
 
 public:

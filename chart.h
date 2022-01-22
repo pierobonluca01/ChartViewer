@@ -8,11 +8,9 @@ class Controller;
 class Chart: public QWidget {
     Q_OBJECT
 
-private:
-    Controller* controller;
-
 protected:
     QChart* chart;
+    Controller* controller;
 
 public:
     Chart(QWidget* =nullptr);
