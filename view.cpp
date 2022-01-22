@@ -7,6 +7,7 @@ View::View(QWidget* parent): QWidget(parent) {
 
     QVBoxLayout* mainLayout=new QVBoxLayout;
     addMenus(mainLayout);
+    addToolBar(mainLayout);
     graphSplitter=new QSplitter;
     addTable(graphSplitter);
     addChart(graphSplitter);
@@ -44,31 +45,22 @@ void View::addMenus(QVBoxLayout* layout) {
     layout->addWidget(menuBar);
 }
 
+void View::addToolBar(QVBoxLayout* layout) {
+    QToolBar* toolBar=new QToolBar;
+
+    layout->addWidget(toolBar);
+}
+
 void View::addTable(QSplitter* splitter) {
     tableView=new QTableView;
     splitter->addWidget(tableView);
 }
 
 void View::addChart(QSplitter* splitter) {
-    chart=new QChart;
-    chart->setAnimationOptions(QChart::AllAnimations);
-    series=new QBarSeries;
-    chartMapper=new QVBarModelMapper(this);
-//    chartMapper->setFirstBarSetColumn(0);
-//    chartMapper->setLastBarSetColumn(2);
-//    chartMapper->setFirstRow(0);
-//    chartMapper->setRowCount(2);
-    chartMapper->setSeries(series);
-    chart->addSeries(series);
-
-    chartView=new QChartView(chart);
-
-    splitter->addWidget(chartView);
 }
 
 void View::setModel(QAbstractItemModel* m) {
     tableView->setModel(m);
-    chartMapper->setModel(m);
 }
 
 void View::setController(Controller* c) {
