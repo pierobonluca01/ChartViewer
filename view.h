@@ -1,6 +1,8 @@
 #ifndef VIEW_H
 #define VIEW_H
 
+#include <chart.h>
+
 #include <QWidget>
 #include <QtCharts>
 #include <QMainWindow>
@@ -21,8 +23,11 @@ private:
     QMenu* file;
     QMenu* view;
 
+    Chart* chart;
+
     QSplitter* graphSplitter;
     QTableView* tableView;
+    QChartView* chartView;
 
     void addMenus(QVBoxLayout*);
     void addToolBar(QVBoxLayout*);

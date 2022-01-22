@@ -37,6 +37,8 @@ NewDialog::NewDialog(QWidget* parent): QDialog(parent) {
     layout->addLayout(line1);
     layout->addLayout(line2);
     layout->addSpacerItem(new QSpacerItem(0, 20));
+    layout->addWidget(new QLabel("<b>Attenzione</b>: I dati non salvati andranno persi."));
+    layout->addSpacerItem(new QSpacerItem(0, 10));
     layout->addLayout(line3);
 
     layout->setSizeConstraint(QLayout::SetFixedSize);
