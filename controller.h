@@ -19,6 +19,11 @@ public:
     void setModel(Model*);
     void setView(View*);
 
+    QString getName() const;
+    unsigned int rowCount() const;
+    unsigned int columnCount() const;
+    QVariant data(const QModelIndex&) const;
+
 public slots:
     void newColumns(size_t =1) const;
     void insertColumn(size_t) const;

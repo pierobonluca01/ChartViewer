@@ -3,9 +3,9 @@
 
 View::View(QWidget* parent): QWidget(parent) {
     setWindowIcon(QIcon(":/images/chart"));
-    setWindowTitle(QString("ChartViewer: senza_titolo"));
+    setWindowTitle(QString("ChartViewer"));
 
-    chart=new BarChart;
+    chart=new BarChart; //default chart
 
     QVBoxLayout* mainLayout=new QVBoxLayout;
     addMenus(mainLayout);
@@ -68,6 +68,7 @@ void View::setModel(QAbstractItemModel* m) {
 
 void View::setController(Controller* c) {
     controller=c;
+    setWindowTitle(QString(controller->getName()+" | ChartViewer"));
     chart->setController(c);
     connect(file->actions().at(0), SIGNAL(triggered()), controller, SLOT(renewGraph()));
 }

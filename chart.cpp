@@ -8,6 +8,10 @@ QChart* Chart::getChart() {
     return chart;
 }
 
+void Chart::setController(Controller* c) {
+    controller=c;
+}
+
 BarChart::BarChart() {
     chart->setTitle("Bar Chart");
 }

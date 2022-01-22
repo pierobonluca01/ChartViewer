@@ -14,6 +14,21 @@ void Controller::setView(View* v) {
         view->setModel(model);
 }
 
+QString Controller::getName() const {
+    return model->getName();
+}
+
+unsigned int Controller::rowCount() const {
+    return model->rowCount();
+}
+
+unsigned int Controller::columnCount() const {
+    return model->columnCount();
+}
+
+QVariant Controller::data(const QModelIndex& index) const {
+    return model->data(index);
+}
 
 /*slots*/
 

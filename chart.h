@@ -20,30 +20,32 @@ public:
 
     void setController(Controller*);
 
-    virtual void setData() =0;
-
+    //virtual void setData() =0;
     QChart* getChart();
 };
 
 class BarChart: public Chart {
 public:
     BarChart();
+    virtual ~BarChart() =default;
 
-    void setData();
+    //void setData() override {}
 };
 
 class LineChart: public Chart {
 public:
     LineChart();
+    virtual ~LineChart() =default;
 
-    void setData();
+    //void setData() override {}
 };
 
 class PieChart: public Chart {
 public:
     PieChart();
+    virtual ~PieChart() =default;
 
-    void setData();
+    //void setData() override {}
 };
 
 #endif // CHART_H
