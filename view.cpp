@@ -28,6 +28,7 @@ void View::addMenus(QVBoxLayout* layout) {
 
     file=new QMenu("File", menuBar);
     view=new QMenu("Vista", menuBar);
+    themes=new QMenu("Temi", menuBar);
 
     file->addAction(new QAction("Nuovo...", file));
     menuBar->addMenu(file);

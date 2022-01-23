@@ -21,6 +21,7 @@ private:
 
     QMenu* file;
     QMenu* view;
+    QMenu* themes;
 
     Chart* chart;
 
