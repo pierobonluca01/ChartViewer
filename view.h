@@ -44,7 +44,8 @@ public:
 
 public slots:
     void setSplitter(int) const;
-    void setWindowTheme(int);
+    void setGlobalTheme(int);
+    void setTableTheme(int);
 };
 
 

@@ -20,6 +20,8 @@ View::View(QWidget* parent): QWidget(parent) {
 
     resize(900, 500);
     setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), QApplication::desktop()->availableGeometry()));
+    setGlobalTheme(1);
+    setTableTheme(1);
 }
 
 void View::addMenus(QVBoxLayout* layout) {
@@ -45,23 +47,42 @@ void View::addMenus(QVBoxLayout* layout) {
 
     menuBar->addMenu(view);
 
-    QActionGroup* themesGroup=new QActionGroup(themes);
-    themesGroup->setExclusive(true);
-    themesGroup->addAction(themes->addAction((QString("Light"))))->setCheckable(true);
-    themesGroup->actions().at(0)->setChecked(true);
-    themesGroup->addAction(themes->addAction((QString("Blue Cerulean"))))->setCheckable(true);
-    themesGroup->addAction(themes->addAction((QString("Dark"))))->setCheckable(true);
-    themesGroup->addAction(themes->addAction((QString("Brown Sand"))))->setCheckable(true);
-    themesGroup->addAction(themes->addAction((QString("Blue Ncs"))))->setCheckable(true);
-    themesGroup->addAction(themes->addAction((QString("High Contrast"))))->setCheckable(true);
-    themesGroup->addAction(themes->addAction((QString("Blue Icy"))))->setCheckable(true);
-    themesGroup->addAction(themes->addAction((QString("Qt"))))->setCheckable(true);
-    QSignalMapper* themesSignals=new QSignalMapper(this);
+    QMenu* themesGlobal=new QMenu("Globali", themes);
+
+    QActionGroup* themesGlobalGroup=new QActionGroup(themesGlobal);
+    themesGlobalGroup->setExclusive(true);
+    themesGlobalGroup->addAction(themesGlobal->addAction((QString("Light"))))->setCheckable(true);
+    themesGlobalGroup->addAction(themesGlobal->addAction((QString("Blue Cerulean"))))->setCheckable(true);
+    themesGlobalGroup->actions().at(1)->setChecked(true);
+    themesGlobalGroup->addAction(themesGlobal->addAction((QString("Dark"))))->setCheckable(true);
+    themesGlobalGroup->addAction(themesGlobal->addAction((QString("Brown Sand"))))->setCheckable(true);
+    themesGlobalGroup->addAction(themesGlobal->addAction((QString("Blue Ncs"))))->setCheckable(true);
+    themesGlobalGroup->addAction(themesGlobal->addAction((QString("High Contrast"))))->setCheckable(true);
+    themesGlobalGroup->addAction(themesGlobal->addAction((QString("Blue Icy"))))->setCheckable(true);
+    themesGlobalGroup->addAction(themesGlobal->addAction((QString("Qt"))))->setCheckable(true);
+    QSignalMapper* themesGlobalSignals=new QSignalMapper;
     for(int i=0; i<8; i++) {
-        connect(themes->actions().at(i), SIGNAL(triggered()), themesSignals, SLOT(map()));
-        themesSignals->setMapping(themes->actions().at(i), i);
+        connect(themesGlobal->actions().at(i), SIGNAL(triggered()), themesGlobalSignals, SLOT(map()));
+        themesGlobalSignals->setMapping(themesGlobal->actions().at(i), i);
     }
-    connect(themesSignals, SIGNAL(mapped(int)), this, SLOT(setWindowTheme(int)));
+    connect(themesGlobalSignals, SIGNAL(mapped(int)), this, SLOT(setGlobalTheme(int)));
+    themes->addMenu(themesGlobal);
+
+    QMenu* themesTable=new QMenu("Tabella", themes);
+
+    QActionGroup* themesTableGroup=new QActionGroup(themesTable);
+    themesTableGroup->setExclusive(true);
+    themesTableGroup->addAction(themesTable->addAction((QString("Light"))))->setCheckable(true);
+    themesTableGroup->addAction(themesTable->addAction((QString("Dark"))))->setCheckable(true);
+    themesTableGroup->actions().at(1)->setChecked(true);
+    QSignalMapper* themesTableSignals=new QSignalMapper;
+    for(int i=0; i<2; i++) {
+        connect(themesTableGroup->actions().at(i), SIGNAL(triggered()), themesTableSignals, SLOT(map()));
+        themesTableSignals->setMapping(themesTableGroup->actions().at(i), i);
+    }
+    connect(themesTableSignals, SIGNAL(mapped(int)), this, SLOT(setTableTheme(int)));
+    themes->addMenu(themesTable);
+
     menuBar->addMenu(themes);
 
     layout->addWidget(menuBar);
@@ -109,7 +130,7 @@ void View::setSplitter(int split) const {
     graphSplitter->setSizes(width);
 }
 
-void View::setWindowTheme(int theme) {
+void View::setGlobalTheme(int theme) {
     QPalette palette=window()->palette();
     switch(theme) {
     case 1:
@@ -120,7 +141,7 @@ void View::setWindowTheme(int theme) {
     case 2:
         palette.setColor(QPalette::Window, QRgb(0x40434a));
         palette.setColor(QPalette::WindowText, QRgb(0xd6d6d6));
-       chart->setChartTheme( QChart::ChartThemeDark);
+       chart->setChartTheme(QChart::ChartThemeDark);
         break;
     case 3:
         palette.setColor(QPalette::Window, QRgb(0x9e8965));
@@ -153,4 +174,21 @@ void View::setWindowTheme(int theme) {
         chart->setChartTheme(QChart::ChartThemeLight);
     }
     window()->setPalette(palette);
+}
+
+void View::setTableTheme(int theme) {
+    QPalette light;
+    light.setColor(QPalette::Background, QRgb(0x2a2e32));
+    light.setColor(QPalette::Base, QRgb(0xf0f0f0));
+    light.setColor(QPalette::Text, QRgb(0x404044));
+
+    QPalette dark;
+    dark.setColor(QPalette::Background, QRgb(0x2a2e32));
+    dark.setColor(QPalette::Base, QRgb(0x1b1e20));
+    dark.setColor(QPalette::Text, QRgb(0xd6d6d6));
+
+    if(!theme)
+        tableView->setPalette(light);
+    else
+        tableView->setPalette(dark);
 }
