@@ -4,7 +4,6 @@
 #include <chart.h>
 
 #include <QWidget>
-#include <QtCharts>
 #include <QMainWindow>
 #include <QPushButton>
 #include <QMenuBar>
@@ -12,7 +11,7 @@
 #include <QSplitter>
 #include <QTableView>
 
-class Controller;
+//class Controller; //forward declaration inclusa in chart.h
 
 class View: public QWidget {
     Q_OBJECT

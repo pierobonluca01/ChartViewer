@@ -5,7 +5,6 @@
 #include "labels.h"
 
 #include <iostream>
-//#include <cstdlib> //size_t gia' in iostream
 #include <vector>
 #include <string>
 using std::vector;

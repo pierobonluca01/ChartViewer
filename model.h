@@ -29,7 +29,7 @@ public:
 
     QVariant data(const QModelIndex&, int =Qt::DisplayRole) const override;
     bool setData(const QModelIndex&, const QVariant&, int =Qt::EditRole) override;
-    QVariant headerData(int, Qt::Orientation, int) const override;
+    QVariant headerData(int, Qt::Orientation, int =Qt::DisplayRole) const override;
     bool setHeaderData(int, Qt::Orientation, const QVariant&, int =Qt::EditRole) override; //TODO: Da aggiungere il signal relativo.
 
     Qt::ItemFlags flags(const QModelIndex&) const override;

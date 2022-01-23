@@ -30,6 +30,10 @@ QVariant Controller::data(const QModelIndex& index) const {
     return model->data(index);
 }
 
+QVariant Controller::headerData(int section, Qt::Orientation orientation) const {
+    return model->headerData(section, orientation);
+}
+
 /*slots*/
 
 void Controller::newColumns(size_t nc) const {

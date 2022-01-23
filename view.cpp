@@ -17,6 +17,9 @@ View::View(QWidget* parent): QWidget(parent) {
     mainLayout->addWidget(graphSplitter);
 
     setLayout(mainLayout);
+
+    resize(900, 500);
+    setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), QApplication::desktop()->availableGeometry()));
 }
 
 void View::addMenus(QVBoxLayout* layout) {
@@ -64,12 +67,13 @@ void View::addChart(QSplitter* splitter) {
 
 void View::setModel(QAbstractItemModel* m) {
     tableView->setModel(m);
+    chart->setModel(m);
 }
 
 void View::setController(Controller* c) {
     controller=c;
     setWindowTitle(QString(controller->getName()+" | ChartViewer"));
-    chart->setController(c);
+    //chart->setController(c);
     connect(file->actions().at(0), SIGNAL(triggered()), controller, SLOT(renewGraph()));
 }
 

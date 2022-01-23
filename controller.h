@@ -2,6 +2,7 @@
 #define CONTROLLER_H
 
 #include "model.h"
+#include "chart.h"
 #include "view.h"
 #include "dialogs.h"
 
@@ -23,6 +24,7 @@ public:
     unsigned int rowCount() const;
     unsigned int columnCount() const;
     QVariant data(const QModelIndex&) const;
+    QVariant headerData(int, Qt::Orientation) const;
 
 public slots:
     void newColumns(size_t =1) const;
