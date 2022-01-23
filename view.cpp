@@ -133,10 +133,10 @@ void View::setSplitter(int split) const {
 void View::setGlobalTheme(int theme) {
     QPalette palette=window()->palette();
     switch(theme) {
-    case 1:
-        palette.setColor(QPalette::Window, QRgb(0x121218));
-        palette.setColor(QPalette::WindowText, QRgb(0xd6d6d6));
-        chart->setChartTheme(QChart::ChartThemeBlueCerulean);
+    case 0:
+        palette.setColor(QPalette::Window, QRgb(0xf0f0f0));
+        palette.setColor(QPalette::WindowText, QRgb(0x404044));
+        chart->setChartTheme(QChart::ChartThemeLight);
         break;
     case 2:
         palette.setColor(QPalette::Window, QRgb(0x40434a));
@@ -169,9 +169,9 @@ void View::setGlobalTheme(int theme) {
         chart->setChartTheme(QChart::ChartThemeQt);
         break;
     default:
-        palette.setColor(QPalette::Window, QRgb(0xf0f0f0));
-        palette.setColor(QPalette::WindowText, QRgb(0x404044));
-        chart->setChartTheme(QChart::ChartThemeLight);
+        palette.setColor(QPalette::Window, QRgb(0x121218));
+        palette.setColor(QPalette::WindowText, QRgb(0xd6d6d6));
+        chart->setChartTheme(QChart::ChartThemeBlueCerulean);
     }
     window()->setPalette(palette);
 }
@@ -187,8 +187,11 @@ void View::setTableTheme(int theme) {
     dark.setColor(QPalette::Base, QRgb(0x1b1e20));
     dark.setColor(QPalette::Text, QRgb(0xd6d6d6));
 
-    if(!theme)
+    switch(theme) {
+    case 0:
         tableView->setPalette(light);
-    else
+        break;
+    default:
         tableView->setPalette(dark);
+    }
 }

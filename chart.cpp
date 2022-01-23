@@ -28,8 +28,8 @@ void BarChart::setModel(QAbstractItemModel* m) {
 }
 
 void BarChart::build() {
-    series = new QBarSeries;
-    mapper = new QVBarModelMapper/*(this)*/;
+    series=new QBarSeries;
+    mapper=new QVBarModelMapper/*(this)*/;
     mapper->setFirstBarSetColumn(0);
     mapper->setLastBarSetColumn(model->columnCount());
     mapper->setFirstRow(0);
@@ -37,15 +37,13 @@ void BarChart::build() {
     mapper->setSeries(series);
     mapper->setModel(model);
     chart->addSeries(series);
-//    QStackedBarSeries* series=new QStackedBarSeries(chart);
-//    for(unsigned int i=0; i<controller->columnCount(); i++) {
-//        QBarSet* set=new QBarSet(controller->headerData(i, Qt::Horizontal).toString());
-//        for(unsigned int j=0; j<controller->columnCount(); j++)
-//            *set<<2;
-//        series->append(set);
-//    }
-//    chart->addSeries(series);
-//    chart->createDefaultAxes();
+    QStringList rowLabels; //TODO: Sistemare la QStringList che di base rimuove i duplicati
+    for(int i=0; i<model->rowCount(); i++)
+        rowLabels<<model->headerData(i, Qt::Vertical).toString();
+    QBarCategoryAxis* axis=new QBarCategoryAxis();
+    axis->append(rowLabels);
+    chart->createDefaultAxes();
+    chart->setAxisX(axis, series);
 }
 
 LineChart::LineChart() {
