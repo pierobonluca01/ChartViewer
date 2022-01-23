@@ -7,6 +7,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QMenuBar>
+#include <QActionGroup>
 #include <QVBoxLayout>
 #include <QSplitter>
 #include <QTableView>
@@ -43,6 +44,7 @@ public:
 
 public slots:
     void setSplitter(int) const;
+    void setWindowTheme(int);
 };
 
 

@@ -33,20 +33,36 @@ void View::addMenus(QVBoxLayout* layout) {
     file->addAction(new QAction("Nuovo...", file));
     menuBar->addMenu(file);
 
-    QSignalMapper* signal=new QSignalMapper(this);
     view->addAction(new QAction("Reimposta", view));
-    connect(view->actions().at(0), SIGNAL(triggered()), signal, SLOT(map()));
-    signal->setMapping(view->actions().at(0), 0);
     view->addAction(new QAction("Nascondi tabella", view));
-    connect(view->actions().at(1), SIGNAL(triggered()), signal, SLOT(map()));
-    signal->setMapping(view->actions().at(1), 1);
     view->addAction(new QAction("Nascondi grafico", view));
-    connect(view->actions().at(2), SIGNAL(triggered()), signal, SLOT(map()));
-    signal->setMapping(view->actions().at(2), 2);
-
-    connect(signal, SIGNAL(mapped(int)), this, SLOT(setSplitter(int)));
+    QSignalMapper* viewSignals=new QSignalMapper(this);
+    for(int i=0; i<3; i++) {
+        connect(view->actions().at(i), SIGNAL(triggered()), viewSignals, SLOT(map()));
+        viewSignals->setMapping(view->actions().at(i), i);
+    }
+    connect(viewSignals, SIGNAL(mapped(int)), this, SLOT(setSplitter(int)));
 
     menuBar->addMenu(view);
+
+    QActionGroup* themesGroup=new QActionGroup(themes);
+    themesGroup->setExclusive(true);
+    themesGroup->addAction(themes->addAction((QString("Light"))))->setCheckable(true);
+    themesGroup->actions().at(0)->setChecked(true);
+    themesGroup->addAction(themes->addAction((QString("Blue Cerulean"))))->setCheckable(true);
+    themesGroup->addAction(themes->addAction((QString("Dark"))))->setCheckable(true);
+    themesGroup->addAction(themes->addAction((QString("Brown Sand"))))->setCheckable(true);
+    themesGroup->addAction(themes->addAction((QString("Blue Ncs"))))->setCheckable(true);
+    themesGroup->addAction(themes->addAction((QString("High Contrast"))))->setCheckable(true);
+    themesGroup->addAction(themes->addAction((QString("Blue Icy"))))->setCheckable(true);
+    themesGroup->addAction(themes->addAction((QString("Qt"))))->setCheckable(true);
+    QSignalMapper* themesSignals=new QSignalMapper(this);
+    for(int i=0; i<8; i++) {
+        connect(themes->actions().at(i), SIGNAL(triggered()), themesSignals, SLOT(map()));
+        themesSignals->setMapping(themes->actions().at(i), i);
+    }
+    connect(themesSignals, SIGNAL(mapped(int)), this, SLOT(setWindowTheme(int)));
+    menuBar->addMenu(themes);
 
     layout->addWidget(menuBar);
 }
@@ -91,4 +107,50 @@ void View::setSplitter(int split) const {
         width={view->width(), view->width()};
     }
     graphSplitter->setSizes(width);
+}
+
+void View::setWindowTheme(int theme) {
+    QPalette palette=window()->palette();
+    switch(theme) {
+    case 1:
+        palette.setColor(QPalette::Window, QRgb(0x121218));
+        palette.setColor(QPalette::WindowText, QRgb(0xd6d6d6));
+        chart->setChartTheme(QChart::ChartThemeBlueCerulean);
+        break;
+    case 2:
+        palette.setColor(QPalette::Window, QRgb(0x40434a));
+        palette.setColor(QPalette::WindowText, QRgb(0xd6d6d6));
+       chart->setChartTheme( QChart::ChartThemeDark);
+        break;
+    case 3:
+        palette.setColor(QPalette::Window, QRgb(0x9e8965));
+        palette.setColor(QPalette::WindowText, QRgb(0x404044));
+        chart->setChartTheme(QChart::ChartThemeBrownSand);
+        break;
+    case 4:
+        palette.setColor(QPalette::Window, QRgb(0x018bba));
+        palette.setColor(QPalette::WindowText, QRgb(0x404044));
+        chart->setChartTheme(QChart::ChartThemeBlueNcs);
+        break;
+    case 5:
+        palette.setColor(QPalette::Window, QRgb(0xffab03));
+        palette.setColor(QPalette::WindowText, QRgb(0x181818));
+        chart->setChartTheme(QChart::ChartThemeHighContrast);
+        break;
+    case 6:
+        palette.setColor(QPalette::Window, QRgb(0xcee7f0));
+        palette.setColor(QPalette::WindowText, QRgb(0x404044));
+        chart->setChartTheme(QChart::ChartThemeBlueIcy);
+        break;
+    case 7:
+        palette.setColor(QPalette::Window, QRgb(0xf0f0f0));
+        palette.setColor(QPalette::WindowText, QRgb(0x404044));
+        chart->setChartTheme(QChart::ChartThemeQt);
+        break;
+    default:
+        palette.setColor(QPalette::Window, QRgb(0xf0f0f0));
+        palette.setColor(QPalette::WindowText, QRgb(0x404044));
+        chart->setChartTheme(QChart::ChartThemeLight);
+    }
+    window()->setPalette(palette);
 }

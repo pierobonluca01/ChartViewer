@@ -9,6 +9,10 @@ QChart* Chart::getChart() {
     return chart;
 }
 
+void Chart::setChartTheme(QChart::ChartTheme t) {
+    chart->setTheme(t);
+}
+
 //void Chart::setController(Controller* c) {
 //    controller=c;
 //    build();
@@ -16,7 +20,6 @@ QChart* Chart::getChart() {
 
 BarChart::BarChart() {
     chart->setTitle("Bar Chart");
-    chart->setTheme(QChart::ChartThemeBlueCerulean);
 }
 
 void BarChart::setModel(QAbstractItemModel* m) {

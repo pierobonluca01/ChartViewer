@@ -24,6 +24,7 @@ public:
     virtual void build() =0;
 
     QChart* getChart();
+    void setChartTheme(QChart::ChartTheme);
 };
 
 class BarChart: public Chart {
