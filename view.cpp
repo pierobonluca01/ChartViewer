@@ -5,7 +5,8 @@ View::View(QWidget* parent): QWidget(parent) {
     setWindowIcon(QIcon(":/images/chart"));
     setWindowTitle(QString("ChartViewer"));
 
-    chart=new BarChart; //default chart
+    chart=new BarChart;
+    //setChartType(); //default chart
 
     QVBoxLayout* mainLayout=new QVBoxLayout;
     addMenus(mainLayout);
@@ -30,23 +31,62 @@ void View::addMenus(QVBoxLayout* layout) {
 
     file=new QMenu("File", menuBar);
     view=new QMenu("Vista", menuBar);
+    chartType=new QMenu("Grafico", menuBar);
     themes=new QMenu("Temi", menuBar);
 
+
+    //FILE
     file->addAction(new QAction("Nuovo...", file));
     menuBar->addMenu(file);
 
-    view->addAction(new QAction("Reimposta", view));
-    view->addAction(new QAction("Nascondi tabella", view));
-    view->addAction(new QAction("Nascondi grafico", view));
-    QSignalMapper* viewSignals=new QSignalMapper(this);
+
+    //VIEW
+    //splitter
+    QMenu* viewSplitter=new QMenu("Separatore", view);
+    viewSplitter->addAction(new QAction("Reimposta", viewSplitter));
+    viewSplitter->addAction(new QAction("Nascondi tabella", viewSplitter));
+    viewSplitter->addAction(new QAction("Nascondi grafico", viewSplitter));
+    QSignalMapper* viewSplitterSignals=new QSignalMapper;
     for(int i=0; i<3; i++) {
-        connect(view->actions().at(i), SIGNAL(triggered()), viewSignals, SLOT(map()));
-        viewSignals->setMapping(view->actions().at(i), i);
+        connect(viewSplitter->actions().at(i), SIGNAL(triggered()), viewSplitterSignals, SLOT(map()));
+        viewSplitterSignals->setMapping(viewSplitter->actions().at(i), i);
     }
-    connect(viewSignals, SIGNAL(mapped(int)), this, SLOT(setSplitter(int)));
+    connect(viewSplitterSignals, SIGNAL(mapped(int)), this, SLOT(setSplitter(int)));
+    view->addMenu(viewSplitter);
+
+    //zoom
+    QMenu* viewZoom=new QMenu("Zoom", view);
+    viewZoom->addAction(new QAction("Zoom Out -", viewZoom));
+    viewZoom->addAction(new QAction("Zoom In +", viewZoom));
+    QSignalMapper* viewZoomSignals=new QSignalMapper;
+    connect(viewZoom->actions().at(0), SIGNAL(triggered()), viewZoomSignals, SLOT(map()));
+    viewZoomSignals->setMapping(viewZoom->actions().at(0), 0);
+    connect(viewZoom->actions().at(1), SIGNAL(triggered()), viewZoomSignals, SLOT(map()));
+    viewZoomSignals->setMapping(viewZoom->actions().at(1), 1);
+    connect(viewZoomSignals, SIGNAL(mapped(int)), this, SLOT(setChartZoom(int)));
+    view->addMenu(viewZoom);
 
     menuBar->addMenu(view);
 
+
+    //CHARTTYPE
+    QActionGroup* chartTypeGroup=new QActionGroup(chartType);
+    chartTypeGroup->setExclusive(true);
+    chartTypeGroup->addAction(chartType->addAction(QString("Bar Chart (Grafico a barre)")))->setCheckable(true);
+    chartTypeGroup->actions().at(0)->setChecked(true);
+    chartTypeGroup->addAction(chartType->addAction(QString("Line Chart (Grafico a linee)")))->setCheckable(true);
+    chartTypeGroup->addAction(chartType->addAction(QString("Pie Chart (Grafico a torta)")))->setCheckable(true);
+    QSignalMapper* chartTypeSignals=new QSignalMapper;
+    for(int i=0; i<2; i++) {
+        connect(chartType->actions().at(i), SIGNAL(triggered()), chartTypeSignals, SLOT(map()));
+        chartTypeSignals->setMapping(chartType->actions().at(i), i);
+    }
+    connect(chartTypeSignals, SIGNAL(mapped(int)), this, SLOT(setChartType(int)));
+    menuBar->addMenu(chartType);
+
+
+    //THEMES
+    //global
     QMenu* themesGlobal=new QMenu("Globali", themes);
 
     QActionGroup* themesGlobalGroup=new QActionGroup(themesGlobal);
@@ -68,6 +108,7 @@ void View::addMenus(QVBoxLayout* layout) {
     connect(themesGlobalSignals, SIGNAL(mapped(int)), this, SLOT(setGlobalTheme(int)));
     themes->addMenu(themesGlobal);
 
+    //table
     QMenu* themesTable=new QMenu("Tabella", themes);
 
     QActionGroup* themesTableGroup=new QActionGroup(themesTable);
@@ -130,7 +171,27 @@ void View::setSplitter(int split) const {
     graphSplitter->setSizes(width);
 }
 
-void View::setGlobalTheme(int theme) {
+void View::setChartZoom(int z) const {
+    if(z)
+        chart->getChart()->zoomIn();
+    else
+        chart->getChart()->zoomOut();
+}
+
+void View::setChartType(int c) {
+    switch(c) {
+    case 1:
+        chart=new LineChart;
+        break;
+    case 2:
+        chart=new PieChart;
+        break;
+    default:
+        chart=new BarChart;
+    }
+}
+
+void View::setGlobalTheme(int theme) const {
     QPalette palette=window()->palette();
     switch(theme) {
     case 0:
@@ -176,7 +237,7 @@ void View::setGlobalTheme(int theme) {
     window()->setPalette(palette);
 }
 
-void View::setTableTheme(int theme) {
+void View::setTableTheme(int theme) const {
     QPalette light;
     light.setColor(QPalette::Background, QRgb(0x2a2e32));
     light.setColor(QPalette::Base, QRgb(0xf0f0f0));

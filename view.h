@@ -22,6 +22,7 @@ private:
 
     QMenu* file;
     QMenu* view;
+    QMenu* chartType;
     QMenu* themes;
 
     Chart* chart;
@@ -43,9 +44,11 @@ public:
     void setController(Controller*);
 
 public slots:
-    void setSplitter(int) const;
-    void setGlobalTheme(int);
-    void setTableTheme(int);
+    void setSplitter(int =0) const;
+    void setChartZoom(int) const;
+    void setChartType(int =0);
+    void setGlobalTheme(int =0) const;
+    void setTableTheme(int =0) const;
 };
 
 

@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
 
     QApplication app(argc, argv);
 
-    Model model(3, 3);
+    Model model(1, 3);
     View view;
     Controller controller;
 

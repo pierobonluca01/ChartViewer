@@ -13,6 +13,10 @@ void Chart::setChartTheme(QChart::ChartTheme t) {
     chart->setTheme(t);
 }
 
+void Chart::scrollEvent(QWheelEvent* e) {
+    //TODO: Implementare
+}
+
 //void Chart::setController(Controller* c) {
 //    controller=c;
 //    build();
@@ -37,7 +41,7 @@ void BarChart::build() {
     mapper->setSeries(series);
     mapper->setModel(model);
     chart->addSeries(series);
-    QStringList rowLabels; //TODO: Sistemare la QStringList che di base rimuove i duplicati
+    QStringList rowLabels;
     for(int i=0; i<model->rowCount(); i++)
         rowLabels<<model->headerData(i, Qt::Vertical).toString();
     QBarCategoryAxis* axis=new QBarCategoryAxis();

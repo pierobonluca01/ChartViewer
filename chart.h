@@ -3,7 +3,7 @@
 
 #include <QtCharts>
 
-class Controller;
+class Controller; //TODO: Rimuovere i commenti relatiivi al Controller
 
 class Chart: public QWidget {
     Q_OBJECT
@@ -25,6 +25,7 @@ public:
 
     QChart* getChart();
     void setChartTheme(QChart::ChartTheme);
+    void scrollEvent(QWheelEvent*); //TODO: Implementare
 };
 
 class BarChart: public Chart {
