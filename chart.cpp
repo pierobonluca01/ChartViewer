@@ -45,6 +45,7 @@ void BarChart::build() {
     for(int i=0; i<model->rowCount(); i++)
         rowLabels<<model->headerData(i, Qt::Vertical).toString();
     QBarCategoryAxis* axis=new QBarCategoryAxis();
+    //setRange())
     axis->append(rowLabels);
     chart->createDefaultAxes();
     chart->setAxisX(axis, series);
