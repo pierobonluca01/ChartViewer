@@ -26,7 +26,7 @@ BarChart::BarChart() {
     chart->setTitle("Bar Chart");
 }
 
-void BarChart::setModel(QAbstractItemModel* m) {
+void /*Bar*/Chart::setModel(QAbstractItemModel* m) {
     model=m;
     build();
 }

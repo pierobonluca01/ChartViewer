@@ -18,7 +18,7 @@ public:
     Chart(QWidget* =nullptr);
     virtual ~Chart() =default;
 
-    virtual void setModel(QAbstractItemModel*) =0;
+    /*virtual*/ void setModel(QAbstractItemModel*) /*=0*/;
     //void setController(Controller*);
 
     virtual void build() =0;
@@ -36,7 +36,7 @@ public:
     BarChart();
     virtual ~BarChart() =default;
 
-    void setModel(QAbstractItemModel*) override;
+    //void setModel(QAbstractItemModel*) override;
 
     void build() override;
 };
@@ -46,7 +46,7 @@ public:
     LineChart();
     virtual ~LineChart() =default;
 
-    void setModel(QAbstractItemModel*) override {}
+    //void setModel(QAbstractItemModel*) override {}
 
     void build() override {}
 };
@@ -56,7 +56,7 @@ public:
     PieChart();
     virtual ~PieChart() =default;
 
-    void setModel(QAbstractItemModel*) override {}
+    //void setModel(QAbstractItemModel*) override {}
 
     void build() override {}
 };
