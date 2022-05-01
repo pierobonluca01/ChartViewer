@@ -34,6 +34,9 @@ public slots:
     void insertRow(size_t) const;
     void removeRow(size_t) const;
 
+    void editHLabel(int);
+    void editVLabel(int);
+
     void renewGraph() const;
 };
 

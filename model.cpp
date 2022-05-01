@@ -51,6 +51,7 @@ bool Model::setHeaderData(int section, Qt::Orientation orientation, const QVaria
             graph->setColumnLabel(section)=value.toString().toStdString();
         else if(orientation==Qt::Vertical)
             graph->setRowLabel(section)=value.toString().toStdString();
+        emit headerDataChanged(orientation, section, section);
     }
     return true;
 }

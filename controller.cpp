@@ -60,6 +60,22 @@ void Controller::removeRow(size_t ir) const {
     model->removeColumn(ir);
 }
 
+void Controller::editHLabel(int section) {
+    EditLabelDialog* eld=new EditLabelDialog;
+    if(eld->exec()==QDialog::Accepted) {
+        model->setHeaderData(section, Qt::Horizontal, eld->getLabel());
+    }
+    delete eld;
+}
+
+void Controller::editVLabel(int section) {
+    EditLabelDialog* eld=new EditLabelDialog;
+    if(eld->exec()==QDialog::Accepted) {
+        model->setHeaderData(section, Qt::Vertical, eld->getLabel());
+    }
+    delete eld;
+}
+
 void Controller::renewGraph() const {
     NewDialog* ng=new NewDialog;
     if(ng->exec()==QDialog::Accepted) {

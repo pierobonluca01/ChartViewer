@@ -1,5 +1,8 @@
 #include "dialogs.h"
 
+
+//NEW DIALOG
+
 NewDialog::NewDialog(QWidget* parent): QDialog(parent) {
     setWindowTitle(QString("Nuovo..."));
 
@@ -71,4 +74,50 @@ void NewDialog::updateText() {
     rows=rowsLine->text().toUInt();
     columns=columnsLine->text().toUInt();
 
+}
+
+
+//EDIT LABEL DIALOG
+
+EditLabelDialog::EditLabelDialog(QWidget* parent): QDialog(parent) {
+    setWindowTitle(QString("Modifica intestazione..."));
+
+    labelLine=new QLineEdit;
+    labelLine->setPlaceholderText(QString("intestazione"));
+    labelLine->setMaxLength(30);
+    QPushButton* confirmation=new QPushButton("Conferma");
+    QPushButton* cancel=new QPushButton("Annulla");
+
+    QHBoxLayout *line=new QHBoxLayout;
+    line->addWidget(new QLabel("Intestazione:"));
+    line->addWidget(labelLine);
+
+    QHBoxLayout *buttons=new QHBoxLayout;
+    buttons->addSpacerItem(new QSpacerItem(150, 0));
+    buttons->addWidget(cancel);
+    buttons->addWidget(confirmation);
+
+    QVBoxLayout *layout=new QVBoxLayout;
+    layout->addLayout(line);
+    layout->addSpacerItem(new QSpacerItem(0, 20));
+    layout->addLayout(buttons);
+
+    layout->setSizeConstraint(QLayout::SetFixedSize);
+    setLayout(layout);
+
+    connect(cancel, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(confirmation, SIGNAL(clicked()), this, SLOT(updateLabel()));
+    connect(confirmation, SIGNAL(clicked()), this, SLOT(accept()));
+}
+
+QString EditLabelDialog::getLabel() const {
+    return label;
+}
+
+/*slots*/
+
+void EditLabelDialog::updateLabel() {
+    label=labelLine->text();
+    if(label=="")
+        label="label";
 }

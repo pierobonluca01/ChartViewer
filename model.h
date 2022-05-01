@@ -42,6 +42,8 @@ public:
     void removeRow(size_t);
 
     void renewGraph(size_t =0, size_t =0, QString ="senza_titolo");
+
+
 };
 
 #endif // MODEL_H

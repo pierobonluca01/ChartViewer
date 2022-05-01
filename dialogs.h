@@ -36,4 +36,21 @@ public slots:
     void updateText();
 };
 
+
+class EditLabelDialog: public QDialog {
+    Q_OBJECT
+
+private:
+    QString label;
+    QLineEdit* labelLine;
+
+public:
+    EditLabelDialog(QWidget* =nullptr);
+
+    QString getLabel() const;
+
+public slots:
+    void updateLabel();
+};
+
 #endif // DIALOGS_H
