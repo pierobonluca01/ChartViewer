@@ -1,5 +1,8 @@
 <RCC>
-    <qresource prefix="/images">
-        <file alias="chart">resources/images/Chart.png</file>
+    <qresource prefix="/logos">
+        <file alias="chart">resources/logos/Chart.png</file>
+    </qresource>
+    <qresource prefix="/toolbar">
+        <file alias="nuovo">resources/toolbar/nuovo_test.png</file>
     </qresource>
 </RCC>

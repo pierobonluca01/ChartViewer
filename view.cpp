@@ -2,7 +2,7 @@
 #include "controller.h"
 
 View::View(QWidget* parent): QWidget(parent) {
-    setWindowIcon(QIcon(":/images/chart"));
+    setWindowIcon(QIcon(":/logos/chart"));
     setWindowTitle(QString("ChartViewer"));
 
     chart=new BarChart;
@@ -130,7 +130,12 @@ void View::addMenus(QVBoxLayout* layout) {
 }
 
 void View::addToolBar(QVBoxLayout* layout) {
-    QToolBar* toolBar=new QToolBar;
+    toolBar=new QToolBar;
+
+    QAction* nuovo=new QAction("Nuovo...", file);
+    toolBar->addAction(nuovo);
+    nuovo->setIcon(QIcon(":/toolbar/nuovo"));
+
     layout->addWidget(toolBar);
 }
 
@@ -154,6 +159,7 @@ void View::setController(Controller* c) {
     setWindowTitle(QString(controller->getName()+" | ChartViewer"));
     //chart->setController(c);
     connect(file->actions().at(0), SIGNAL(triggered()), controller, SLOT(renewGraph()));
+    connect(toolBar->actions().at(0), SIGNAL(triggered()), controller, SLOT(renewGraph()));
     auto horizontalHeader=tableView->horizontalHeader();
     connect(horizontalHeader, SIGNAL(sectionClicked(int)), controller, SLOT(editHLabel(int)));
     auto verticalHeader=tableView->verticalHeader();

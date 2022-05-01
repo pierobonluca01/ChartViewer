@@ -25,6 +25,8 @@ private:
     QMenu* chartType;
     QMenu* themes;
 
+    QToolBar* toolBar;
+
     Chart* chart;
 
     QSplitter* graphSplitter;
