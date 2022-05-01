@@ -154,9 +154,10 @@ void View::setController(Controller* c) {
     setWindowTitle(QString(controller->getName()+" | ChartViewer"));
     //chart->setController(c);
     connect(file->actions().at(0), SIGNAL(triggered()), controller, SLOT(renewGraph()));
-    auto header=tableView->horizontalHeader();
-    connect(header, SIGNAL(sectionClicked(int)), controller, SLOT(editHLabel(int)));
-
+    auto horizontalHeader=tableView->horizontalHeader();
+    connect(horizontalHeader, SIGNAL(sectionClicked(int)), controller, SLOT(editHLabel(int)));
+    auto verticalHeader=tableView->verticalHeader();
+    connect(verticalHeader, SIGNAL(sectionClicked(int)), controller, SLOT(editVLabel(int)));
 }
 
 void View::setSplitter(int split) const {
