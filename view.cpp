@@ -160,10 +160,10 @@ void View::setController(Controller* c) {
     //chart->setController(c);
     connect(file->actions().at(0), SIGNAL(triggered()), controller, SLOT(renewGraph()));
     connect(toolBar->actions().at(0), SIGNAL(triggered()), controller, SLOT(renewGraph()));
-    auto horizontalHeader=tableView->horizontalHeader();
-    connect(horizontalHeader, SIGNAL(sectionClicked(int)), controller, SLOT(editHLabel(int)));
-    auto verticalHeader=tableView->verticalHeader();
-    connect(verticalHeader, SIGNAL(sectionClicked(int)), controller, SLOT(editVLabel(int)));
+    //auto horizontalHeader=tableView->horizontalHeader();
+    connect(tableView->horizontalHeader(), SIGNAL(sectionClicked(int)), controller, SLOT(editHLabel(int)));
+    //auto verticalHeader=tableView->verticalHeader();
+    connect(tableView->verticalHeader(), SIGNAL(sectionClicked(int)), controller, SLOT(editVLabel(int)));
 }
 
 void View::setSplitter(int split) const {
