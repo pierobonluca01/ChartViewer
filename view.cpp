@@ -132,9 +132,34 @@ void View::addMenus(QVBoxLayout* layout) {
 void View::addToolBar(QVBoxLayout* layout) {
     toolBar=new QToolBar;
 
-    QAction* nuovo=new QAction("Nuovo...", file);
-    toolBar->addAction(nuovo);
+    QAction* nuovo=new QAction("Nuovo");
     nuovo->setIcon(QIcon(":/toolbar/nuovo"));
+    toolBar->addAction(nuovo);
+
+    toolBar->addSeparator();
+
+    QWidget* separator=new QWidget;
+    separator->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    toolBar->addWidget(separator);
+
+    toolBar->addSeparator();
+
+    QAction* zoomOut=new QAction(" - ");
+    zoomOut->setIcon(QIcon(":/toolbar/zoomout"));
+    toolBar->addAction(zoomOut);
+
+    QAction* zoomIn=new QAction(" + ");
+    zoomIn->setIcon(QIcon(":/toolbar/zoomin"));
+    toolBar->addAction(zoomIn);
+
+    QSignalMapper* viewZoomSignals=new QSignalMapper;
+    connect(zoomOut, SIGNAL(triggered()), viewZoomSignals, SLOT(map()));
+    viewZoomSignals->setMapping(zoomOut, 0);
+    connect(zoomIn, SIGNAL(triggered()), viewZoomSignals, SLOT(map()));
+    viewZoomSignals->setMapping(zoomIn, 1);
+    connect(viewZoomSignals, SIGNAL(mapped(int)), this, SLOT(setChartZoom(int)));
+
+    toolBar->setStyleSheet("QToolBar {background: rgb(255, 255, 255)}");
 
     layout->addWidget(toolBar);
 }

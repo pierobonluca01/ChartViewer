@@ -26,6 +26,8 @@ public:
     QVariant data(const QModelIndex&) const;
     QVariant headerData(int, Qt::Orientation) const;
 
+
+
 public slots:
     void newColumns(size_t =1) const;
     void insertColumn(size_t) const;
