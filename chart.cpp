@@ -38,9 +38,11 @@ void BarChart::build() {
     mapper->setLastBarSetColumn(model->columnCount());
     mapper->setFirstRow(0);
     mapper->setRowCount(model->rowCount());
+
     mapper->setSeries(series);
     mapper->setModel(model);
     chart->addSeries(series);
+
     QStringList rowLabels;
     for(int i=0; i<model->rowCount(); i++)
         rowLabels<<model->headerData(i, Qt::Vertical).toString();
@@ -50,6 +52,8 @@ void BarChart::build() {
     chart->createDefaultAxes();
     chart->setAxisX(axis, series);
 }
+
+
 
 LineChart::LineChart() {
     chart->setTitle("Line Chart");

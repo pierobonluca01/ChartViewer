@@ -29,9 +29,12 @@ public:
 };
 
 class BarChart: public Chart {
+    Q_OBJECT
+
 private:
     QBarSeries* series;
     QVBarModelMapper* mapper;
+
 public:
     BarChart();
     virtual ~BarChart() =default;
