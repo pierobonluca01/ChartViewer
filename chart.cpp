@@ -43,16 +43,20 @@ void BarChart::build() {
     mapper->setModel(model);
     chart->addSeries(series);
 
-    QStringList rowLabels;
-    for(int i=0; i<model->rowCount(); i++)
-        rowLabels<<model->headerData(i, Qt::Vertical).toString();
-    QBarCategoryAxis* axis=new QBarCategoryAxis();
-    //setRange())
-    axis->append(rowLabels);
+
+    axis=new QBarCategoryAxis();
+    update();
     chart->createDefaultAxes();
     chart->setAxisX(axis, series);
 }
 
+void BarChart::update() {
+    QStringList rowLabels;
+    for(int i=0; i<model->rowCount(); i++)
+        rowLabels<<model->headerData(i, Qt::Vertical).toString();
+    axis->clear();
+    axis->append(rowLabels);
+}
 
 
 LineChart::LineChart() {

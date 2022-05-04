@@ -177,6 +177,7 @@ void View::addChart(QSplitter* splitter) {
 void View::setModel(QAbstractItemModel* m) {
     tableView->setModel(m);
     chart->setModel(m);
+    connect(m, &QAbstractItemModel::headerDataChanged, chart, &Chart::update);
 }
 
 void View::setController(Controller* c) {

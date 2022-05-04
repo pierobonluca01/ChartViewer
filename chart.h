@@ -22,6 +22,7 @@ public:
     //void setController(Controller*);
 
     virtual void build() =0;
+    virtual void update() =0;
 
     QChart* getChart();
     void setChartTheme(QChart::ChartTheme);
@@ -34,6 +35,7 @@ class BarChart: public Chart {
 private:
     QBarSeries* series;
     QVBarModelMapper* mapper;
+    QBarCategoryAxis* axis;
 
 public:
     BarChart();
@@ -42,9 +44,14 @@ public:
     //void setModel(QAbstractItemModel*) override;
 
     void build() override;
+
+public slots:
+    void update() override;
 };
 
 class LineChart: public Chart {
+    Q_OBJECT
+
 public:
     LineChart();
     virtual ~LineChart() =default;
@@ -52,9 +59,14 @@ public:
     //void setModel(QAbstractItemModel*) override {}
 
     void build() override {}
+
+public slots:
+    void update() override {}
 };
 
 class PieChart: public Chart {
+    Q_OBJECT
+
 public:
     PieChart();
     virtual ~PieChart() =default;
@@ -62,6 +74,9 @@ public:
     //void setModel(QAbstractItemModel*) override {}
 
     void build() override {}
+
+public slots:
+    void update() override {}
 };
 
 #endif // CHART_H
