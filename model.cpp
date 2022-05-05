@@ -86,7 +86,8 @@ void Model::removeRow(size_t ir) {
 
 void Model::renewGraph(size_t r, size_t c, QString n) {
     beginResetModel();
-    delete graph;
+    Graph* temp=graph;
     graph=new Graph(r, c, n.toStdString());
+    delete temp;
     endResetModel();
 }

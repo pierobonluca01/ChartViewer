@@ -159,7 +159,7 @@ void View::addToolBar(QVBoxLayout* layout) {
     viewZoomSignals->setMapping(zoomIn, 1);
     connect(viewZoomSignals, SIGNAL(mapped(int)), this, SLOT(setChartZoom(int)));
 
-    toolBar->setStyleSheet("QToolBar {background: rgb(255, 255, 255)}");
+    toolBar->setStyleSheet("QToolBar {background: rgb(64, 64, 64)}");
 
     layout->addWidget(toolBar);
 }
