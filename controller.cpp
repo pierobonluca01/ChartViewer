@@ -76,10 +76,11 @@ void Controller::editVLabel(int section) {
     delete eld;
 }
 
-void Controller::renewGraph() const {
+void Controller::renewGraph() {
     NewDialog* ng=new NewDialog;
     if(ng->exec()==QDialog::Accepted) {
         model->renewGraph(ng->getRows(), ng->getColumns(), ng->getName());
+        setModel(model);
         view->setWindowTitle(QString("ChartViewer: ")+ng->getName());
     }
     delete ng;

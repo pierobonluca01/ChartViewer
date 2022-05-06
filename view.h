@@ -42,7 +42,7 @@ public:
     View(QWidget* =nullptr);
     virtual ~View() =default;
 
-    void setModel(QAbstractItemModel*);
+    void setModel(QAbstractTableModel*);
     void setController(Controller*);
 
 public slots:

@@ -39,7 +39,7 @@ public slots:
     void editHLabel(int);
     void editVLabel(int);
 
-    void renewGraph() const;
+    void renewGraph();
 };
 
 #endif // CONTROLLER_H

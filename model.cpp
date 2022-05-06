@@ -90,4 +90,5 @@ void Model::renewGraph(size_t r, size_t c, QString n) {
     graph=new Graph(r, c, n.toStdString());
     delete temp;
     endResetModel();
+    /*TEST*/ graph->printTable();
 }

@@ -43,7 +43,6 @@ void BarChart::build() {
     mapper->setModel(model);
     chart->addSeries(series);
 
-
     axis=new QBarCategoryAxis();
     update();
     chart->createDefaultAxes();
@@ -54,7 +53,7 @@ void BarChart::update() {
     QStringList rowLabels;
     for(int i=0; i<model->rowCount(); i++)
         rowLabels<<model->headerData(i, Qt::Vertical).toString();
-    axis->clear();
+    axis->clear(); //TODO: Problema di sovrapposizione di QBarCategories
     axis->append(rowLabels);
 }
 

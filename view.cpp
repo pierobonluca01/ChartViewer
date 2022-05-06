@@ -174,10 +174,10 @@ void View::addChart(QSplitter* splitter) {
     splitter->addWidget(chartView);
 }
 
-void View::setModel(QAbstractItemModel* m) {
+void View::setModel(QAbstractTableModel* m) {
     tableView->setModel(m);
     chart->setModel(m);
-    connect(m, &QAbstractItemModel::headerDataChanged, chart, &Chart::update);
+    connect(m, &QAbstractTableModel::headerDataChanged, chart, &Chart::update);
 }
 
 void View::setController(Controller* c) {
