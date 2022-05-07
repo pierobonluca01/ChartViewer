@@ -1,6 +1,10 @@
 #include "labels.h"
 
-Labels::Labels(size_t n): l(vector<string>(n, "label")) {}
+Labels::Labels(size_t n): l(vector<string>(n, "label")) {
+    for(unsigned int i=0; i<l.size(); i++) {
+        l[i]=std::to_string(i+1);
+    }
+}
 
 Labels::Labels(const Labels& lc): l(lc.l) {}
 
@@ -14,11 +18,11 @@ string& Labels::setLabel(size_t i) {
 
 void Labels::newLabels(size_t n) {
     for(size_t i=0; i<n; i++)
-        l.push_back("label");
+        l.push_back(std::to_string(i+1));
 }
 
 void Labels::insertLabel(size_t i) {
-    l.insert(l.begin()+i, "label");
+    l.insert(l.begin()+i, std::to_string(l.size()+1));
 }
 
 void Labels::removeLabel(size_t i) {
