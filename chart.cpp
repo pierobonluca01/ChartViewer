@@ -58,7 +58,6 @@ void BarChart::updateChart() {
     axis->append(rowLabels);
 }
 
-
 LineChart::LineChart() {
     chart->setTitle("Line Chart");
 }

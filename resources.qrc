@@ -9,5 +9,6 @@
         <file alias="line">resources/toolbar/line.png</file>
         <file alias="nuovo">resources/toolbar/nuovo.png</file>
         <file alias="pie">resources/toolbar/pie.png</file>
+        <file alias="zoomreset">resources/toolbar/zoomreset.png</file>
     </qresource>
 </RCC>

@@ -144,6 +144,10 @@ void View::addToolBar(QVBoxLayout* layout) {
 
     toolBar->addSeparator();
 
+    QAction* zoomReset=new QAction("Reset");
+    zoomReset->setIcon(QIcon(":/toolbar/zoomreset"));
+    toolBar->addAction(zoomReset);
+
     QAction* zoomOut=new QAction(" - ");
     zoomOut->setIcon(QIcon(":/toolbar/zoomout"));
     toolBar->addAction(zoomOut);
@@ -153,10 +157,12 @@ void View::addToolBar(QVBoxLayout* layout) {
     toolBar->addAction(zoomIn);
 
     QSignalMapper* viewZoomSignals=new QSignalMapper;
+    connect(zoomReset, SIGNAL(triggered()), viewZoomSignals, SLOT(map()));
+    viewZoomSignals->setMapping(zoomReset, 0);
     connect(zoomOut, SIGNAL(triggered()), viewZoomSignals, SLOT(map()));
-    viewZoomSignals->setMapping(zoomOut, 0);
+    viewZoomSignals->setMapping(zoomOut, 1);
     connect(zoomIn, SIGNAL(triggered()), viewZoomSignals, SLOT(map()));
-    viewZoomSignals->setMapping(zoomIn, 1);
+    viewZoomSignals->setMapping(zoomIn, 2);
     connect(viewZoomSignals, SIGNAL(mapped(int)), this, SLOT(setChartZoom(int)));
 
     toolBar->setStyleSheet("QToolBar {background: rgb(64, 64, 64)}");
@@ -171,6 +177,7 @@ void View::addTable(QSplitter* splitter) {
 
 void View::addChart(QSplitter* splitter) {
     chartView=new QChartView(chart->getChart());
+    chartView->setRubberBand(QChartView::RectangleRubberBand);
     splitter->addWidget(chartView);
 }
 
@@ -206,10 +213,16 @@ void View::setSplitter(int split) const {
 }
 
 void View::setChartZoom(int z) const {
-    if(z)
-        chart->getChart()->zoomIn();
-    else
+    switch (z) {
+    case 1:
         chart->getChart()->zoomOut();
+        break;
+    case 2:
+        chart->getChart()->zoomIn();
+        break;
+    default:
+        chart->getChart()->zoomReset();
+    }
 }
 
 void View::setChartType(int c) {
