@@ -177,7 +177,7 @@ void View::addChart(QSplitter* splitter) {
 void View::setModel(QAbstractTableModel* m) {
     tableView->setModel(m);
     chart->setModel(m);
-    connect(m, &QAbstractTableModel::headerDataChanged, chart, &Chart::update);
+    connect(m, &QAbstractTableModel::headerDataChanged, this, &View::updateChart);
 }
 
 void View::setController(Controller* c) {
@@ -289,4 +289,8 @@ void View::setTableTheme(int theme) const {
     default:
         tableView->setPalette(dark);
     }
+}
+
+void View::updateChart() const {
+    chart->updateChart();
 }

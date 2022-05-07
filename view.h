@@ -51,6 +51,8 @@ public slots:
     void setChartType(int =0);
     void setGlobalTheme(int =0) const;
     void setTableTheme(int =0) const;
+
+    void updateChart() const;
 };
 
 

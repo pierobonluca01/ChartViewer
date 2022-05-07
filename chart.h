@@ -22,11 +22,11 @@ public:
     //void setController(Controller*);
 
     virtual void build() =0;
-    virtual void update() =0;
+    virtual void updateChart() =0;
 
     QChart* getChart();
     void setChartTheme(QChart::ChartTheme);
-    void scrollEvent(QWheelEvent*); //TODO: Implementare
+    //void scrollEvent(QWheelEvent*); //TODO: Implementare
 };
 
 class BarChart: public Chart {
@@ -44,9 +44,7 @@ public:
     //void setModel(QAbstractItemModel*) override;
 
     void build() override;
-
-public slots:
-    void update() override;
+    void updateChart() override;
 };
 
 class LineChart: public Chart {
@@ -59,9 +57,7 @@ public:
     //void setModel(QAbstractItemModel*) override {}
 
     void build() override {}
-
-public slots:
-    void update() override {}
+    void updateChart() override {}
 };
 
 class PieChart: public Chart {
@@ -74,9 +70,7 @@ public:
     //void setModel(QAbstractItemModel*) override {}
 
     void build() override {}
-
-public slots:
-    void update() override {}
+    void updateChart() override {}
 };
 
 #endif // CHART_H

@@ -80,7 +80,7 @@ void Controller::renewGraph() {
     NewDialog* ng=new NewDialog;
     if(ng->exec()==QDialog::Accepted) {
         model->renewGraph(ng->getRows(), ng->getColumns(), ng->getName());
-        setModel(model);
+        view->updateChart();
         view->setWindowTitle(QString("ChartViewer: ")+ng->getName());
     }
     delete ng;
