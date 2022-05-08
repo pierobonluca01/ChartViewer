@@ -37,7 +37,7 @@ QVariant Controller::headerData(int section, Qt::Orientation orientation) const 
 /*slots*/
 
 void Controller::newColumns(size_t nc) const {
-    model->newColumns(nc);
+    model->insertColumns(model->columnCount(), nc);
 }
 
 void Controller::insertColumn(size_t ic) const {
@@ -49,7 +49,7 @@ void Controller::removeColumn(size_t ic) const {
 }
 
 void Controller::newRows(size_t nr) const {
-    model->newRows(nr);
+    model->insertRows(model->rowCount(), nr);
 }
 
 void Controller::insertRow(size_t ir) const{

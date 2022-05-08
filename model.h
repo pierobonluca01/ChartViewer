@@ -34,12 +34,20 @@ public:
 
     Qt::ItemFlags flags(const QModelIndex&) const override;
 
-    void newColumns(size_t =1);
-    void insertColumn(size_t);
-    void removeColumn(size_t);
-    void newRows(size_t =1);
-    void insertRow(size_t);
-    void removeRow(size_t);
+    bool insertColumns(int, int, const QModelIndex& =QModelIndex()) override;
+    bool insertColumn(int, const QModelIndex& =QModelIndex());
+    bool removeColumn(int, const QModelIndex& =QModelIndex());
+    bool insertRows(int, int, const QModelIndex& =QModelIndex()) override;
+    bool insertRow(int, const QModelIndex& =QModelIndex());
+    bool removeRow(int, const QModelIndex& =QModelIndex());
+
+//TODO: Rimuovere
+//    void newColumns(size_t =1);
+//    void insertColumn(size_t);
+//    void removeColumn(size_t);
+//    void newRows(size_t =1);
+//    void insertRow(size_t);
+//    void removeRow(size_t);
 
     void renewGraph(size_t =0, size_t =0, QString ="senza_titolo");
 };

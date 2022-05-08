@@ -148,6 +148,8 @@ void View::addToolBar(QVBoxLayout* layout) {
     zoomReset->setIcon(QIcon(":/toolbar/zoomreset"));
     toolBar->addAction(zoomReset);
 
+    toolBar->addSeparator();
+
     QAction* zoomOut=new QAction(" - ");
     zoomOut->setIcon(QIcon(":/toolbar/zoomout"));
     toolBar->addAction(zoomOut);
