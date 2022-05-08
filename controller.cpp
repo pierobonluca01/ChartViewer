@@ -36,32 +36,35 @@ QVariant Controller::headerData(int section, Qt::Orientation orientation) const 
 
 /*slots*/
 
-void Controller::newColumns(size_t nc) const {
+void Controller::newColumns(int nc) const {
     model->insertColumns(model->columnCount(), nc);
 }
 
-void Controller::insertColumn(size_t ic) const {
+void Controller::insertColumn(int ic) const {
     model->insertColumn(ic);
 }
 
-void Controller::removeColumn(size_t ic) const {
+void Controller::removeColumn(int ic) const {
     model->removeColumn(ic);
 }
 
-void Controller::newRows(size_t nr) const {
+void Controller::newRows(int nr) const {
     model->insertRows(model->rowCount(), nr);
+    view->updateChart();
 }
 
-void Controller::insertRow(size_t ir) const{
+void Controller::insertRow(int ir) const{
     model->insertRow(ir);
+    view->updateChart();
 }
 
-void Controller::removeRow(size_t ir) const {
+void Controller::removeRow(int ir) const {
     model->removeColumn(ir);
+    view->updateChart();
 }
 
 void Controller::editHLabel(int section) {
-    EditLabelDialog* eld=new EditLabelDialog;
+    EditLabelDialog* eld=new EditLabelDialog(0, model->headerData(section, Qt::Horizontal).toString());
     if(eld->exec()==QDialog::Accepted) {
         model->setHeaderData(section, Qt::Horizontal, eld->getLabel());
     }
@@ -69,7 +72,7 @@ void Controller::editHLabel(int section) {
 }
 
 void Controller::editVLabel(int section) {
-    EditLabelDialog* eld=new EditLabelDialog;
+    EditLabelDialog* eld=new EditLabelDialog(1, model->headerData(section, Qt::Vertical).toString());
     if(eld->exec()==QDialog::Accepted) {
         model->setHeaderData(section, Qt::Vertical, eld->getLabel());
     }

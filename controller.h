@@ -29,12 +29,12 @@ public:
 
 
 public slots:
-    void newColumns(size_t =1) const;
-    void insertColumn(size_t) const;
-    void removeColumn(size_t) const;
-    void newRows(size_t =1) const;
-    void insertRow(size_t) const;
-    void removeRow(size_t) const;
+    void newColumns(int =1) const;
+    void insertColumn(int) const;
+    void removeColumn(int) const;
+    void newRows(int =1) const;
+    void insertRow(int) const;
+    void removeRow(int) const;
 
     void editHLabel(int);
     void editVLabel(int);

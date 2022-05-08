@@ -45,7 +45,7 @@ private:
     QLineEdit* labelLine;
 
 public:
-    EditLabelDialog(QWidget* =nullptr);
+    EditLabelDialog(bool, QString, QWidget* =nullptr);
 
     QString getLabel() const;
 

@@ -60,17 +60,15 @@ Qt::ItemFlags Model::flags(const QModelIndex& index) const {
     return Qt::ItemIsEditable | QAbstractTableModel::flags(index);
 }
 
-/*TEST*/
-
 bool Model::insertColumns(int column, int count, const QModelIndex& parent) {
     beginInsertColumns(parent, column, column+count);
     graph->newColumns(count);
     endInsertColumns();
     return true;
 }
-
+//FUNZIONA
 bool Model::insertColumn(int column, const QModelIndex& parent) {
-    beginInsertColumns(parent, column, column+1);
+    beginInsertColumns(parent, column+1, column+1);
     graph->insertColumn(column);
     endInsertColumns();
     return true;
@@ -89,9 +87,9 @@ bool Model::insertRows(int row, int count, const QModelIndex& parent) {
     endInsertRows();
     return true;
 }
-
+//FUNZIONA
 bool Model::insertRow(int row, const QModelIndex& parent) {
-    beginInsertRows(parent, row, row+1);
+    beginInsertRows(parent, row+1, row+1);
     graph->insertRow(row);
     endInsertRows();
     return true;
@@ -103,32 +101,6 @@ bool Model::removeRow(int row, const QModelIndex& parent) {
     endRemoveRows();
     return true;
 }
-
-//TODO: Rimuovere
-
-//void Model::newColumns(size_t nc) {
-//    graph->newColumns(nc);
-//}
-
-//void Model::insertColumn(size_t ic) {
-//    graph->insertColumn(ic);
-//}
-
-//void Model::removeColumn(size_t ic) {
-//    graph->removeColumn(ic);
-//}
-
-//void Model::newRows(size_t nr) {
-//    graph->newRows(nr);
-//}
-
-//void Model::insertRow(size_t ir) {
-//    graph->insertRow(ir);
-//}
-
-//void Model::removeRow(size_t ir) {
-//    graph->removeColumn(ir);
-//}
 
 void Model::renewGraph(size_t r, size_t c, QString n) {
     beginResetModel();

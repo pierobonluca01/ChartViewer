@@ -79,7 +79,7 @@ void NewDialog::updateText() {
 
 //EDIT LABEL DIALOG
 
-EditLabelDialog::EditLabelDialog(QWidget* parent): QDialog(parent) {
+EditLabelDialog::EditLabelDialog(bool orientation, QString oldLabel, QWidget* parent): QDialog(parent) {
     setWindowTitle(QString("Modifica intestazione..."));
 
     labelLine=new QLineEdit;
@@ -89,7 +89,7 @@ EditLabelDialog::EditLabelDialog(QWidget* parent): QDialog(parent) {
     QPushButton* cancel=new QPushButton("Annulla");
 
     QHBoxLayout *line=new QHBoxLayout;
-    line->addWidget(new QLabel("Intestazione:"));
+    line->addWidget(new QLabel("Nuova intestazione:"));
     line->addWidget(labelLine);
 
     QHBoxLayout *buttons=new QHBoxLayout;
@@ -98,6 +98,10 @@ EditLabelDialog::EditLabelDialog(QWidget* parent): QDialog(parent) {
     buttons->addWidget(confirmation);
 
     QVBoxLayout *layout=new QVBoxLayout;
+    QString o="colonna";
+    if(orientation)
+        o="riga";
+    layout->addWidget(new QLabel("Stai modificando l'intestazione della <b>"+o+"</b> \"<i>"+oldLabel+"\"</i>."));
     layout->addLayout(line);
     layout->addSpacerItem(new QSpacerItem(0, 20));
     layout->addLayout(buttons);
@@ -119,5 +123,5 @@ QString EditLabelDialog::getLabel() const {
 void EditLabelDialog::updateLabel() {
     label=labelLine->text();
     if(label=="")
-        label="label";
+        label="intestazione";
 }
