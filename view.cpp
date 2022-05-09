@@ -174,6 +174,10 @@ void View::addToolBar(QVBoxLayout* layout) {
 
 void View::addTable(QSplitter* splitter) {
     tableView=new QTableView;
+    tableView->horizontalHeader()->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(tableView->horizontalHeader(), SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(headerHMenu(QPoint)));
+    tableView->verticalHeader()->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(tableView->verticalHeader(), SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(headerVMenu(QPoint)));
     splitter->addWidget(tableView);
 }
 
@@ -308,6 +312,28 @@ void View::setTableTheme(int theme) const {
     default:
         tableView->setPalette(dark);
     }
+}
+
+void View::headerHMenu(QPoint pos) {
+    QMenu menu(this);
+    int column=tableView->horizontalHeader()->logicalIndexAt(pos);
+
+    menu.addAction(new QAction("Aggiungi colonna a sinistra", this));
+    menu.addAction(new QAction("Aggiungi colonna a destra", this));
+    menu.addSeparator();
+    menu.addAction(new QAction("Modifica intestazione", this));
+    menu.exec(tableView->viewport()->mapToGlobal(pos));
+}
+
+void View::headerVMenu(QPoint pos) {
+    QMenu menu(this);
+    int row=tableView->verticalHeader()->logicalIndexAt(pos);
+
+    menu.addAction(new QAction("Aggiungi riga sotto", this));
+    menu.addAction(new QAction("Aggiungi riga sopra", this));
+    menu.addSeparator();
+    menu.addAction(new QAction("Modifica intestazione", this));
+    menu.exec(tableView->viewport()->mapToGlobal(pos));
 }
 
 void View::updateChart() const {

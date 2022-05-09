@@ -12,6 +12,8 @@
 #include <QSplitter>
 #include <QTableView>
 
+#include <iostream>
+
 //class Controller; //forward declaration inclusa in chart.h
 
 class View: public QWidget {
@@ -51,6 +53,9 @@ public slots:
     void setChartType(int =0);
     void setGlobalTheme(int =0) const;
     void setTableTheme(int =0) const;
+
+    void headerHMenu(QPoint);
+    void headerVMenu(QPoint);
 
     void updateChart() const;
 };
