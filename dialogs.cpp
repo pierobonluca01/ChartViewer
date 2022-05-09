@@ -96,6 +96,7 @@ EditLabelDialog::EditLabelDialog(bool orientation, QString oldLabel, QWidget* pa
     buttons->addSpacerItem(new QSpacerItem(150, 0));
     buttons->addWidget(cancel);
     buttons->addWidget(confirmation);
+    cancel->setFocusPolicy(Qt::NoFocus);
 
     QVBoxLayout *layout=new QVBoxLayout;
     QString o="colonna";
