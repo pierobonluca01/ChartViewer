@@ -38,14 +38,17 @@ QVariant Controller::headerData(int section, Qt::Orientation orientation) const 
 
 void Controller::newColumns(int nc) const {
     model->insertColumns(model->columnCount(), nc);
+    view->updateChart();
 }
 
 void Controller::insertColumn(int ic) const {
     model->insertColumn(ic);
+    view->updateChart();
 }
 
 void Controller::removeColumn(int ic) const {
     model->removeColumn(ic);
+    view->updateChart();
 }
 
 void Controller::newRows(int nr) const {
