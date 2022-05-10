@@ -10,5 +10,8 @@
         <file alias="nuovo">resources/toolbar/nuovo.png</file>
         <file alias="pie">resources/toolbar/pie.png</file>
         <file alias="zoomreset">resources/toolbar/zoomreset.png</file>
+        <file alias="onlygraph">resources/toolbar/onlygraph.png</file>
+        <file alias="onlytable">resources/toolbar/onlytable.png</file>
+        <file alias="resetview">resources/toolbar/resetview.png</file>
     </qresource>
 </RCC>

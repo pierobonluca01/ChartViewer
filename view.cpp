@@ -142,27 +142,48 @@ void View::addToolBar(QVBoxLayout* layout) {
     separator->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     toolBar->addWidget(separator);
 
+    //toolBar->addSeparator();
+
+    QAction* onlyTable=new QAction("Nascondi grafico");
+    onlyTable->setIcon(QIcon(":/toolbar/onlytable"));
+    toolBar->addAction(onlyTable);
+
+    QAction* resetSep=new QAction("Reimposta separatore");
+    resetSep->setIcon(QIcon(":/toolbar/resetview"));
+    toolBar->addAction(resetSep);
+
+    QAction* onlyGraph=new QAction("Nascondi tabella");
+    onlyGraph->setIcon(QIcon(":/toolbar/onlygraph"));
+    toolBar->addAction(onlyGraph);
+
+    QSignalMapper* sepSignals=new QSignalMapper;
+    connect(onlyTable, SIGNAL(triggered()), sepSignals, SLOT(map()));
+    sepSignals->setMapping(onlyTable, 2);
+    connect(resetSep, SIGNAL(triggered()), sepSignals, SLOT(map()));
+    sepSignals->setMapping(resetSep, 0);
+    connect(onlyGraph, SIGNAL(triggered()), sepSignals, SLOT(map()));
+    sepSignals->setMapping(onlyGraph, 1);
+    connect(sepSignals, SIGNAL(mapped(int)), this, SLOT(setSplitter(int)));
+
     toolBar->addSeparator();
 
-    QAction* zoomReset=new QAction("Reset");
-    zoomReset->setIcon(QIcon(":/toolbar/zoomreset"));
-    toolBar->addAction(zoomReset);
-
-    toolBar->addSeparator();
-
-    QAction* zoomOut=new QAction(" - ");
+    QAction* zoomOut=new QAction("Zoom Out");
     zoomOut->setIcon(QIcon(":/toolbar/zoomout"));
     toolBar->addAction(zoomOut);
 
-    QAction* zoomIn=new QAction(" + ");
+    QAction* zoomReset=new QAction("Reimposta Zoom");
+    zoomReset->setIcon(QIcon(":/toolbar/zoomreset"));
+    toolBar->addAction(zoomReset);
+
+    QAction* zoomIn=new QAction("Zoom In");
     zoomIn->setIcon(QIcon(":/toolbar/zoomin"));
     toolBar->addAction(zoomIn);
 
     QSignalMapper* viewZoomSignals=new QSignalMapper;
-    connect(zoomReset, SIGNAL(triggered()), viewZoomSignals, SLOT(map()));
-    viewZoomSignals->setMapping(zoomReset, 0);
     connect(zoomOut, SIGNAL(triggered()), viewZoomSignals, SLOT(map()));
     viewZoomSignals->setMapping(zoomOut, 1);
+    connect(zoomReset, SIGNAL(triggered()), viewZoomSignals, SLOT(map()));
+    viewZoomSignals->setMapping(zoomReset, 0);
     connect(zoomIn, SIGNAL(triggered()), viewZoomSignals, SLOT(map()));
     viewZoomSignals->setMapping(zoomIn, 2);
     connect(viewZoomSignals, SIGNAL(mapped(int)), this, SLOT(setChartZoom(int)));
@@ -206,13 +227,13 @@ void View::setSplitter(int split) const {
     QList<int> width;
     switch(split) {
     case 1:
-        width={0, view->width()};
+        width={0, this->width()};
         break;
     case 2:
-        width={view->width(), 0};
+        width={this->width(), 0};
         break;
     default:
-        width={view->width(), view->width()};
+        width={this->width(), this->width()};
     }
     graphSplitter->setSizes(width);
 }
