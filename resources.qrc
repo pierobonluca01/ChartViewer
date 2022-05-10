@@ -14,4 +14,10 @@
         <file alias="onlytable">resources/toolbar/onlytable.png</file>
         <file alias="resetview">resources/toolbar/resetview.png</file>
     </qresource>
+    <qresource prefix="/toolbar/columns">
+        <file alias="new">resources/toolbar/table/newcolumns.png</file>
+    </qresource>
+    <qresource prefix="/toolbar/rows">
+        <file alias="new">resources/toolbar/table/newrows.png</file>
+    </qresource>
 </RCC>

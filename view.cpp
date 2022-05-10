@@ -138,11 +138,17 @@ void View::addToolBar(QVBoxLayout* layout) {
 
     toolBar->addSeparator();
 
+    QAction* newrows=new QAction("Aggiungi righe");
+    newrows->setIcon(QIcon(":/toolbar/rows/new"));
+    toolBar->addAction(newrows);
+
+    QAction* newcolumns=new QAction("Aggiungi colonne");
+    newcolumns->setIcon(QIcon(":/toolbar/columns/new"));
+    toolBar->addAction(newcolumns);
+
     QWidget* separator=new QWidget;
     separator->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     toolBar->addWidget(separator);
-
-    //toolBar->addSeparator();
 
     QAction* onlyTable=new QAction("Nascondi grafico");
     onlyTable->setIcon(QIcon(":/toolbar/onlytable"));
