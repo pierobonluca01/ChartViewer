@@ -26,7 +26,7 @@ View::View(QWidget* parent): QWidget(parent) {
 }
 
 void View::addMenus(QVBoxLayout* layout) {
-    QMenuBar* menuBar=new QMenuBar(this);
+    menuBar=new QMenuBar(this);
     menuBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     file=new QMenu("File", menuBar);
@@ -293,6 +293,7 @@ void View::setGlobalTheme(int theme) const {
         palette.setColor(QPalette::WindowText, QRgb(0xd6d6d6));
         chart->setChartTheme(QChart::ChartThemeBlueCerulean);
         toolBar->setStyleSheet("QToolBar {background: rgb(6, 93, 132)}");
+        menuBar->setStyleSheet("QMenuBar {text: rgb(255, 255. 255)}"); //Sistemi Ubuntu
     }
     window()->setPalette(palette);
 }

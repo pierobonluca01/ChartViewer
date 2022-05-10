@@ -22,6 +22,7 @@ class View: public QWidget {
 private:
     Controller* controller;
 
+    QMenuBar* menuBar;
     QMenu* file;
     QMenu* view;
     QMenu* chartType;
