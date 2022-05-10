@@ -73,7 +73,6 @@ void NewDialog::updateText() {
         name="senza_nome";
     rows=rowsLine->text().toUInt();
     columns=columnsLine->text().toUInt();
-
 }
 
 
@@ -125,4 +124,56 @@ void EditLabelDialog::updateLabel() {
     label=labelLine->text();
     if(label=="")
         label="intestazione";
+}
+
+
+//ADD DIALOG
+
+AddDialog::AddDialog(bool orientation, QWidget* parent): QDialog(parent) {
+    QString o="colonne";
+    if(orientation)
+        o="righe";
+    setWindowTitle(QString("Aggiungi "+o+"..."));
+
+    numLine=new QLineEdit;
+    numLine->setPlaceholderText(QString("0"));
+    numLine->setValidator(new QIntValidator(0, 999));
+
+    QPushButton* confirmation=new QPushButton("Conferma");
+    QPushButton* cancel=new QPushButton("Annulla");
+
+    QHBoxLayout *line=new QHBoxLayout;
+
+    line->addWidget(new QLabel("Numero "+o+":"));
+    line->addWidget(numLine);
+
+    QHBoxLayout *buttons=new QHBoxLayout;
+    buttons->addSpacerItem(new QSpacerItem(150, 0));
+    buttons->addWidget(cancel);
+    buttons->addWidget(confirmation);
+    cancel->setFocusPolicy(Qt::NoFocus);
+
+    QVBoxLayout *layout=new QVBoxLayout;
+    layout->addWidget(new QLabel("Quante <b>"+o+"</b> vuoi aggiungere?"));
+    layout->addLayout(line);
+    layout->addSpacerItem(new QSpacerItem(0, 20));
+    layout->addLayout(buttons);
+
+    layout->setSizeConstraint(QLayout::SetFixedSize);
+    setLayout(layout);
+
+    connect(cancel, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(confirmation, SIGNAL(clicked()), this, SLOT(updateNum()));
+    connect(confirmation, SIGNAL(clicked()), this, SLOT(accept()));
+}
+
+size_t AddDialog::getNum() const {
+    return num;
+}
+
+void AddDialog::updateNum() {
+    QString numstring=numLine->text();
+    if(numstring=="")
+        numstring="1";
+    num=numstring.toUInt();
 }

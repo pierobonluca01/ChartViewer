@@ -36,10 +36,12 @@ public slots:
     void insertRow(int) const;
     void removeRow(int) const;
 
-    void editHLabel(int);
-    void editVLabel(int);
+    void editHLabel(int) const;
+    void editVLabel(int) const;
 
-    void renewGraph();
+    void addRC(int) const;
+
+    void renewGraph() const;
 };
 
 #endif // CONTROLLER_H

@@ -62,27 +62,36 @@ void Controller::insertRow(int ir) const{
 }
 
 void Controller::removeRow(int ir) const {
-    model->removeColumn(ir);
+    model->removeRow(ir);
     view->updateChart();
 }
 
-void Controller::editHLabel(int section) {
+void Controller::editHLabel(int section) const {
     EditLabelDialog* eld=new EditLabelDialog(0, model->headerData(section, Qt::Horizontal).toString());
-    if(eld->exec()==QDialog::Accepted) {
+    if(eld->exec()==QDialog::Accepted)
         model->setHeaderData(section, Qt::Horizontal, eld->getLabel());
-    }
     delete eld;
 }
 
-void Controller::editVLabel(int section) {
+void Controller::editVLabel(int section) const {
     EditLabelDialog* eld=new EditLabelDialog(1, model->headerData(section, Qt::Vertical).toString());
-    if(eld->exec()==QDialog::Accepted) {
+    if(eld->exec()==QDialog::Accepted)
         model->setHeaderData(section, Qt::Vertical, eld->getLabel());
-    }
     delete eld;
 }
 
-void Controller::renewGraph() {
+void Controller::addRC(int orientation) const {
+    AddDialog* ad=new AddDialog(orientation);
+    if(ad->exec()==QDialog::Accepted) {
+        if(orientation)
+            newRows(ad->getNum());
+        else
+            newColumns(ad->getNum());
+    }
+    delete ad;
+}
+
+void Controller::renewGraph() const {
     NewDialog* ng=new NewDialog;
     if(ng->exec()==QDialog::Accepted) {
         model->renewGraph(ng->getRows(), ng->getColumns(), ng->getName());

@@ -53,4 +53,21 @@ public slots:
     void updateLabel();
 };
 
+
+class AddDialog: public QDialog {
+    Q_OBJECT
+
+private:
+    size_t num;
+    QLineEdit* numLine;
+
+public:
+    AddDialog(bool, QWidget* =nullptr);
+
+    size_t getNum() const;
+
+public slots:
+    void updateNum();
+};
+
 #endif // DIALOGS_H

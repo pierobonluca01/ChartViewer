@@ -61,7 +61,7 @@ Qt::ItemFlags Model::flags(const QModelIndex& index) const {
 }
 
 bool Model::insertColumns(int column, int count, const QModelIndex& parent) {
-    beginInsertColumns(parent, column, column+count);
+    beginInsertColumns(parent, column, column+count-1);
     graph->newColumns(count);
     endInsertColumns();
     return true;
@@ -75,14 +75,15 @@ bool Model::insertColumn(int column, const QModelIndex& parent) {
 }
 
 bool Model::removeColumn(int column, const QModelIndex& parent) {
-    beginRemoveColumns(parent, column, column+1);
+    beginRemoveColumns(parent, column, column);
     graph->removeColumn(column);
     endRemoveColumns();
     return true;
 }
 
 bool Model::insertRows(int row, int count, const QModelIndex& parent) {
-    beginInsertRows(parent, row, row+count);
+    std::cout<<row<<" "<<count;
+    beginInsertRows(parent, row, row+count-1);
     graph->newRows(count);
     endInsertRows();
     return true;
@@ -96,7 +97,7 @@ bool Model::insertRow(int row, const QModelIndex& parent) {
 }
 
 bool Model::removeRow(int row, const QModelIndex& parent) {
-    beginRemoveRows(parent, row, row+1);
+    beginRemoveRows(parent, row, row);
     graph->removeRow(row);
     endRemoveRows();
     return true;

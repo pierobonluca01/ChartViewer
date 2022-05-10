@@ -227,6 +227,13 @@ void View::setController(Controller* c) {
 
     connect(tableView->horizontalHeader(), SIGNAL(sectionDoubleClicked(int)), controller, SLOT(editHLabel(int)));
     connect(tableView->verticalHeader(), SIGNAL(sectionDoubleClicked(int)), controller, SLOT(editVLabel(int)));
+
+    QSignalMapper* newSignals=new QSignalMapper;
+    connect(toolBar->actions().at(2), SIGNAL(triggered()), newSignals, SLOT(map()));
+    newSignals->setMapping(toolBar->actions().at(2), 1);
+    connect(toolBar->actions().at(3), SIGNAL(triggered()), newSignals, SLOT(map()));
+    newSignals->setMapping(toolBar->actions().at(3), 0);
+    connect(newSignals, SIGNAL(mapped(int)), controller, SLOT(addRC(int)));
 }
 
 void View::setSplitter(int split) const {
@@ -349,22 +356,29 @@ void View::headerHMenu(QPoint pos) {
     QMenu menu(this);
     int column=tableView->horizontalHeader()->logicalIndexAt(pos);
 
+    menu.addAction(new QAction("Modifica intestazione", this));
+    menu.addSeparator();
     menu.addAction(new QAction("Aggiungi colonna a sinistra", this));
     menu.addAction(new QAction("Aggiungi colonna a destra", this));
     menu.addSeparator();
-    menu.addAction(new QAction("Modifica intestazione", this));
-
-    QSignalMapper insertMapper;
-    connect(menu.actions().at(0), SIGNAL(triggered()), &insertMapper, SLOT(map()));
-    insertMapper.setMapping(menu.actions().at(0), column);
-    connect(menu.actions().at(1), SIGNAL(triggered()), &insertMapper, SLOT(map()));
-    insertMapper.setMapping(menu.actions().at(1), column+1);
-    connect(&insertMapper, SIGNAL(mapped(int)), controller, SLOT(insertColumn(int)));
+    menu.addAction(new QAction("Rimuovi colonna", this));
 
     QSignalMapper headerMapper;
-    connect(menu.actions().at(3), SIGNAL(triggered()), &headerMapper, SLOT(map()));
-    headerMapper.setMapping(menu.actions().at(3), column);
+    connect(menu.actions().at(0), SIGNAL(triggered()), &headerMapper, SLOT(map()));
+    headerMapper.setMapping(menu.actions().at(0), column);
     connect(&headerMapper, SIGNAL(mapped(int)), controller, SLOT(editHLabel(int)));
+
+    QSignalMapper insertMapper;
+    connect(menu.actions().at(2), SIGNAL(triggered()), &insertMapper, SLOT(map()));
+    insertMapper.setMapping(menu.actions().at(2), column);
+    connect(menu.actions().at(3), SIGNAL(triggered()), &insertMapper, SLOT(map()));
+    insertMapper.setMapping(menu.actions().at(3), column+1);
+    connect(&insertMapper, SIGNAL(mapped(int)), controller, SLOT(insertColumn(int)));
+
+    QSignalMapper removeMapper;
+    connect(menu.actions().at(5), SIGNAL(triggered()), &removeMapper, SLOT(map()));
+    removeMapper.setMapping(menu.actions().at(5), column);
+    connect(&removeMapper, SIGNAL(mapped(int)), controller, SLOT(removeColumn(int)));
 
     menu.exec(tableView->viewport()->mapToGlobal(pos));
 }
@@ -373,22 +387,29 @@ void View::headerVMenu(QPoint pos) {
     QMenu menu(this);
     int row=tableView->verticalHeader()->logicalIndexAt(pos);
 
-    menu.addAction(new QAction("Aggiungi riga sotto", this));
-    menu.addAction(new QAction("Aggiungi riga sopra", this));
-    menu.addSeparator();
     menu.addAction(new QAction("Modifica intestazione", this));
-
-    QSignalMapper insertMapper;
-    connect(menu.actions().at(0), SIGNAL(triggered()), &insertMapper, SLOT(map()));
-    insertMapper.setMapping(menu.actions().at(0), row);
-    connect(menu.actions().at(1), SIGNAL(triggered()), &insertMapper, SLOT(map()));
-    insertMapper.setMapping(menu.actions().at(1), row+1);
-    connect(&insertMapper, SIGNAL(mapped(int)), controller, SLOT(insertRow(int)));
+    menu.addSeparator();
+    menu.addAction(new QAction("Aggiungi riga sopra", this));
+    menu.addAction(new QAction("Aggiungi riga sotto", this));
+    menu.addSeparator();
+    menu.addAction(new QAction("Rimuovi riga", this));
 
     QSignalMapper headerMapper;
-    connect(menu.actions().at(3), SIGNAL(triggered()), &headerMapper, SLOT(map()));
-    headerMapper.setMapping(menu.actions().at(3), row);
+    connect(menu.actions().at(0), SIGNAL(triggered()), &headerMapper, SLOT(map()));
+    headerMapper.setMapping(menu.actions().at(0), row);
     connect(&headerMapper, SIGNAL(mapped(int)), controller, SLOT(editVLabel(int)));
+
+    QSignalMapper insertMapper;
+    connect(menu.actions().at(2), SIGNAL(triggered()), &insertMapper, SLOT(map()));
+    insertMapper.setMapping(menu.actions().at(2), row);
+    connect(menu.actions().at(3), SIGNAL(triggered()), &insertMapper, SLOT(map()));
+    insertMapper.setMapping(menu.actions().at(3), row+1);
+    connect(&insertMapper, SIGNAL(mapped(int)), controller, SLOT(insertRow(int)));
+
+    QSignalMapper removeMapper;
+    connect(menu.actions().at(5), SIGNAL(triggered()), &removeMapper, SLOT(map()));
+    removeMapper.setMapping(menu.actions().at(5), row);
+    connect(&removeMapper, SIGNAL(mapped(int)), controller, SLOT(removeRow(int)));
 
     menu.exec(tableView->viewport()->mapToGlobal(pos));
 }
