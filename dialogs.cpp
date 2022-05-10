@@ -136,7 +136,7 @@ AddDialog::AddDialog(bool orientation, QWidget* parent): QDialog(parent) {
     setWindowTitle(QString("Aggiungi "+o+"..."));
 
     numLine=new QLineEdit;
-    numLine->setPlaceholderText(QString("0"));
+    numLine->setPlaceholderText(QString("1"));
     numLine->setValidator(new QIntValidator(0, 999));
 
     QPushButton* confirmation=new QPushButton("Conferma");
