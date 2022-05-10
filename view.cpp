@@ -167,8 +167,6 @@ void View::addToolBar(QVBoxLayout* layout) {
     viewZoomSignals->setMapping(zoomIn, 2);
     connect(viewZoomSignals, SIGNAL(mapped(int)), this, SLOT(setChartZoom(int)));
 
-    toolBar->setStyleSheet("QToolBar {background: rgb(64, 64, 64)}");
-
     layout->addWidget(toolBar);
 }
 
@@ -202,9 +200,6 @@ void View::setController(Controller* c) {
 
     connect(tableView->horizontalHeader(), SIGNAL(sectionDoubleClicked(int)), controller, SLOT(editHLabel(int)));
     connect(tableView->verticalHeader(), SIGNAL(sectionDoubleClicked(int)), controller, SLOT(editVLabel(int)));
-    //TEST
-//    connect(tableView->horizontalHeader(), SIGNAL(sectionClicked(int)), controller, SLOT(insertColumn(int)));
-//    connect(tableView->verticalHeader(), SIGNAL(sectionClicked(int)), controller, SLOT(insertRow(int)));
 }
 
 void View::setSplitter(int split) const {
@@ -255,41 +250,49 @@ void View::setGlobalTheme(int theme) const {
         palette.setColor(QPalette::Window, QRgb(0xf0f0f0));
         palette.setColor(QPalette::WindowText, QRgb(0x404044));
         chart->setChartTheme(QChart::ChartThemeLight);
+        toolBar->setStyleSheet("QToolBar {background: rgb(210, 210, 210)}");
         break;
     case 2:
         palette.setColor(QPalette::Window, QRgb(0x40434a));
         palette.setColor(QPalette::WindowText, QRgb(0xd6d6d6));
-       chart->setChartTheme(QChart::ChartThemeDark);
+        chart->setChartTheme(QChart::ChartThemeDark);
+        toolBar->setStyleSheet("QToolBar {background: rgb(97, 101, 112)}");
         break;
     case 3:
         palette.setColor(QPalette::Window, QRgb(0x9e8965));
         palette.setColor(QPalette::WindowText, QRgb(0x404044));
         chart->setChartTheme(QChart::ChartThemeBrownSand);
+        toolBar->setStyleSheet("QToolBar {background: rgb(243, 236, 224)}");
         break;
     case 4:
         palette.setColor(QPalette::Window, QRgb(0x018bba));
         palette.setColor(QPalette::WindowText, QRgb(0x404044));
         chart->setChartTheme(QChart::ChartThemeBlueNcs);
+        toolBar->setStyleSheet("QToolBar {background: rgb(1, 190, 255)}");
         break;
     case 5:
         palette.setColor(QPalette::Window, QRgb(0xffab03));
         palette.setColor(QPalette::WindowText, QRgb(0x181818));
         chart->setChartTheme(QChart::ChartThemeHighContrast);
+        toolBar->setStyleSheet("QToolBar {background: rgb(203, 135, 2)}");
         break;
     case 6:
         palette.setColor(QPalette::Window, QRgb(0xcee7f0));
         palette.setColor(QPalette::WindowText, QRgb(0x404044));
         chart->setChartTheme(QChart::ChartThemeBlueIcy);
+        toolBar->setStyleSheet("QToolBar {background: rgb(61, 174, 218)}");
         break;
     case 7:
         palette.setColor(QPalette::Window, QRgb(0xf0f0f0));
         palette.setColor(QPalette::WindowText, QRgb(0x404044));
         chart->setChartTheme(QChart::ChartThemeQt);
+        toolBar->setStyleSheet("QToolBar {background: rgb(163, 163, 163)}");
         break;
     default:
         palette.setColor(QPalette::Window, QRgb(0x121218));
         palette.setColor(QPalette::WindowText, QRgb(0xd6d6d6));
         chart->setChartTheme(QChart::ChartThemeBlueCerulean);
+        toolBar->setStyleSheet("QToolBar {background: rgb(6, 93, 132)}");
     }
     window()->setPalette(palette);
 }
