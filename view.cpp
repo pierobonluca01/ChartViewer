@@ -334,12 +334,12 @@ void View::setGlobalTheme(int theme) const {
 
 void View::setTableTheme(int theme) const {
     QPalette light;
-    light.setColor(QPalette::Background, QRgb(0x2a2e32));
+    //light.setColor(QPalette::Background, QRgb(0x2a2e32)); /*TEST: rimozione*/
     light.setColor(QPalette::Base, QRgb(0xf0f0f0));
     light.setColor(QPalette::Text, QRgb(0x404044));
 
     QPalette dark;
-    dark.setColor(QPalette::Background, QRgb(0x2a2e32));
+    //dark.setColor(QPalette::Background, QRgb(0x2a2e32)); /*TEST: rimozione*/
     dark.setColor(QPalette::Base, QRgb(0x1b1e20));
     dark.setColor(QPalette::Text, QRgb(0xd6d6d6));
 
