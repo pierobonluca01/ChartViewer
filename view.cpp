@@ -244,6 +244,7 @@ void View::setChartType(int c) {
 }
 
 void View::setGlobalTheme(int theme) const {
+    menuBar->setStyleSheet("QMenuBar {background: rgb(255, 255, 255)}"); //Sistemi Ubuntu
     QPalette palette=window()->palette();
     switch(theme) {
     case 0:
@@ -293,7 +294,6 @@ void View::setGlobalTheme(int theme) const {
         palette.setColor(QPalette::WindowText, QRgb(0xd6d6d6));
         chart->setChartTheme(QChart::ChartThemeBlueCerulean);
         toolBar->setStyleSheet("QToolBar {background: rgb(6, 93, 132)}");
-        menuBar->setStyleSheet("QMenuBar {text: rgb(255, 255. 255)}"); //Sistemi Ubuntu
     }
     window()->setPalette(palette);
 }
