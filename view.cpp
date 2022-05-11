@@ -159,6 +159,15 @@ void View::addToolBar(QVBoxLayout* layout) {
     separator->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     toolBar->addWidget(separator);
 
+    //TODO: Implementare
+    QComboBox* type=new QComboBox;
+    type->addItem("Bar Chart");
+    type->addItem("Line Chart");
+    type->addItem("Pie Chart");
+    toolBar->addWidget(type);
+
+    toolBar->addSeparator();
+
     QAction* onlyTable=new QAction("Nascondi grafico");
     onlyTable->setIcon(QIcon(":/toolbar/onlytable"));
     toolBar->addAction(onlyTable);
