@@ -9,11 +9,13 @@ View::View(QWidget* parent): QWidget(parent) {
     //setChartType(); //default chart
 
     QVBoxLayout* mainLayout=new QVBoxLayout;
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     addMenus(mainLayout);
     addToolBar(mainLayout);
     graphSplitter=new QSplitter;
     addTable(graphSplitter);
     addChart(graphSplitter);
+    graphSplitter->setContentsMargins(10, 0, 10, 10);
     graphSplitter->setSizes({this->width()/2, this->width()/2});
     mainLayout->addWidget(graphSplitter);
 
@@ -37,7 +39,14 @@ void View::addMenus(QVBoxLayout* layout) {
 
     //FILE
     file->addAction(new QAction("Nuovo...", file));
+    file->addSeparator();
+    //TODO: Impementare i seguenti
+    file->addAction(new QAction("Apri...", file));
+    file->addSeparator();
+    file->addAction(new QAction("Salva", file));
+    file->addAction(new QAction("Salva con nome...", file));
     menuBar->addMenu(file);
+
 
 
     //VIEW
@@ -278,7 +287,6 @@ void View::setChartType(int c) {
 }
 
 void View::setGlobalTheme(int theme) const {
-    menuBar->setStyleSheet("QMenuBar {background: rgb(255, 255, 255)}"); //Sistemi Ubuntu
     QPalette palette=window()->palette();
     switch(theme) {
     case 0:
@@ -329,6 +337,7 @@ void View::setGlobalTheme(int theme) const {
         chart->setChartTheme(QChart::ChartThemeBlueCerulean);
         toolBar->setStyleSheet("QToolBar {background: rgb(6, 93, 132)}");
     }
+    menuBar->setStyleSheet("QMenuBar {background: rgb(255, 255, 255)}"); //Sistemi Ubuntu
     window()->setPalette(palette);
 }
 

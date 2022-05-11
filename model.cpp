@@ -23,6 +23,7 @@ int Model::columnCount(const QModelIndex& parent) const {
 QVariant Model::data(const QModelIndex& index, int role) const {
     if(index.isValid() && role==Qt::DisplayRole)
        return graph->getData(index.row(), index.column());
+
     return QVariant();
 }
 
@@ -66,7 +67,7 @@ bool Model::insertColumns(int column, int count, const QModelIndex& parent) {
     endInsertColumns();
     return true;
 }
-//FUNZIONA
+
 bool Model::insertColumn(int column, const QModelIndex& parent) {
     beginInsertColumns(parent, column+1, column+1);
     graph->insertColumn(column);
@@ -88,7 +89,7 @@ bool Model::insertRows(int row, int count, const QModelIndex& parent) {
     endInsertRows();
     return true;
 }
-//FUNZIONA
+
 bool Model::insertRow(int row, const QModelIndex& parent) {
     beginInsertRows(parent, row+1, row+1);
     graph->insertRow(row);
