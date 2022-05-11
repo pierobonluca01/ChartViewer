@@ -389,7 +389,8 @@ void View::headerHMenu(QPoint pos) {
     removeMapper.setMapping(menu.actions().at(5), column);
     connect(&removeMapper, SIGNAL(mapped(int)), controller, SLOT(removeColumn(int)));
 
-    menu.exec(tableView->viewport()->mapToGlobal(pos));
+    if(column>=0)
+        menu.exec(tableView->viewport()->mapToGlobal(pos));
 }
 
 void View::headerVMenu(QPoint pos) {
@@ -420,7 +421,8 @@ void View::headerVMenu(QPoint pos) {
     removeMapper.setMapping(menu.actions().at(5), row);
     connect(&removeMapper, SIGNAL(mapped(int)), controller, SLOT(removeRow(int)));
 
-    menu.exec(tableView->viewport()->mapToGlobal(pos));
+    if(row>=0)
+        menu.exec(tableView->viewport()->mapToGlobal(pos));
 }
 
 void View::updateChart() const {

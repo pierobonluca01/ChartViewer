@@ -67,6 +67,8 @@ void Controller::removeRow(int ir) const {
 }
 
 void Controller::editHLabel(int section) const {
+    if(section<0)
+        return;
     EditLabelDialog* eld=new EditLabelDialog(0, model->headerData(section, Qt::Horizontal).toString());
     if(eld->exec()==QDialog::Accepted)
         model->setHeaderData(section, Qt::Horizontal, eld->getLabel());
@@ -74,6 +76,8 @@ void Controller::editHLabel(int section) const {
 }
 
 void Controller::editVLabel(int section) const {
+    if(section<0)
+        return;
     EditLabelDialog* eld=new EditLabelDialog(1, model->headerData(section, Qt::Vertical).toString());
     if(eld->exec()==QDialog::Accepted)
         model->setHeaderData(section, Qt::Vertical, eld->getLabel());
