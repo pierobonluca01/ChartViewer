@@ -352,21 +352,33 @@ void View::setGlobalTheme(int theme) const {
 
 void View::setTableTheme(int theme) const {
     QPalette light;
-    //light.setColor(QPalette::Background, QRgb(0x2a2e32)); /*TEST: rimozione*/
+    //light.setColor(QPalette::Background, QRgb(0x232323)); /*TEST: rimozione*/
     light.setColor(QPalette::Base, QRgb(0xf0f0f0));
     light.setColor(QPalette::Text, QRgb(0x404044));
 
     QPalette dark;
-    //dark.setColor(QPalette::Background, QRgb(0x2a2e32)); /*TEST: rimozione*/
+    //dark.setColor(QPalette::Background, QRgb(0xa3a3a3)); /*TEST: rimozione*/
     dark.setColor(QPalette::Base, QRgb(0x1b1e20));
     dark.setColor(QPalette::Text, QRgb(0xd6d6d6));
 
+    //tableView->setStyleSheet("QHeaderView::section { color: black}");
+
     switch(theme) {
     case 0:
-        tableView->setPalette(light);
+        tableView->setStyleSheet("QTableView {"
+                                 "  background: rgb(240, 240, 240);"
+                                 "  color: rgb(64, 64, 68);" // text color
+                                 "  gridline-color: rgb(189, 189, 189)"
+                                 "}");
+        //tableView->setPalette(light);
         break;
     default:
-        tableView->setPalette(dark);
+        tableView->setStyleSheet("QTableView {"
+                                 "  background: rgb(27, 30, 32);"
+                                 "  color: rgb(214, 214, 214);" // text color
+                                 "  gridline-color: rgb(88, 93, 97)"
+                                 "}");
+        //tableView->setPalette(dark);
     }
 }
 
