@@ -385,7 +385,8 @@ void View::setTableTheme(int theme) const {
                                  "  background: rgb(220, 220, 220)"
                                  "}"
                                  "QHeaderView::section {"
-                                 "  background-color: rgb(200, 200, 200)"
+                                 "  background-color: rgb(200, 200, 200);"
+                                 "  color: rgb(22, 3, 9)"
                                  "}");
         break;
     default:
