@@ -352,16 +352,23 @@ void View::setGlobalTheme(int theme) const {
 
 void View::setTableTheme(int theme) const {
 
-    /* TODO: Rimuovere
+    /* TODO: Scegliere tra vecchio e nuovo stile
+
     QPalette light;
-    //light.setColor(QPalette::Background, QRgb(0x232323)); //TEST: rimozione
     light.setColor(QPalette::Base, QRgb(0xf0f0f0));
     light.setColor(QPalette::Text, QRgb(0x404044));
 
     QPalette dark;
-    //dark.setColor(QPalette::Background, QRgb(0xa3a3a3)); //TEST: rimozione
     dark.setColor(QPalette::Base, QRgb(0x1b1e20));
     dark.setColor(QPalette::Text, QRgb(0xd6d6d6));
+
+    switch(theme) {
+    case 0:
+        tableView->setPalette(light);
+        break;
+    default:
+        tableView->setPalette(dark);
+    }
     */
 
     switch(theme) {
@@ -369,15 +376,14 @@ void View::setTableTheme(int theme) const {
         tableView->setStyleSheet("QTableView {"
                                  "  background: rgb(240, 240, 240);"
                                  "  color: rgb(64, 64, 68);" // text color
-                                 "  gridline-color: rgb(189, 189, 189)"
+                                 "  gridline-color: rgb(189, 189, 189);"
                                  "}"
                                  "QHeaderView {"
-                                 "  background: rgb(189, 189, 189)"
+                                 "  background: rgb(220, 220, 220)"
                                  "}"
                                  "QHeaderView::section {"
-                                 "  background-color: rgb(150, 150, 150)"
+                                 "  background-color: rgb(210, 210, 210)"
                                  "}");
-        //tableView->setPalette(light); TODO: Rimuovere
         break;
     default:
         tableView->setStyleSheet("QTableView {"
@@ -392,7 +398,6 @@ void View::setTableTheme(int theme) const {
                                  "  background-color: rgb(62, 64, 66);"
                                  "  color: rgb(214, 214, 214);"
                                  "}");
-        //tableView->setPalette(dark); //TODO: Rimuovere
     }
 }
 
