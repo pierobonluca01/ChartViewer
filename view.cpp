@@ -376,23 +376,30 @@ void View::setTableTheme(int theme) const {
         tableView->setStyleSheet("QTableView {"
                                  "  background: rgb(240, 240, 240);"
                                  "  color: rgb(64, 64, 68);" // text color
-                                 "  gridline-color: rgb(189, 189, 189);"
+                                 "  gridline-color: rgb(189, 189, 189)"
+                                 "}"
+                                 "QTableView QTableCornerButton::section {"
+                                 "  background: rgb(220, 220, 220)"
                                  "}"
                                  "QHeaderView {"
                                  "  background: rgb(220, 220, 220)"
                                  "}"
                                  "QHeaderView::section {"
-                                 "  background-color: rgb(210, 210, 210)"
+                                 "  background-color: rgb(200, 200, 200)"
                                  "}");
         break;
     default:
         tableView->setStyleSheet("QTableView {"
+                                 "  background-color: black;"
                                  "  background: rgb(27, 30, 32);"
                                  "  color: rgb(214, 214, 214);" // text color
                                  "  gridline-color: rgb(88, 93, 97)"
                                  "}"
+                                 "QTableView QTableCornerButton::section {"
+                                 "  background: rgb(20, 20, 20)"
+                                 "}"
                                  "QHeaderView {"
-                                 "  background: black"
+                                 "  background: rgb(20, 20, 20)"
                                  "}"
                                  "QHeaderView::section {"
                                  "  background-color: rgb(62, 64, 66);"
