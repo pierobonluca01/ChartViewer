@@ -351,17 +351,18 @@ void View::setGlobalTheme(int theme) const {
 }
 
 void View::setTableTheme(int theme) const {
+
+    /* TODO: Rimuovere
     QPalette light;
-    //light.setColor(QPalette::Background, QRgb(0x232323)); /*TEST: rimozione*/
+    //light.setColor(QPalette::Background, QRgb(0x232323)); //TEST: rimozione
     light.setColor(QPalette::Base, QRgb(0xf0f0f0));
     light.setColor(QPalette::Text, QRgb(0x404044));
 
     QPalette dark;
-    //dark.setColor(QPalette::Background, QRgb(0xa3a3a3)); /*TEST: rimozione*/
+    //dark.setColor(QPalette::Background, QRgb(0xa3a3a3)); //TEST: rimozione
     dark.setColor(QPalette::Base, QRgb(0x1b1e20));
     dark.setColor(QPalette::Text, QRgb(0xd6d6d6));
-
-    //tableView->setStyleSheet("QHeaderView::section { color: black}");
+    */
 
     switch(theme) {
     case 0:
@@ -369,16 +370,29 @@ void View::setTableTheme(int theme) const {
                                  "  background: rgb(240, 240, 240);"
                                  "  color: rgb(64, 64, 68);" // text color
                                  "  gridline-color: rgb(189, 189, 189)"
+                                 "}"
+                                 "QHeaderView {"
+                                 "  background: rgb(189, 189, 189)"
+                                 "}"
+                                 "QHeaderView::section {"
+                                 "  background-color: rgb(150, 150, 150)"
                                  "}");
-        //tableView->setPalette(light);
+        //tableView->setPalette(light); TODO: Rimuovere
         break;
     default:
         tableView->setStyleSheet("QTableView {"
                                  "  background: rgb(27, 30, 32);"
                                  "  color: rgb(214, 214, 214);" // text color
                                  "  gridline-color: rgb(88, 93, 97)"
+                                 "}"
+                                 "QHeaderView {"
+                                 "  background: black"
+                                 "}"
+                                 "QHeaderView::section {"
+                                 "  background-color: rgb(62, 64, 66);"
+                                 "  color: rgb(214, 214, 214);"
                                  "}");
-        //tableView->setPalette(dark);
+        //tableView->setPalette(dark); //TODO: Rimuovere
     }
 }
 
