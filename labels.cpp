@@ -18,11 +18,11 @@ string& Labels::setLabel(size_t i) {
 
 void Labels::newLabels(size_t n) {
     for(size_t i=0; i<n; i++)
-        l.push_back(std::to_string(l.size()+1));
+        l.push_back("nuova"+std::to_string(i+1));
 }
 
 void Labels::insertLabel(size_t i) {
-    l.insert(l.begin()+i, std::to_string(l.size()+1));
+    l.insert(l.begin()+i, "nuova"/*+std::to_string(l.size()+1)*/);
 }
 
 void Labels::removeLabel(size_t i) {
