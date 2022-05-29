@@ -42,6 +42,8 @@ public slots:
     void addRC(int) const;
 
     void renewGraph() const;
+
+    bool save();
 };
 
 #endif // CONTROLLER_H

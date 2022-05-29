@@ -104,3 +104,20 @@ void Controller::renewGraph() const {
     }
     delete ng;
 }
+
+
+bool Controller::save() {
+    QFile file("save.json");
+
+    if (!file.open(QIODevice::WriteOnly)) {
+        qWarning("Couldn't open save file.");
+        return false;
+    }
+
+    QJsonObject obj;
+    obj["name"]=model->getName();
+    QJsonDocument doc(obj);
+    file.write(doc.toJson());
+
+    return true;
+}
