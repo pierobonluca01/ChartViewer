@@ -241,7 +241,8 @@ void View::setController(Controller* c) {
     setWindowTitle(QString(controller->getName()+" | ChartViewer"));
     //chart->setController(c);
     connect(file->actions().at(0), SIGNAL(triggered()), controller, SLOT(renewGraph()));
-    connect(file->actions().at(4), SIGNAL(triggered()), controller, SLOT(save()));
+    connect(file->actions().at(4), SIGNAL(triggered()), controller, SLOT(quickSave()));
+    connect(file->actions().at(5), SIGNAL(triggered()), controller, SLOT(saveWithName()));
     connect(toolBar->actions().at(0), SIGNAL(triggered()), controller, SLOT(renewGraph()));
 
     connect(tableView->horizontalHeader(), SIGNAL(sectionDoubleClicked(int)), controller, SLOT(editHLabel(int)));

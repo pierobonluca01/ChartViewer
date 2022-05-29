@@ -13,6 +13,8 @@ private:
     Model* model;
     View* view;
 
+    QString fileName;
+
 public:
     Controller(QObject* =nullptr);
     virtual ~Controller() =default;
@@ -43,6 +45,8 @@ public slots:
 
     void renewGraph() const;
 
+    void quickSave();
+    void saveWithName();
     bool save();
 };
 

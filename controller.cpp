@@ -100,17 +100,34 @@ void Controller::renewGraph() const {
     if(ng->exec()==QDialog::Accepted) {
         model->renewGraph(ng->getRows(), ng->getColumns(), ng->getName());
         view->updateChart();
-        view->setWindowTitle(QString("ChartViewer: ")+ng->getName());
+        view->setWindowTitle(ng->getName()+QString(" | ChartViewer"));
     }
     delete ng;
 }
 
+void Controller::quickSave() {
+    if(fileName=="")
+        saveWithName();
+    else
+        save();
+}
+
+void Controller::saveWithName() {
+    QString tmp=QFileDialog::getSaveFileName(view, tr("Salva con nome..."), "./"+model->getName()+".json", tr("JSON (*.json)"));
+    if(tmp!="") {
+        fileName=tmp;
+        QFileInfo info(fileName);
+        model->setName(info.baseName());
+        view->setWindowTitle(info.baseName()+tr(" | ChartViewer"));
+        save();
+    }
+}
 
 bool Controller::save() {
-    QFile file("save.json");
+    QFile file(fileName);
 
     if (!file.open(QIODevice::WriteOnly)) {
-        qWarning("Couldn't open save file.");
+        qWarning("\t[!] Impossibile aprire il file.");
         return false;
     }
 
@@ -118,14 +135,14 @@ bool Controller::save() {
     row["count"]=model->rowCount();
     QJsonArray rowLabels;
     for(int i=0; i<model->rowCount(); ++i)
-        rowLabels.append(model->headerData(i, Qt::Horizontal).toString());
+        rowLabels.append(model->headerData(i, Qt::Vertical).toString());
     row["labels"]=rowLabels;
 
     QJsonObject column;
     column["count"]=model->columnCount();
     QJsonArray columnLabels;
     for(int i=0; i<model->columnCount(); ++i)
-        columnLabels.append(model->headerData(i, Qt::Vertical).toString());
+        columnLabels.append(model->headerData(i, Qt::Horizontal).toString());
     column["labels"]=columnLabels;
 
     QJsonArray data;
