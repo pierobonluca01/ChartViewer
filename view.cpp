@@ -242,7 +242,9 @@ void View::setController(Controller* c) {
     //chart->setController(c);
     connect(file->actions().at(0), SIGNAL(triggered()), controller, SLOT(renewGraph()));
     connect(file->actions().at(4), SIGNAL(triggered()), controller, SLOT(quickSave()));
+    file->actions().at(4)->setShortcut(QKeySequence(tr("Ctrl+S")));
     connect(file->actions().at(5), SIGNAL(triggered()), controller, SLOT(saveWithName()));
+
     connect(toolBar->actions().at(0), SIGNAL(triggered()), controller, SLOT(renewGraph()));
 
     connect(tableView->horizontalHeader(), SIGNAL(sectionDoubleClicked(int)), controller, SLOT(editHLabel(int)));
