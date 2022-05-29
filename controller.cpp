@@ -114,8 +114,37 @@ bool Controller::save() {
         return false;
     }
 
+    QJsonObject row;
+    row["count"]=model->rowCount();
+    QJsonArray rowLabels;
+    for(int i=0; i<model->rowCount(); ++i)
+        rowLabels.append(model->headerData(i, Qt::Horizontal).toString());
+    row["labels"]=rowLabels;
+
+    QJsonObject column;
+    column["count"]=model->columnCount();
+    QJsonArray columnLabels;
+    for(int i=0; i<model->columnCount(); ++i)
+        columnLabels.append(model->headerData(i, Qt::Vertical).toString());
+    column["labels"]=columnLabels;
+
+    QJsonArray data;
+    for(int i=0; i<model->rowCount(); ++i) {
+        QJsonArray rowData;
+        for(int j=0; j<model->columnCount(); ++j) {
+            QModelIndex index=model->index(i, j);
+            rowData.append(model->data(index).toDouble());
+        }
+        data.append(rowData);
+    }
+
+
     QJsonObject obj;
     obj["name"]=model->getName();
+    obj["row"]=row;
+    obj["column"]=column;
+    obj["table"]=data;
+
     QJsonDocument doc(obj);
     file.write(doc.toJson());
 
