@@ -105,6 +105,49 @@ void Controller::renewGraph() const {
     delete ng;
 }
 
+bool Controller::open() {
+    QString tmp=QFileDialog::getOpenFileName(view, tr("Apri"), "", tr("JSON (*.json)"));
+    if(tmp=="")
+        return false;
+
+    fileName=tmp;
+    QFile file(fileName);
+
+    if (!file.open(QIODevice::ReadOnly)) {
+        qWarning("Couldn't open save file.");
+        return false;
+    }
+
+    QJsonObject obj=QJsonDocument::fromJson(file.readAll()).object();
+
+    QJsonObject row=obj["row"].toObject();
+    QJsonObject column=obj["column"].toObject();
+
+    QFileInfo info(fileName);
+    model->renewGraph(row["count"].toInt(), column["count"].toInt(), info.baseName());
+    view->updateChart();
+    view->setWindowTitle(info.baseName()+tr(" | ChartViewer"));
+
+    QJsonArray rowLabels=row["labels"].toArray();
+    for(int i=0; i<model->rowCount(); ++i)
+        model->setHeaderData(i, Qt::Vertical, rowLabels[i].toString());
+
+    QJsonArray columnLabels=column["labels"].toArray();
+    for(int i=0; i<model->columnCount(); ++i)
+        model->setHeaderData(i, Qt::Horizontal, columnLabels[i].toString());
+
+    QJsonArray data=obj["table"].toArray();
+    for(int i=0; i<model->rowCount(); ++i) {
+        QJsonArray rowData=data[i].toArray();
+        for(int j=0; j<model->columnCount(); ++j) {
+            QModelIndex index=model->index(i, j);
+            model->setData(index, rowData[j].toDouble());
+        }
+    }
+
+    return true;
+}
+
 void Controller::quickSave() {
     if(fileName=="")
         saveWithName();

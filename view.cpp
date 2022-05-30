@@ -241,9 +241,13 @@ void View::setController(Controller* c) {
     setWindowTitle(QString(controller->getName()+" | ChartViewer"));
     //chart->setController(c);
     connect(file->actions().at(0), SIGNAL(triggered()), controller, SLOT(renewGraph()));
+    file->actions().at(0)->setShortcut(QKeySequence(tr("Ctrl+N")));
+    connect(file->actions().at(2), SIGNAL(triggered()), controller, SLOT(open()));
+    file->actions().at(2)->setShortcut(QKeySequence(tr("Ctrl+O")));
     connect(file->actions().at(4), SIGNAL(triggered()), controller, SLOT(quickSave()));
     file->actions().at(4)->setShortcut(QKeySequence(tr("Ctrl+S")));
     connect(file->actions().at(5), SIGNAL(triggered()), controller, SLOT(saveWithName()));
+    file->actions().at(5)->setShortcut(QKeySequence(tr("Ctrl+Shift+S")));
 
     connect(toolBar->actions().at(0), SIGNAL(triggered()), controller, SLOT(renewGraph()));
 

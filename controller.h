@@ -28,7 +28,7 @@ public:
     QVariant data(const QModelIndex&) const;
     QVariant headerData(int, Qt::Orientation) const;
 
-
+    bool save();
 
 public slots:
     void newColumns(int =1) const;
@@ -45,9 +45,9 @@ public slots:
 
     void renewGraph() const;
 
+    bool open();
     void quickSave();
     void saveWithName();
-    bool save();
 };
 
 #endif // CONTROLLER_H
