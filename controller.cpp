@@ -106,7 +106,7 @@ void Controller::renewGraph() const {
 }
 
 bool Controller::open() {
-    QString tmp=QFileDialog::getOpenFileName(view, tr("Apri"), "", tr("JSON (*.json)"));
+    QString tmp=QFileDialog::getOpenFileName(view, tr("Apri..."), QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)+"/", tr("JSON (*.json)"));
     if(tmp=="")
         return false;
 
@@ -156,7 +156,7 @@ void Controller::quickSave() {
 }
 
 void Controller::saveWithName() {
-    QString tmp=QFileDialog::getSaveFileName(view, tr("Salva con nome..."), "./"+model->getName()+".json", tr("JSON (*.json)"));
+    QString tmp=QFileDialog::getSaveFileName(view, tr("Salva con nome..."), QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)+"/"+model->getName()+".json", tr("JSON (*.json)"));
     if(tmp!="") {
         fileName=tmp;
         QFileInfo info(fileName);
