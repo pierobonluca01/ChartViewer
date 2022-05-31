@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-TARGET = ProgettoQt
+TARGET = ChartViewer
 
 QT = core gui widgets charts
 
