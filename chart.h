@@ -26,6 +26,7 @@ public:
 
     QChart* getChart();
     void setChartTheme(QChart::ChartTheme);
+    QChart::ChartTheme getChartTheme();
     //void scrollEvent(QWheelEvent*); //TODO: Implementare
 };
 

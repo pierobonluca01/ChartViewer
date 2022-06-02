@@ -13,6 +13,10 @@ void Chart::setChartTheme(QChart::ChartTheme t) {
     chart->setTheme(t);
 }
 
+QChart::ChartTheme Chart::getChartTheme() {
+    return chart->theme();
+}
+
 //void Chart::scrollEvent(QWheelEvent* e) {
 //    //TODO: Implementare
 //}

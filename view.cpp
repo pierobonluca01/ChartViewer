@@ -291,6 +291,7 @@ void View::setChartZoom(int z) const {
 }
 
 void View::setChartType(int c) {
+    QChart::ChartTheme theme=chart->getChartTheme();
     delete chartView;
     delete chart;
     switch(c) {
@@ -304,8 +305,8 @@ void View::setChartType(int c) {
         chart=new BarChart;
     }
     addChart(graphSplitter);
+    chart->setChartTheme(theme);
     setSplitter();
-    setGlobalTheme();
     chart->setModel(tableView->model());
 }
 
