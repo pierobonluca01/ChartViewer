@@ -86,7 +86,7 @@ void View::addMenus(QVBoxLayout* layout) {
     chartTypeGroup->addAction(chartType->addAction(QString("Line Chart (Grafico a linee)")))->setCheckable(true);
     chartTypeGroup->addAction(chartType->addAction(QString("Pie Chart (Grafico a torta)")))->setCheckable(true);
     QSignalMapper* chartTypeSignals=new QSignalMapper;
-    for(int i=0; i<2; i++) {
+    for(int i=0; i<3; i++) {
         connect(chartType->actions().at(i), SIGNAL(triggered()), chartTypeSignals, SLOT(map()));
         chartTypeSignals->setMapping(chartType->actions().at(i), i);
     }
@@ -291,6 +291,8 @@ void View::setChartZoom(int z) const {
 }
 
 void View::setChartType(int c) {
+    delete chartView;
+    delete chart;
     switch(c) {
     case 1:
         chart=new LineChart;
@@ -301,6 +303,10 @@ void View::setChartType(int c) {
     default:
         chart=new BarChart;
     }
+    addChart(graphSplitter);
+    setSplitter();
+    setGlobalTheme();
+    chart->setModel(tableView->model());
 }
 
 void View::setGlobalTheme(int theme) const {

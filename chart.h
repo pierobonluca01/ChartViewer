@@ -3,7 +3,7 @@
 
 #include <QtCharts>
 
-class Controller; //TODO: Rimuovere i commenti relatiivi al Controller
+class Controller; //TODO: Rimuovere i commenti relativi al Controller
 
 class Chart: public QWidget {
     Q_OBJECT

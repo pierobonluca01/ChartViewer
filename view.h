@@ -52,8 +52,8 @@ public slots:
     void setSplitter(int =0) const;
     void setChartZoom(int) const;
     void setChartType(int =0);
-    void setGlobalTheme(int =0) const;
-    void setTableTheme(int =0) const;
+    void setGlobalTheme(int =1) const;
+    void setTableTheme(int =1) const;
 
     void headerHMenu(QPoint);
     void headerVMenu(QPoint);
