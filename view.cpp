@@ -23,8 +23,8 @@ View::View(QWidget* parent): QWidget(parent) {
 
     resize(900, 500);
     setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), QApplication::desktop()->availableGeometry()));
-    setGlobalTheme(1);
-    setTableTheme(1);
+    setGlobalTheme();
+    setTableTheme();
 }
 
 void View::addMenus(QVBoxLayout* layout) {
@@ -159,12 +159,18 @@ void View::addToolBar(QVBoxLayout* layout) {
     separator->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     toolBar->addWidget(separator);
 
-    //TODO: Implementare
-    QComboBox* type=new QComboBox;
-    type->addItem("Bar Chart");
-    type->addItem("Line Chart");
-    type->addItem("Pie Chart");
-    toolBar->addWidget(type);
+    typeCombo=new QComboBox;
+    typeCombo->addItem("Bar Chart");
+    typeCombo->addItem("Line Chart");
+    typeCombo->addItem("Pie Chart");
+    connect(typeCombo, SIGNAL(activated(int)), this, SLOT(setChartType(int)));
+    QSignalMapper* chartTypeSignals=new QSignalMapper;
+    for(int i=0; i<3; i++) {
+        connect(chartType->actions().at(i), SIGNAL(triggered()), chartTypeSignals, SLOT(map()));
+        chartTypeSignals->setMapping(chartType->actions().at(i), i);
+    }
+    connect(chartTypeSignals, SIGNAL(mapped(int)), typeCombo, SLOT(setCurrentIndex(int)));
+    toolBar->addWidget(typeCombo);
 
     toolBar->addSeparator();
 

@@ -29,6 +29,7 @@ private:
     QMenu* themes;
 
     QToolBar* toolBar;
+    QComboBox* typeCombo;
 
     Chart* chart;
 
