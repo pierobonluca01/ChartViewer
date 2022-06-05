@@ -64,14 +64,18 @@ public:
 class PieChart: public Chart {
     Q_OBJECT
 
+private:
+    QPieSeries* series;
+    QVPieModelMapper* mapper;
+
 public:
     PieChart();
     virtual ~PieChart() =default;
 
     //void setModel(QAbstractItemModel*) override {}
 
-    void build() override {}
-    void updateChart() override {}
+    void build() override;
+    void updateChart() override;
 };
 
 #endif // CHART_H

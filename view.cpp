@@ -233,6 +233,7 @@ void View::addTable(QSplitter* splitter) {
 void View::addChart(QSplitter* splitter) {
     chartView=new QChartView(chart->getChart());
     chartView->setRubberBand(QChartView::RectangleRubberBand);
+    chartView->setRenderHint(QPainter::Antialiasing);
     splitter->addWidget(chartView);
 }
 

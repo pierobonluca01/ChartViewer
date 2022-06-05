@@ -83,7 +83,6 @@ bool Model::removeColumn(int column, const QModelIndex& parent) {
 }
 
 bool Model::insertRows(int row, int count, const QModelIndex& parent) {
-    std::cout<<row<<" "<<count;
     beginInsertRows(parent, row, row+count-1);
     graph->newRows(count);
     endInsertRows();
