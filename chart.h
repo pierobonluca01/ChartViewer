@@ -61,12 +61,29 @@ public:
     void updateChart() override {}
 };
 
+class DrilldownSlice: public QPieSlice
+{
+    Q_OBJECT
+
+private:
+    QPieSeries *series;
+    QString prefix;
+
+public:
+    DrilldownSlice(double value, QString prefix, QPieSeries *drilldownSeries);
+    virtual ~DrilldownSlice() =default;
+    QPieSeries *drilldownSeries() const;
+
+public slots:
+    void updateLabel();
+    void showHighlight(bool show);
+};
+
 class PieChart: public Chart {
     Q_OBJECT
 
 private:
     QPieSeries* series;
-    QVPieModelMapper* mapper;
 
 public:
     PieChart();
@@ -76,6 +93,10 @@ public:
 
     void build() override;
     void updateChart() override;
+    void changeSeries(QPieSeries*);
+
+public slots:
+    void handleSliceClicked(QPieSlice*);
 };
 
 #endif // CHART_H

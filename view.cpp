@@ -6,7 +6,6 @@ View::View(QWidget* parent): QWidget(parent) {
     setWindowTitle(QString("ChartViewer"));
 
     chart=new BarChart;
-    //setChartType(); //default chart
 
     QVBoxLayout* mainLayout=new QVBoxLayout;
     mainLayout->setContentsMargins(0, 0, 0, 0);
@@ -23,6 +22,7 @@ View::View(QWidget* parent): QWidget(parent) {
 
     resize(900, 500);
     setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), QApplication::desktop()->availableGeometry()));
+    chartView->setRubberBand(QChartView::RectangleRubberBand);
     setGlobalTheme();
     setTableTheme();
 }
@@ -232,7 +232,6 @@ void View::addTable(QSplitter* splitter) {
 
 void View::addChart(QSplitter* splitter) {
     chartView=new QChartView(chart->getChart());
-    chartView->setRubberBand(QChartView::RectangleRubberBand);
     chartView->setRenderHint(QPainter::Antialiasing);
     splitter->addWidget(chartView);
 }
@@ -315,6 +314,8 @@ void View::setChartType(int c) {
     chart->setChartTheme(theme);
     setSplitter();
     chart->setModel(tableView->model());
+    if(c==0)
+        chartView->setRubberBand(QChartView::RectangleRubberBand);
 }
 
 void View::setGlobalTheme(int theme) const {
