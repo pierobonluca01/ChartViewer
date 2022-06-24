@@ -145,6 +145,18 @@ void View::addToolBar(QVBoxLayout* layout) {
     nuovo->setIcon(QIcon(":/toolbar/nuovo"));
     toolBar->addAction(nuovo);
 
+    QAction* apri=new QAction("apri");
+    apri->setIcon(QIcon(":/toolbar/apri"));
+    toolBar->addAction(apri);
+
+    QAction* salva=new QAction("salva");
+    salva->setIcon(QIcon(":/toolbar/salva"));
+    toolBar->addAction(salva);
+
+    QAction* salvacome=new QAction("salvacome");
+    salvacome->setIcon(QIcon(":/toolbar/salvacome"));
+    toolBar->addAction(salvacome);
+
     toolBar->addSeparator();
 
     QAction* newrows=new QAction("Aggiungi righe");
@@ -256,15 +268,18 @@ void View::setController(Controller* c) {
     file->actions().at(5)->setShortcut(QKeySequence(tr("Ctrl+Shift+S")));
 
     connect(toolBar->actions().at(0), SIGNAL(triggered()), controller, SLOT(renewGraph()));
+    connect(toolBar->actions().at(1), SIGNAL(triggered()), controller, SLOT(open()));
+    connect(toolBar->actions().at(2), SIGNAL(triggered()), controller, SLOT(quickSave()));
+    connect(toolBar->actions().at(3), SIGNAL(triggered()), controller, SLOT(saveWithName()));
 
     connect(tableView->horizontalHeader(), SIGNAL(sectionDoubleClicked(int)), controller, SLOT(editHLabel(int)));
     connect(tableView->verticalHeader(), SIGNAL(sectionDoubleClicked(int)), controller, SLOT(editVLabel(int)));
 
     QSignalMapper* newSignals=new QSignalMapper;
-    connect(toolBar->actions().at(2), SIGNAL(triggered()), newSignals, SLOT(map()));
-    newSignals->setMapping(toolBar->actions().at(2), 1);
-    connect(toolBar->actions().at(3), SIGNAL(triggered()), newSignals, SLOT(map()));
-    newSignals->setMapping(toolBar->actions().at(3), 0);
+    connect(toolBar->actions().at(5), SIGNAL(triggered()), newSignals, SLOT(map()));
+    newSignals->setMapping(toolBar->actions().at(5), 1);
+    connect(toolBar->actions().at(6), SIGNAL(triggered()), newSignals, SLOT(map()));
+    newSignals->setMapping(toolBar->actions().at(6), 0);
     connect(newSignals, SIGNAL(mapped(int)), controller, SLOT(addRC(int)));
 }
 

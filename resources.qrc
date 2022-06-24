@@ -5,14 +5,14 @@
     <qresource prefix="/toolbar">
         <file alias="zoomin">resources/toolbar/zoomin.png</file>
         <file alias="zoomout">resources/toolbar/zoomout.png</file>
-        <file alias="bar">resources/toolbar/bar.png</file>
-        <file alias="line">resources/toolbar/line.png</file>
-        <file alias="nuovo">resources/toolbar/nuovo.png</file>
-        <file alias="pie">resources/toolbar/pie.png</file>
         <file alias="zoomreset">resources/toolbar/zoomreset.png</file>
         <file alias="onlygraph">resources/toolbar/onlygraph.png</file>
         <file alias="onlytable">resources/toolbar/onlytable.png</file>
         <file alias="resetview">resources/toolbar/resetview.png</file>
+        <file alias="apri">resources/toolbar/open.png</file>
+        <file alias="salva">resources/toolbar/save.png</file>
+        <file alias="salvacome">resources/toolbar/saveas.png</file>
+        <file alias="nuovo">resources/toolbar/new.png</file>
     </qresource>
     <qresource prefix="/toolbar/columns">
         <file alias="new">resources/toolbar/table/newcolumns.png</file>
