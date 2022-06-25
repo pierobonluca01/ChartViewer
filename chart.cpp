@@ -82,9 +82,18 @@ LineChart::LineChart() {
 PieSlice::PieSlice(double val, QString p, QPieSeries *s): series(s), header(p) {
     setValue(val);
     updateLabel();
+    setLabelVisible(true);
+    setLabelPosition(QPieSlice::LabelInsideHorizontal);
     connect(this, &PieSlice::percentageChanged, this, &PieSlice::updateLabel);
-    connect(this, &PieSlice::hovered, this, &PieSlice::setLabelVisible);
+    connect(this, &PieSlice::hovered, this, &PieSlice::showLabel);
     connect(this, &PieSlice::hovered, this, &PieSlice::setExploded);
+}
+
+void PieSlice::showLabel(bool show) {
+    if(show)
+        setLabelPosition(QPieSlice::LabelOutside);
+    else
+        setLabelPosition(QPieSlice::LabelInsideHorizontal);
 }
 
 QPieSeries* PieSlice::sliceSeries() const {
@@ -93,19 +102,16 @@ QPieSeries* PieSlice::sliceSeries() const {
 
 void PieSlice::updateLabel() {
     QString label=header;
-    label += ", ";
-    label += QString::number(this->value());
-    label += " | ";
-    label += QString::number(this->percentage() * 100, 'f', 1);
-    label += "%";
+    label+=", ";
+    label+=QString::number(this->value());
+    label+=" | ";
+    label+=QString::number(this->percentage()*100, 'f', 2);
+    label+="%";
     setLabel(label);
 }
 
 PieChart::PieChart(): series(0) {
     chart->setTitle("Pie Chart");
-    chart->setTheme(QChart::ChartThemeLight);
-    chart->setAnimationOptions(QChart::AllAnimations);
-    chart->legend()->setVisible(true);
     chart->legend()->setAlignment(Qt::AlignRight);
 }
 

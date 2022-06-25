@@ -76,6 +76,7 @@ public:
 
 public slots:
     void updateLabel();
+    void showLabel(bool);
 };
 
 class PieChart: public Chart {
