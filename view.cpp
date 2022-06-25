@@ -79,7 +79,7 @@ void View::addMenus(QVBoxLayout* layout) {
 
 
     //CHARTTYPE
-    QActionGroup* chartTypeGroup=new QActionGroup(chartType);
+    chartTypeGroup=new QActionGroup(chartType);
     chartTypeGroup->setExclusive(true);
     chartTypeGroup->addAction(chartType->addAction(QString("Bar Chart (Grafico a barre)")))->setCheckable(true);
     chartTypeGroup->actions().at(0)->setChecked(true);
@@ -92,7 +92,6 @@ void View::addMenus(QVBoxLayout* layout) {
     }
     connect(chartTypeSignals, SIGNAL(mapped(int)), this, SLOT(setChartType(int)));
     menuBar->addMenu(chartType);
-
 
     //THEMES
     //global
@@ -329,6 +328,7 @@ void View::setChartType(int c) {
     chart->setChartTheme(theme);
     setSplitter();
     chart->setModel(tableView->model());
+    chartTypeGroup->actions().at(c)->setChecked(true);
     if(c==0)
         chartView->setRubberBand(QChartView::RectangleRubberBand);
 }

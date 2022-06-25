@@ -26,6 +26,7 @@ private:
     QMenu* file;
     QMenu* view;
     QMenu* chartType;
+    QActionGroup* chartTypeGroup;
     QMenu* themes;
 
     QToolBar* toolBar;

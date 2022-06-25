@@ -61,8 +61,7 @@ public:
     void updateChart() override {}
 };
 
-class DrilldownSlice: public QPieSlice
-{
+class DrilldownSlice: public QPieSlice {
     Q_OBJECT
 
 private:
