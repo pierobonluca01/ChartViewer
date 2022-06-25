@@ -61,21 +61,21 @@ public:
     void updateChart() override {}
 };
 
-class DrilldownSlice: public QPieSlice {
+class PieSlice: public QPieSlice {
     Q_OBJECT
 
 private:
     QPieSeries *series;
-    QString prefix;
+    QString header;
 
 public:
-    DrilldownSlice(double value, QString prefix, QPieSeries *drilldownSeries);
-    virtual ~DrilldownSlice() =default;
-    QPieSeries *drilldownSeries() const;
+    PieSlice(double value, QString prefix, QPieSeries *sliceSeries);
+    virtual ~PieSlice() =default;
+
+    QPieSeries *sliceSeries() const;
 
 public slots:
     void updateLabel();
-    void showHighlight(bool show);
 };
 
 class PieChart: public Chart {

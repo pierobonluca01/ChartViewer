@@ -32,6 +32,9 @@ void /*Bar*/Chart::setModel(QAbstractItemModel* m) {
 }
 
 
+
+// BAR CHART
+
 BarChart::BarChart() {
     chart->setTitle("Bar Chart");
 }
@@ -66,26 +69,30 @@ void BarChart::updateChart() {
 
 
 
+// LINE CHART
+
 LineChart::LineChart() {
     chart->setTitle("Line Chart");
 }
 
 
 
+// PIE CHART
 
-DrilldownSlice::DrilldownSlice(double val, QString p, QPieSeries *s): series(s), prefix(p) {
+PieSlice::PieSlice(double val, QString p, QPieSeries *s): series(s), header(p) {
     setValue(val);
     updateLabel();
-    connect(this, &DrilldownSlice::percentageChanged, this, &DrilldownSlice::updateLabel);
-    connect(this, &DrilldownSlice::hovered, this, &DrilldownSlice::showHighlight);
+    connect(this, &PieSlice::percentageChanged, this, &PieSlice::updateLabel);
+    connect(this, &PieSlice::hovered, this, &PieSlice::setLabelVisible);
+    connect(this, &PieSlice::hovered, this, &PieSlice::setExploded);
 }
 
-QPieSeries* DrilldownSlice::drilldownSeries() const {
+QPieSeries* PieSlice::sliceSeries() const {
     return series;
 }
 
-void DrilldownSlice::updateLabel() {
-    QString label=prefix;
+void PieSlice::updateLabel() {
+    QString label=header;
     label += ", ";
     label += QString::number(this->value());
     label += " | ";
@@ -93,13 +100,6 @@ void DrilldownSlice::updateLabel() {
     label += "%";
     setLabel(label);
 }
-
-void DrilldownSlice::showHighlight(bool show) {
-    setLabelVisible(show);
-    setExploded(show);
-}
-
-
 
 PieChart::PieChart(): series(0) {
     chart->setTitle("Pie Chart");
@@ -117,9 +117,9 @@ void PieChart::changeSeries(QPieSeries* s) {
     chart->setTitle(series->name());
 }
 
-void PieChart::handleSliceClicked(QPieSlice *slice) {
-    DrilldownSlice *drilldownSlice = static_cast<DrilldownSlice *>(slice);
-    changeSeries(drilldownSlice->drilldownSeries());
+void PieChart::handleSliceClicked(QPieSlice *s) {
+    PieSlice *slice=static_cast<PieSlice*>(s);
+    changeSeries(slice->sliceSeries());
 }
 
 void PieChart::build() {
@@ -130,10 +130,10 @@ void PieChart::build() {
         subSeries->setName("PieChart | "+model->headerData(i, Qt::Horizontal).toString());
         for(int j=0; j<model->rowCount(); ++j) {
             QModelIndex index=model->index(j, i);
-            *subSeries<<new DrilldownSlice(model->data(index).toDouble(), model->headerData(j, Qt::Vertical).toString(), mainSeries);
+            *subSeries<<new PieSlice(model->data(index).toDouble(), model->headerData(j, Qt::Vertical).toString(), mainSeries);
         }
         connect(subSeries, &QPieSeries::clicked, this, &PieChart::handleSliceClicked);
-        *mainSeries<<new DrilldownSlice(subSeries->sum(), model->headerData(i, Qt::Horizontal).toString(), subSeries);
+        *mainSeries<<new PieSlice(subSeries->sum(), model->headerData(i, Qt::Horizontal).toString(), subSeries);
     }
     connect(mainSeries, &QPieSeries::clicked, this, &PieChart::handleSliceClicked);
     changeSeries(mainSeries);
