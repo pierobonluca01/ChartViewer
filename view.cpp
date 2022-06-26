@@ -66,12 +66,15 @@ void View::addMenus(QVBoxLayout* layout) {
     //zoom
     QMenu* viewZoom=new QMenu("Zoom", view);
     viewZoom->addAction(new QAction("Zoom Out -", viewZoom));
+    viewZoom->addAction(new QAction("Zoom Reset", viewZoom));
     viewZoom->addAction(new QAction("Zoom In +", viewZoom));
     QSignalMapper* viewZoomSignals=new QSignalMapper;
     connect(viewZoom->actions().at(0), SIGNAL(triggered()), viewZoomSignals, SLOT(map()));
-    viewZoomSignals->setMapping(viewZoom->actions().at(0), 0);
+    viewZoomSignals->setMapping(viewZoom->actions().at(0), 1);
     connect(viewZoom->actions().at(1), SIGNAL(triggered()), viewZoomSignals, SLOT(map()));
-    viewZoomSignals->setMapping(viewZoom->actions().at(1), 1);
+    viewZoomSignals->setMapping(viewZoom->actions().at(1), 0);
+    connect(viewZoom->actions().at(2), SIGNAL(triggered()), viewZoomSignals, SLOT(map()));
+    viewZoomSignals->setMapping(viewZoom->actions().at(2), 2);
     connect(viewZoomSignals, SIGNAL(mapped(int)), this, SLOT(setChartZoom(int)));
     view->addMenu(viewZoom);
 
@@ -316,12 +319,18 @@ void View::setChartType(int c) {
     QChart::ChartTheme theme=chart->getChartTheme();
     delete chartView;
     delete chart;
+    view->actions().at(1)->setEnabled(true);
+    for(int i=14; i<17; ++i)
+        toolBar->actions().at(i)->setEnabled(true);
     switch(c) {
     case 1:
         chart=new LineChart;
         break;
     case 2:
         chart=new PieChart;
+        view->actions().at(1)->setEnabled(false);
+        for(int i=14; i<17; ++i)
+            toolBar->actions().at(i)->setEnabled(false);
         break;
     default:
         chart=new BarChart;
