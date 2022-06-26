@@ -251,6 +251,8 @@ void View::setModel(QAbstractTableModel* m) {
     tableView->setModel(m);
     chart->setModel(m);
     connect(m, &QAbstractTableModel::headerDataChanged, this, &View::updateChart);
+    connect(m, &QAbstractTableModel::dataChanged, this, &View::updateData);
+
 }
 
 void View::setController(Controller* c) {
@@ -513,4 +515,8 @@ void View::headerVMenu(QPoint pos) {
 
 void View::updateChart() const {
     chart->updateChart();
+}
+
+void View::updateData(const QModelIndex& topLeft) const {
+    chart->updateData(topLeft);
 }

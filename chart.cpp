@@ -83,7 +83,7 @@ PieSlice::PieSlice(double val, QString p, QPieSeries *s): series(s), header(p) {
     setValue(val);
     updateLabel();
     setLabelVisible(true);
-    setLabelPosition(QPieSlice::LabelInsideHorizontal);
+    setLabelPosition(QPieSlice::LabelInsideNormal);
     connect(this, &PieSlice::percentageChanged, this, &PieSlice::updateLabel);
     connect(this, &PieSlice::hovered, this, &PieSlice::showLabel);
     connect(this, &PieSlice::hovered, this, &PieSlice::setExploded);
@@ -93,7 +93,7 @@ void PieSlice::showLabel(bool show) {
     if(show)
         setLabelPosition(QPieSlice::LabelOutside);
     else
-        setLabelPosition(QPieSlice::LabelInsideHorizontal);
+        setLabelPosition(QPieSlice::LabelInsideNormal);
 }
 
 QPieSeries* PieSlice::sliceSeries() const {
@@ -123,30 +123,37 @@ void PieChart::changeSeries(QPieSeries* s) {
     chart->setTitle(series->name());
 }
 
-void PieChart::handleSliceClicked(QPieSlice *s) {
-    PieSlice *slice=static_cast<PieSlice*>(s);
+void PieChart::sliceClicked(QPieSlice *s) {
+    PieSlice* slice=static_cast<PieSlice*>(s);
     changeSeries(slice->sliceSeries());
 }
 
 void PieChart::build() {
-    QPieSeries* mainSeries=new QPieSeries;
+    mainSeries=new QPieSeries;
     mainSeries->setName("PieChart");
+    subArray=new QPieSeries*[model->columnCount()];
     for(int i=0; i<model->columnCount(); ++i) {
         QPieSeries* subSeries=new QPieSeries;
+        subArray[i]=subSeries;
         subSeries->setName("PieChart | "+model->headerData(i, Qt::Horizontal).toString());
         for(int j=0; j<model->rowCount(); ++j) {
             QModelIndex index=model->index(j, i);
             *subSeries<<new PieSlice(model->data(index).toDouble(), model->headerData(j, Qt::Vertical).toString(), mainSeries);
         }
-        connect(subSeries, &QPieSeries::clicked, this, &PieChart::handleSliceClicked);
+        connect(subSeries, &QPieSeries::clicked, this, &PieChart::sliceClicked);
         *mainSeries<<new PieSlice(subSeries->sum(), model->headerData(i, Qt::Horizontal).toString(), subSeries);
     }
-    connect(mainSeries, &QPieSeries::clicked, this, &PieChart::handleSliceClicked);
+    connect(mainSeries, &QPieSeries::clicked, this, &PieChart::sliceClicked);
     changeSeries(mainSeries);
 }
 
 void PieChart::updateChart() {
     build();
+}
+
+void PieChart::updateData(const QModelIndex& topLeft) {
+    subArray[topLeft.column()]->slices().at(topLeft.row())->setValue(model->data(topLeft).toDouble());
+    mainSeries->slices().at(topLeft.column())->setValue(subArray[topLeft.column()]->sum());
 }
 
 

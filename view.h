@@ -61,6 +61,7 @@ public slots:
     void headerVMenu(QPoint);
 
     void updateChart() const;
+    void updateData(const QModelIndex&) const;
 };
 
 

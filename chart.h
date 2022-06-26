@@ -23,6 +23,7 @@ public:
 
     virtual void build() =0;
     virtual void updateChart() =0;
+    virtual void updateData(const QModelIndex&) =0;
 
     QChart* getChart();
     void setChartTheme(QChart::ChartTheme);
@@ -46,6 +47,7 @@ public:
 
     void build() override;
     void updateChart() override;
+    void updateData(const QModelIndex&) override {}
 };
 
 class LineChart: public Chart {
@@ -59,6 +61,7 @@ public:
 
     void build() override {}
     void updateChart() override {}
+    void updateData(const QModelIndex&) override {}
 };
 
 class PieSlice: public QPieSlice {
@@ -84,6 +87,9 @@ class PieChart: public Chart {
 
 private:
     QPieSeries* series;
+    QPieSeries* mainSeries;
+    QPieSeries** subArray;
+
 
 public:
     PieChart();
@@ -93,10 +99,11 @@ public:
 
     void build() override;
     void updateChart() override;
+    void updateData(const QModelIndex&) override;
     void changeSeries(QPieSeries*);
 
 public slots:
-    void handleSliceClicked(QPieSlice*);
+    void sliceClicked(QPieSlice*);
 };
 
 #endif // CHART_H
