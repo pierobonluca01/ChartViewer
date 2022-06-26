@@ -60,11 +60,23 @@ void BarChart::build() {
 void BarChart::updateChart() {
     mapper->setLastBarSetColumn(model->columnCount());
     QStringList rowLabels;
-    for(int i=0; i<model->rowCount(); i++)
+    for(int i=0; i<model->rowCount(); ++i)
         rowLabels<<model->headerData(i, Qt::Vertical).toString();
     mapper->setRowCount(model->rowCount());
     axis->clear();
     axis->append(rowLabels);
+}
+
+void BarChart::updateData(const QModelIndex& topLeft) {
+    Q_UNUSED(topLeft);
+    double max=0;
+    for(int i=0; i<model->columnCount(); ++i)
+        for(int j=0; j<model->rowCount(); ++j) {
+            QModelIndex index=model->index(i, j);
+            if(model->data(index)>max)
+                max=model->data(index).toDouble();
+        }
+    chart->axisY()->setMax(max);
 }
 
 

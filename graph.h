@@ -38,8 +38,8 @@ public:
     string& setRowLabel(size_t);
     string& setColumnLabel(size_t);
 
-    double getRowPercentage(size_t, size_t) const;
-    double getColumnPercentage(size_t, size_t) const;
+    //double getRowPercentage(size_t, size_t) const;
+    //double getColumnPercentage(size_t, size_t) const;
 
     //Console
     void printName() const;

@@ -47,7 +47,7 @@ public:
 
     void build() override;
     void updateChart() override;
-    void updateData(const QModelIndex&) override {}
+    void updateData(const QModelIndex&) override;
 };
 
 class LineChart: public Chart {
