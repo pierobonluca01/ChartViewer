@@ -3,6 +3,7 @@
 
 Chart::Chart(QWidget* parent): QWidget(parent), chart(new QChart) {
     chart->setAnimationOptions(QChart::AllAnimations);
+    //chart->setParent(this);
 }
 
 QChart* Chart::getChart() {

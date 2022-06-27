@@ -12,14 +12,12 @@ NewDialog::NewDialog(QWidget* parent): QDialog(parent) {
 
     rowsLine=new QLineEdit;
     rowsLine->setPlaceholderText(QString("0"));
-    rowsLine->setValidator(new QIntValidator(0, 999));
+    rowsLine->setValidator(new QIntValidator(0, 999, rowsLine));
 
     columnsLine=new QLineEdit;
     columnsLine->setPlaceholderText(QString("0"));
-    columnsLine->setValidator(new QIntValidator(0, 999));
+    columnsLine->setValidator(new QIntValidator(0, 999, columnsLine));
 
-    QPushButton* confirmation=new QPushButton("Conferma");
-    QPushButton* cancel=new QPushButton("Annulla");
 
     QHBoxLayout *line1=new QHBoxLayout;
     line1->addWidget(new QLabel("Nome:"));
@@ -31,12 +29,15 @@ NewDialog::NewDialog(QWidget* parent): QDialog(parent) {
     line2->addWidget(new QLabel("Colonne:"));
     line2->addWidget(columnsLine);
 
+    QPushButton* confirmation=new QPushButton("Conferma");
+    QPushButton* cancel=new QPushButton("Annulla");
+
     QHBoxLayout *line3=new QHBoxLayout;
     line3->addSpacerItem(new QSpacerItem(150, 0));
     line3->addWidget(cancel);
     line3->addWidget(confirmation);
 
-    QVBoxLayout *layout=new QVBoxLayout;
+    QVBoxLayout *layout=new QVBoxLayout(this);
     layout->addLayout(line1);
     layout->addLayout(line2);
     layout->addSpacerItem(new QSpacerItem(0, 20));
@@ -97,7 +98,7 @@ EditLabelDialog::EditLabelDialog(bool orientation, QString oldLabel, QWidget* pa
     buttons->addWidget(confirmation);
     cancel->setFocusPolicy(Qt::NoFocus);
 
-    QVBoxLayout *layout=new QVBoxLayout;
+    QVBoxLayout *layout=new QVBoxLayout(this);
     QString o="colonna";
     if(orientation)
         o="riga";
@@ -153,7 +154,7 @@ AddDialog::AddDialog(bool orientation, QWidget* parent): QDialog(parent) {
     buttons->addWidget(confirmation);
     cancel->setFocusPolicy(Qt::NoFocus);
 
-    QVBoxLayout *layout=new QVBoxLayout;
+    QVBoxLayout *layout=new QVBoxLayout(this);
     layout->addWidget(new QLabel("Quante <b>"+o+"</b> vuoi aggiungere?"));
     layout->addLayout(line);
     layout->addSpacerItem(new QSpacerItem(0, 20));

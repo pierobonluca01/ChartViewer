@@ -1,6 +1,7 @@
 #include "controller.h"
 
-Controller::Controller(QObject* parent): QObject(parent), model(nullptr), view(nullptr) {}
+Controller::Controller(QObject* parent): QObject(parent), model(), view() {}
+
 
 void Controller::setModel(Model* m) {
     model=m;
@@ -139,10 +140,8 @@ bool Controller::open() {
     QJsonArray data=obj["table"].toArray();
     for(int i=0; i<model->rowCount(); ++i) {
         QJsonArray rowData=data[i].toArray();
-        for(int j=0; j<model->columnCount(); ++j) {
-            QModelIndex index=model->index(i, j);
-            model->setData(index, rowData[j].toDouble());
-        }
+        for(int j=0; j<model->columnCount(); ++j)
+            model->setData(model->index(i, j), rowData[j].toDouble());
     }
 
     return true;
@@ -191,10 +190,8 @@ bool Controller::save() {
     QJsonArray data;
     for(int i=0; i<model->rowCount(); ++i) {
         QJsonArray rowData;
-        for(int j=0; j<model->columnCount(); ++j) {
-            QModelIndex index=model->index(i, j);
-            rowData.append(model->data(index).toDouble());
-        }
+        for(int j=0; j<model->columnCount(); ++j)
+            rowData.append(model->data(model->index(i, j)).toDouble());
         data.append(rowData);
     }
 

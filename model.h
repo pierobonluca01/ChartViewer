@@ -19,7 +19,7 @@ private:
 
 public:
     Model(size_t =0, size_t =0, QString ="senza_titolo", QObject* =nullptr);
-    virtual ~Model() =default;
+    virtual ~Model();
 
     QString getName() const;
     void setName(const QString&);

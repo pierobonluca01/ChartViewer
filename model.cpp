@@ -2,6 +2,10 @@
 
 Model::Model(size_t r, size_t c, QString n, QObject* parent): QAbstractTableModel(parent), graph(new Graph(r, c, n.toStdString())) {}
 
+Model::~Model() {
+    delete graph;
+}
+
 QString Model::getName() const {
     return QString::fromStdString(graph->getName());
 }

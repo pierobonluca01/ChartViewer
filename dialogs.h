@@ -27,6 +27,7 @@ private:
 
 public:
     NewDialog(QWidget* =nullptr);
+    ~NewDialog() =default;
 
     QString getName() const;
     size_t getRows() const;
@@ -46,6 +47,7 @@ private:
 
 public:
     EditLabelDialog(bool, QString, QWidget* =nullptr);
+    ~EditLabelDialog() =default;
 
     QString getLabel() const;
 
@@ -63,6 +65,7 @@ private:
 
 public:
     AddDialog(bool, QWidget* =nullptr);
+    ~AddDialog() =default;
 
     size_t getNum() const;
 
