@@ -93,7 +93,7 @@ private:
 
 public:
     PieChart();
-    virtual ~PieChart() =default;
+    virtual ~PieChart();
 
     //void setModel(QAbstractItemModel*) override {}
 

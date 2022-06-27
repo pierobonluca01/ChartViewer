@@ -3,7 +3,7 @@
 
 Chart::Chart(QWidget* parent): QWidget(parent), chart(new QChart) {
     chart->setAnimationOptions(QChart::AllAnimations);
-    //chart->setParent(this);
+    chart->setParent(this);
 }
 
 QChart* Chart::getChart() {
@@ -40,10 +40,9 @@ BarChart::BarChart() {
     chart->setTitle("Bar Chart");
 }
 
-
 void BarChart::build() {
-    series=new QBarSeries;
-    mapper=new QVBarModelMapper/*(this)*/;
+    series=new QBarSeries(this);
+    mapper=new QVBarModelMapper(this);
     mapper->setFirstBarSetColumn(0);
     mapper->setLastBarSetColumn(model->columnCount());
     mapper->setFirstRow(0);
@@ -52,7 +51,7 @@ void BarChart::build() {
     mapper->setModel(model);
     chart->addSeries(series);
 
-    axis=new QBarCategoryAxis();
+    axis=new QBarCategoryAxis(this);
     updateChart();
     chart->createDefaultAxes();
     chart->setAxisX(axis, series);
@@ -128,6 +127,11 @@ PieChart::PieChart(): series(0) {
     chart->legend()->setAlignment(Qt::AlignRight);
 }
 
+PieChart::~PieChart() {
+    delete series;
+    delete subArray;
+}
+
 void PieChart::changeSeries(QPieSeries* s) {
     if(series)
         chart->removeSeries(series);
@@ -142,11 +146,11 @@ void PieChart::sliceClicked(QPieSlice *s) {
 }
 
 void PieChart::build() {
-    mainSeries=new QPieSeries;
+    mainSeries=new QPieSeries(this);
     mainSeries->setName("PieChart");
     subArray=new QPieSeries*[model->columnCount()];
     for(int i=0; i<model->columnCount(); ++i) {
-        QPieSeries* subSeries=new QPieSeries;
+        QPieSeries* subSeries=new QPieSeries(this);
         subArray[i]=subSeries;
         subSeries->setName("PieChart | "+model->headerData(i, Qt::Horizontal).toString());
         for(int j=0; j<model->rowCount(); ++j) {

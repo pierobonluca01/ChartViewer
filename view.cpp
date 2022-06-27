@@ -7,7 +7,7 @@ View::View(QWidget* parent): QWidget(parent) {
 
     chart=new BarChart;
 
-    QVBoxLayout* mainLayout=new QVBoxLayout;
+    QVBoxLayout* mainLayout=new QVBoxLayout(this);
     mainLayout->setContentsMargins(0, 0, 0, 0);
     addMenus(mainLayout);
     addToolBar(mainLayout);
@@ -40,7 +40,6 @@ void View::addMenus(QVBoxLayout* layout) {
     //FILE
     file->addAction(new QAction("Nuovo...", file));
     file->addSeparator();
-    //TODO: Impementare i seguenti
     file->addAction(new QAction("Apri...", file));
     file->addSeparator();
     file->addAction(new QAction("Salva", file));
@@ -141,31 +140,31 @@ void View::addMenus(QVBoxLayout* layout) {
 }
 
 void View::addToolBar(QVBoxLayout* layout) {
-    toolBar=new QToolBar;
+    toolBar=new QToolBar(this);
 
-    QAction* nuovo=new QAction("Nuovo");
+    QAction* nuovo=new QAction("Nuovo", toolBar);
     nuovo->setIcon(QIcon(":/toolbar/nuovo"));
     toolBar->addAction(nuovo);
 
-    QAction* apri=new QAction("apri");
+    QAction* apri=new QAction("apri", toolBar);
     apri->setIcon(QIcon(":/toolbar/apri"));
     toolBar->addAction(apri);
 
-    QAction* salva=new QAction("salva");
+    QAction* salva=new QAction("salva", toolBar);
     salva->setIcon(QIcon(":/toolbar/salva"));
     toolBar->addAction(salva);
 
-    QAction* salvacome=new QAction("salvacome");
+    QAction* salvacome=new QAction("salvacome", toolBar);
     salvacome->setIcon(QIcon(":/toolbar/salvacome"));
     toolBar->addAction(salvacome);
 
     toolBar->addSeparator();
 
-    QAction* newrows=new QAction("Aggiungi righe");
+    QAction* newrows=new QAction("Aggiungi righe", toolBar);
     newrows->setIcon(QIcon(":/toolbar/rows/new"));
     toolBar->addAction(newrows);
 
-    QAction* newcolumns=new QAction("Aggiungi colonne");
+    QAction* newcolumns=new QAction("Aggiungi colonne", toolBar);
     newcolumns->setIcon(QIcon(":/toolbar/columns/new"));
     toolBar->addAction(newcolumns);
 
@@ -173,7 +172,7 @@ void View::addToolBar(QVBoxLayout* layout) {
     separator->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     toolBar->addWidget(separator);
 
-    typeCombo=new QComboBox;
+    typeCombo=new QComboBox(toolBar);
     typeCombo->addItem("Bar Chart");
     typeCombo->addItem("Line Chart");
     typeCombo->addItem("Pie Chart");
@@ -188,15 +187,15 @@ void View::addToolBar(QVBoxLayout* layout) {
 
     toolBar->addSeparator();
 
-    QAction* onlyTable=new QAction("Nascondi grafico");
+    QAction* onlyTable=new QAction("Nascondi grafico", toolBar);
     onlyTable->setIcon(QIcon(":/toolbar/onlytable"));
     toolBar->addAction(onlyTable);
 
-    QAction* resetSep=new QAction("Reimposta separatore");
+    QAction* resetSep=new QAction("Reimposta separatore", toolBar);
     resetSep->setIcon(QIcon(":/toolbar/resetview"));
     toolBar->addAction(resetSep);
 
-    QAction* onlyGraph=new QAction("Nascondi tabella");
+    QAction* onlyGraph=new QAction("Nascondi tabella", toolBar);
     onlyGraph->setIcon(QIcon(":/toolbar/onlygraph"));
     toolBar->addAction(onlyGraph);
 
@@ -211,15 +210,15 @@ void View::addToolBar(QVBoxLayout* layout) {
 
     toolBar->addSeparator();
 
-    QAction* zoomOut=new QAction("Zoom Out");
+    QAction* zoomOut=new QAction("Zoom Out", toolBar);
     zoomOut->setIcon(QIcon(":/toolbar/zoomout"));
     toolBar->addAction(zoomOut);
 
-    QAction* zoomReset=new QAction("Reimposta Zoom");
+    QAction* zoomReset=new QAction("Reimposta Zoom", toolBar);
     zoomReset->setIcon(QIcon(":/toolbar/zoomreset"));
     toolBar->addAction(zoomReset);
 
-    QAction* zoomIn=new QAction("Zoom In");
+    QAction* zoomIn=new QAction("Zoom In", toolBar);
     zoomIn->setIcon(QIcon(":/toolbar/zoomin"));
     toolBar->addAction(zoomIn);
 
