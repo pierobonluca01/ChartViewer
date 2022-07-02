@@ -85,8 +85,57 @@ void BarChart::updateData(const QModelIndex& topLeft) {
 
 LineChart::LineChart() {
     chart->setTitle("Line Chart");
+    chart->legend()->setVisible(false);
 }
 
+void LineChart::build() {
+    series=new QBoxPlotSeries(this);
+    for(int i=0; i<model->columnCount(); ++i) {
+        QBoxSet *set=buildSet(i);
+        series->append(set);
+    }
+
+
+
+//    series=new QBoxPlotSeries(this);
+//    mapper=new QVBoxPlotModelMapper(this);
+//    mapper->setFirstBoxSetColumn(0);
+//    mapper->setLastBoxSetColumn(model->columnCount());
+//    mapper->setFirstRow(0);
+//    mapper->setRowCount(model->rowCount());
+//    mapper->setSeries(series);
+//    mapper->setModel(model);
+//    chart->addSeries(series);
+
+//    chart->createDefaultAxes();
+}
+
+void LineChart::updateChart() {
+//    mapper->setLastBoxSetColumn(model->columnCount());
+//    mapper->setRowCount(model->rowCount());
+}
+
+QBoxSet* LineChart::buildSet(int column) {
+    int count=model->columnCount();
+    QBoxSet* set=new QBoxSet(model->headerData(column, Qt::Horizontal).toString());
+    set->setValue(QBoxSet::LowerExtreme, model->data(model->index(0, 0)).toDouble());
+    set->setValue(QBoxSet::UpperExtreme, model->data(model->index(2, 0)).toDouble());
+    set->setValue(QBoxSet::Median, median(column, 0, count));
+    set->setValue(QBoxSet::LowerQuartile, median(column, 0, count / 2));
+    set->setValue(QBoxSet::UpperQuartile, median(column, count / 2 + (count % 2), count));
+    return set;
+}
+
+double LineChart::median(int column, int first, int last) {
+    int count=first-last;
+    if(count%2)
+        return (count / 2 + first);
+    else {
+        qreal right = model->data(model->index(count/2 + first, column)).toDouble();
+        qreal left = model->data(model->index(count / 2 - 1 + first, column)).toDouble();
+        return (right + left) / 2.0;
+    }
+}
 
 
 // PIE CHART

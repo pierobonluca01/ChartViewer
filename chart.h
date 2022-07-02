@@ -31,6 +31,8 @@ public:
     //void scrollEvent(QWheelEvent*); //TODO: Implementare
 };
 
+
+
 class BarChart: public Chart {
     Q_OBJECT
 
@@ -50,8 +52,13 @@ public:
     void updateData(const QModelIndex&) override;
 };
 
+
+
 class LineChart: public Chart {
     Q_OBJECT
+
+private:
+    QBoxPlotSeries* series;
 
 public:
     LineChart();
@@ -59,10 +66,15 @@ public:
 
     //void setModel(QAbstractItemModel*) override {}
 
-    void build() override {}
-    void updateChart() override {}
+    void build() override;
+    void updateChart() override;
     void updateData(const QModelIndex&) override {}
+
+    QBoxSet* buildSet(int);
+    double median(int, int, int);
 };
+
+
 
 class PieSlice: public QPieSlice {
     Q_OBJECT
@@ -89,7 +101,6 @@ private:
     QPieSeries* series;
     QPieSeries* mainSeries;
     QPieSeries** subArray;
-
 
 public:
     PieChart();
