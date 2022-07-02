@@ -81,59 +81,66 @@ void BarChart::updateData(const QModelIndex& topLeft) {
 
 
 
-// LINE CHART
+// BOX CHART
 
-LineChart::LineChart() {
-    chart->setTitle("Line Chart");
+BoxChart::BoxChart() {
+    chart->setTitle("Box Chart");
     chart->legend()->setVisible(false);
 }
 
-void LineChart::build() {
+void BoxChart::build() {
     series=new QBoxPlotSeries(this);
     for(int i=0; i<model->columnCount(); ++i) {
-        QBoxSet *set=buildSet(i);
+        QBoxSet* set=buildSet(i);
         series->append(set);
     }
-
-
-
-//    series=new QBoxPlotSeries(this);
-//    mapper=new QVBoxPlotModelMapper(this);
-//    mapper->setFirstBoxSetColumn(0);
-//    mapper->setLastBoxSetColumn(model->columnCount());
-//    mapper->setFirstRow(0);
-//    mapper->setRowCount(model->rowCount());
-//    mapper->setSeries(series);
-//    mapper->setModel(model);
-//    chart->addSeries(series);
-
-//    chart->createDefaultAxes();
+    chart->addSeries(series);
+    chart->createDefaultAxes();
 }
 
-void LineChart::updateChart() {
-//    mapper->setLastBoxSetColumn(model->columnCount());
-//    mapper->setRowCount(model->rowCount());
+void BoxChart::updateChart() {
+    delete series;
+    build();
 }
 
-QBoxSet* LineChart::buildSet(int column) {
-    int count=model->columnCount();
+void BoxChart::updateData(const QModelIndex& topLeft) {
+    series->remove(series->boxSets().at(topLeft.column()));
+    QBoxSet* set=buildSet(topLeft.column());
+    series->insert(topLeft.column(), set);
+
+    double max=0;
+    for(int i=0; i<model->columnCount(); ++i)
+        for(int j=0; j<model->rowCount(); ++j) {
+            QModelIndex index=model->index(i, j);
+            if(model->data(index)>max)
+                max=model->data(index).toDouble();
+        }
+    chart->axisY()->setMax(max);
+}
+
+QBoxSet* BoxChart::buildSet(int column) {
+    int count=model->rowCount();
+    sortedList.clear();
+    for(int i=0; i<count; ++i)
+        sortedList.append(model->data(model->index(i, column)).toDouble());
+    qSort(sortedList.begin(), sortedList.end());
     QBoxSet* set=new QBoxSet(model->headerData(column, Qt::Horizontal).toString());
-    set->setValue(QBoxSet::LowerExtreme, model->data(model->index(0, 0)).toDouble());
-    set->setValue(QBoxSet::UpperExtreme, model->data(model->index(2, 0)).toDouble());
-    set->setValue(QBoxSet::Median, median(column, 0, count));
-    set->setValue(QBoxSet::LowerQuartile, median(column, 0, count / 2));
-    set->setValue(QBoxSet::UpperQuartile, median(column, count / 2 + (count % 2), count));
+    set->setValue(QBoxSet::LowerExtreme, sortedList.first());
+    set->setValue(QBoxSet::UpperExtreme, sortedList.last());
+    set->setValue(QBoxSet::Median, median(0, count));
+    set->setValue(QBoxSet::LowerQuartile, median(0, count/2));
+    set->setValue(QBoxSet::UpperQuartile, median(count/2+(count%2), count));
     return set;
 }
 
-double LineChart::median(int column, int first, int last) {
-    int count=first-last;
-    if(count%2)
-        return (count / 2 + first);
+double BoxChart::median(int first, int last) {
+    int count=last-first;
+    if (count%2)
+        return sortedList.at(count/2+first);
     else {
-        qreal right = model->data(model->index(count/2 + first, column)).toDouble();
-        qreal left = model->data(model->index(count / 2 - 1 + first, column)).toDouble();
-        return (right + left) / 2.0;
+        qreal right=sortedList.at(count/2+first);
+        qreal left=sortedList.at(count/2+first-1);
+        return (right+left)/2;
     }
 }
 

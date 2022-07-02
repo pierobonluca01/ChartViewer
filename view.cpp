@@ -83,10 +83,10 @@ void View::addMenus(QVBoxLayout* layout) {
     //CHARTTYPE
     chartTypeGroup=new QActionGroup(chartType);
     chartTypeGroup->setExclusive(true);
-    chartTypeGroup->addAction(chartType->addAction(QString("Bar Chart (Grafico a barre)")))->setCheckable(true);
+    chartTypeGroup->addAction(chartType->addAction(QString("Bar Chart (Grafico a barre verticali)")))->setCheckable(true);
     chartTypeGroup->actions().at(0)->setChecked(true);
-    chartTypeGroup->addAction(chartType->addAction(QString("Line Chart (Grafico a linee)")))->setCheckable(true);
-    chartTypeGroup->addAction(chartType->addAction(QString("Pie Chart (Grafico a torta)")))->setCheckable(true);
+    chartTypeGroup->addAction(chartType->addAction(QString("Box Chart (Grafico a scatola e baffi)")))->setCheckable(true);
+    chartTypeGroup->addAction(chartType->addAction(QString("Pie Chart (Grafico a torte annidate)")))->setCheckable(true);
     QSignalMapper* chartTypeSignals=new QSignalMapper;
     for(int i=0; i<3; i++) {
         connect(chartType->actions().at(i), SIGNAL(triggered()), chartTypeSignals, SLOT(map()));
@@ -174,7 +174,7 @@ void View::addToolBar(QVBoxLayout* layout) {
 
     typeCombo=new QComboBox(toolBar);
     typeCombo->addItem("Bar Chart");
-    typeCombo->addItem("Line Chart");
+    typeCombo->addItem("Box Chart");
     typeCombo->addItem("Pie Chart");
     connect(typeCombo, SIGNAL(activated(int)), this, SLOT(setChartType(int)));
     QSignalMapper* chartTypeSignals=new QSignalMapper;
@@ -323,7 +323,7 @@ void View::setChartType(int c) {
         toolBar->actions().at(i)->setEnabled(true);
     switch(c) {
     case 1:
-        chart=new LineChart;
+        chart=new BoxChart;
         break;
     case 2:
         chart=new PieChart;
@@ -339,7 +339,7 @@ void View::setChartType(int c) {
     setSplitter();
     chart->setModel(tableView->model());
     chartTypeGroup->actions().at(c)->setChecked(true);
-    if(c==0)
+    if(c!=2)
         chartView->setRubberBand(QChartView::RectangleRubberBand);
 }
 

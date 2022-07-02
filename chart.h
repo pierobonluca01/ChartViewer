@@ -54,24 +54,25 @@ public:
 
 
 
-class LineChart: public Chart {
+class BoxChart: public Chart {
     Q_OBJECT
 
 private:
     QBoxPlotSeries* series;
+    QList<double> sortedList;
 
 public:
-    LineChart();
-    virtual ~LineChart() =default;
+    BoxChart();
+    virtual ~BoxChart() =default;
 
     //void setModel(QAbstractItemModel*) override {}
 
     void build() override;
     void updateChart() override;
-    void updateData(const QModelIndex&) override {}
+    void updateData(const QModelIndex&) override;
 
     QBoxSet* buildSet(int);
-    double median(int, int, int);
+    double median(int, int);
 };
 
 
