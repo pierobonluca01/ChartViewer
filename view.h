@@ -14,7 +14,7 @@
 
 #include <iostream>
 
-//class Controller; //forward declaration inclusa in chart.h
+class Controller;
 
 class View: public QWidget {
     Q_OBJECT
@@ -63,7 +63,5 @@ public slots:
     void updateChart() const;
     void updateData(const QModelIndex&) const;
 };
-
-
 
 #endif // VIEW_H

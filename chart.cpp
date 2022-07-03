@@ -1,5 +1,5 @@
 #include "chart.h"
-#include "controller.h"
+//#include "controller.h"
 
 Chart::Chart(QWidget* parent): QWidget(parent), chart(new QChart) {
     chart->setAnimationOptions(QChart::AllAnimations);
@@ -22,12 +22,7 @@ QChart::ChartTheme Chart::getChartTheme() {
 //    //TODO: Implementare
 //}
 
-//void Chart::setController(Controller* c) {
-//    controller=c;
-//    build();
-//}
-
-void /*Bar*/Chart::setModel(QAbstractItemModel* m) {
+void Chart::setModel(QAbstractItemModel* m) {
     model=m;
     build();
 }
@@ -145,6 +140,7 @@ double BoxChart::median(int first, int last) {
 }
 
 
+
 // PIE CHART
 
 PieSlice::PieSlice(double val, QString p, QPieSeries *s): series(s), header(p) {
@@ -228,41 +224,3 @@ void PieChart::updateData(const QModelIndex& topLeft) {
     subArray[topLeft.column()]->slices().at(topLeft.row())->setValue(model->data(topLeft).toDouble());
     mainSeries->slices().at(topLeft.column())->setValue(subArray[topLeft.column()]->sum());
 }
-
-
-
-/* TODO: Rimuovere perché ABBANDONATO
-
-PieChart::PieChart() {
-    chart->setTitle("Pie Chart");
-}
-
-void PieChart::build() {
-    series=new QPieSeries;
-//    mapper=new QVPieModelMapper;
-//    mapper->setFirstRow(0);
-//    mapper->setRowCount(model->rowCount());
-//    mapper->setValuesColumn(1);
-//    mapper->setLabelsColumn(0);
-//    mapper->setSeries(series);
-//    mapper->setModel(model);
-//    series->slices().at(0)->setLabel("Prova");
-
-
-//    updateChart();
-    for(int i=0; i<model->columnCount(); ++i) {
-        qreal rowsum=0;
-        for(int j=0; j<model->rowCount(); ++j) {
-            QModelIndex index=model->index(0, j);
-            rowsum+=model->data(index).toDouble();
-        }
-        *series<<new QPieSlice(model->headerData(i, Qt::Horizontal).toString(), rowsum);
-    }
-    chart->addSeries(series);
-}
-
-void PieChart::updateChart() {
-    //mapper->setColumnCount(model->columnCount());
-}
-
-*/

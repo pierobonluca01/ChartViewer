@@ -10,14 +10,13 @@
 using std::vector;
 using std::string;
 
-//define private public //test
-
 class Graph: public Table {
 private:
     std::string name;
 
     Labels lR;
     Labels lC;
+
 public:
     Graph(size_t =0, size_t =0, std::string ="graph");
     Graph(const Graph&);
@@ -37,13 +36,6 @@ public:
     string getColumnLabel(size_t) const;
     string& setRowLabel(size_t);
     string& setColumnLabel(size_t);
-
-    //double getRowPercentage(size_t, size_t) const;
-    //double getColumnPercentage(size_t, size_t) const;
-
-    //Console
-    void printName() const;
-    void printTable();
 };
 
 #endif // GRAPH_H

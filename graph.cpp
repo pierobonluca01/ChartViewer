@@ -61,35 +61,3 @@ string& Graph::setRowLabel(size_t ir) {
 string& Graph::setColumnLabel(size_t ic) {
     return lC.setLabel(ic);
 }
-
-//double Graph::getRowPercentage(size_t r, size_t c) const {
-//    double rSum=0;
-//    vector<vector<double>>::const_iterator itR=t.begin()+r;
-//    for(vector<double>::const_iterator itC=itR->begin(); itC!=itR->end(); ++itC)
-//        rSum+=*itC;
-//    return t[r][c]/rSum;
-//}
-
-//double Graph::getColumnPercentage(size_t r, size_t c) const {
-//    double cSum=0;
-//    for(vector<vector<double>>::const_iterator itR=t.begin(); itR!=t.end(); ++itR)
-//        cSum+=*(itR->begin()+c);
-//    if(cSum==0)
-//        cSum=1;
-//    return t[r][c]/cSum;
-//}
-
-//Console
-
-void Graph::printName() const {
-    cout<<"Graph "<<getName();
-}
-
-void Graph::printTable() {
-    for(vector<vector<double>>::iterator itR=t.begin(); itR!=t.end(); ++itR) {
-        cout<<lR[distance(t.begin(), itR)]<<" ";
-        for(vector<double>::iterator itC=itR->begin(); itC!=itR->end(); ++itC)
-            cout<<*itC;
-        cout<<endl;
-    }
-}

@@ -3,7 +3,7 @@
 
 #include <QtCharts>
 
-class Controller; //TODO: Rimuovere i commenti relativi al Controller
+//class Controller;
 
 class Chart: public QWidget {
     Q_OBJECT
@@ -12,14 +12,12 @@ protected:
     QAbstractItemModel* model;
 
     QChart* chart;
-    //Controller* controller;
 
 public:
     Chart(QWidget* =nullptr);
     virtual ~Chart() =default;
 
-    /*virtual*/ void setModel(QAbstractItemModel*) /*=0*/;
-    //void setController(Controller*);
+    void setModel(QAbstractItemModel*);
 
     virtual void build() =0;
     virtual void updateChart() =0;
@@ -45,8 +43,6 @@ public:
     BarChart();
     virtual ~BarChart() =default;
 
-    //void setModel(QAbstractItemModel*) override;
-
     void build() override;
     void updateChart() override;
     void updateData(const QModelIndex&) override;
@@ -64,8 +60,6 @@ private:
 public:
     BoxChart();
     virtual ~BoxChart() =default;
-
-    //void setModel(QAbstractItemModel*) override {}
 
     void build() override;
     void updateChart() override;
@@ -106,8 +100,6 @@ private:
 public:
     PieChart();
     virtual ~PieChart();
-
-    //void setModel(QAbstractItemModel*) override {}
 
     void build() override;
     void updateChart() override;

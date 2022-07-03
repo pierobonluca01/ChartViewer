@@ -9,8 +9,6 @@
 using std::vector;
 using std::string;
 
-//#define protected public //test
-
 class Table {
 protected:
     size_t rows;

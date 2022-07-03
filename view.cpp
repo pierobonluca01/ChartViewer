@@ -260,7 +260,8 @@ void View::setModel(QAbstractTableModel* m) {
 void View::setController(Controller* c) {
     controller=c;
     setWindowTitle(QString(controller->getName()+" | ChartViewer"));
-    //chart->setController(c);
+
+    //shortcut
     connect(file->actions().at(0), SIGNAL(triggered()), controller, SLOT(renewGraph()));
     file->actions().at(0)->setShortcut(QKeySequence(tr("Ctrl+N")));
     connect(file->actions().at(2), SIGNAL(triggered()), controller, SLOT(open()));
@@ -270,14 +271,15 @@ void View::setController(Controller* c) {
     connect(file->actions().at(5), SIGNAL(triggered()), controller, SLOT(saveWithName()));
     file->actions().at(5)->setShortcut(QKeySequence(tr("Ctrl+Shift+S")));
 
+    //double click header
+    connect(tableView->horizontalHeader(), SIGNAL(sectionDoubleClicked(int)), controller, SLOT(editHLabel(int)));
+    connect(tableView->verticalHeader(), SIGNAL(sectionDoubleClicked(int)), controller, SLOT(editVLabel(int)));
+
+    //toolbar
     connect(toolBar->actions().at(0), SIGNAL(triggered()), controller, SLOT(renewGraph()));
     connect(toolBar->actions().at(1), SIGNAL(triggered()), controller, SLOT(open()));
     connect(toolBar->actions().at(2), SIGNAL(triggered()), controller, SLOT(quickSave()));
     connect(toolBar->actions().at(3), SIGNAL(triggered()), controller, SLOT(saveWithName()));
-
-    connect(tableView->horizontalHeader(), SIGNAL(sectionDoubleClicked(int)), controller, SLOT(editHLabel(int)));
-    connect(tableView->verticalHeader(), SIGNAL(sectionDoubleClicked(int)), controller, SLOT(editVLabel(int)));
-
     QSignalMapper* newSignals=new QSignalMapper;
     connect(toolBar->actions().at(5), SIGNAL(triggered()), newSignals, SLOT(map()));
     newSignals->setMapping(toolBar->actions().at(5), 1);
@@ -302,7 +304,7 @@ void View::setSplitter(int split) const {
 }
 
 void View::setChartZoom(int z) const {
-    switch (z) {
+    switch(z) {
     case 1:
         chart->getChart()->zoomOut();
         break;
@@ -399,28 +401,8 @@ void View::setGlobalTheme(int theme) const {
 }
 
 void View::setTableTheme(int theme) const {
-
-    /* TODO: Scegliere tra vecchio e nuovo stile
-
-    QPalette light;
-    light.setColor(QPalette::Base, QRgb(0xf0f0f0));
-    light.setColor(QPalette::Text, QRgb(0x404044));
-
-    QPalette dark;
-    dark.setColor(QPalette::Base, QRgb(0x1b1e20));
-    dark.setColor(QPalette::Text, QRgb(0xd6d6d6));
-
     switch(theme) {
-    case 0:
-        tableView->setPalette(light);
-        break;
-    default:
-        tableView->setPalette(dark);
-    }
-    */
-
-    switch(theme) {
-    case 0:
+    case 0: //light
         tableView->setStyleSheet("QTableView {"
                                  "  background: rgb(240, 240, 240);"
                                  "  color: rgb(64, 64, 68);" // text color
@@ -437,7 +419,7 @@ void View::setTableTheme(int theme) const {
                                  "  color: rgb(22, 3, 9)"
                                  "}");
         break;
-    default:
+    default: //dark
         tableView->setStyleSheet("QTableView {"
                                  "  background-color: black;"
                                  "  background: rgb(27, 30, 32);"
