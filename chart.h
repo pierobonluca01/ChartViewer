@@ -59,7 +59,7 @@ private:
 
 public:
     BoxChart();
-    virtual ~BoxChart() =default;
+    virtual ~BoxChart();
 
     void build() override;
     void updateChart() override;
