@@ -12,8 +12,6 @@
 #include <QSplitter>
 #include <QTableView>
 
-#include <iostream>
-
 class Controller;
 
 class View: public QWidget {
