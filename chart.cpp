@@ -83,6 +83,10 @@ BoxChart::BoxChart() {
     chart->legend()->setVisible(false);
 }
 
+BoxChart::~BoxChart() {
+    delete series;
+}
+
 void BoxChart::build() {
     series=new QBoxPlotSeries(this);
     for(int i=0; i<model->columnCount(); ++i) {
