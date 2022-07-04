@@ -1,5 +1,4 @@
 #include "chart.h"
-//#include "controller.h"
 
 Chart::Chart(QWidget* parent): QWidget(parent), chart(new QChart) {
     chart->setAnimationOptions(QChart::AllAnimations);
