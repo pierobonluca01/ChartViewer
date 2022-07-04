@@ -3,8 +3,6 @@
 
 #include <QtCharts>
 
-//class Controller;
-
 class Chart: public QWidget {
     Q_OBJECT
 
