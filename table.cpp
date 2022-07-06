@@ -1,6 +1,6 @@
 #include "table.h"
 
-Table::Table(size_t r, size_t c): rows(r), columns(c), t(r, vector<double>(c, 7 /*TODO: TEST*/)) {}
+Table::Table(size_t r, size_t c): rows(r), columns(c), t(r, vector<double>(c, 0)) {}
 
 Table::Table(const Table& t): rows(t.rows), columns(t.columns), t(t.t) {}
 

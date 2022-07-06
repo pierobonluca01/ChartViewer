@@ -38,7 +38,7 @@ void BarChart::build() {
     series=new QBarSeries(this);
     mapper=new QVBarModelMapper(this);
     mapper->setFirstBarSetColumn(0);
-    mapper->setLastBarSetColumn(model->columnCount());
+    mapper->setLastBarSetColumn(model->columnCount()-1);
     mapper->setFirstRow(0);
     mapper->setRowCount(model->rowCount());
     mapper->setSeries(series);
@@ -52,7 +52,7 @@ void BarChart::build() {
 }
 
 void BarChart::updateChart() {
-    mapper->setLastBarSetColumn(model->columnCount());
+    mapper->setLastBarSetColumn(model->columnCount()-1);
     QStringList rowLabels;
     for(int i=0; i<model->rowCount(); ++i)
         rowLabels<<model->headerData(i, Qt::Vertical).toString();
@@ -63,14 +63,19 @@ void BarChart::updateChart() {
 
 void BarChart::updateData(const QModelIndex& topLeft) {
     Q_UNUSED(topLeft);
-    double max=0;
-    for(int i=0; i<model->columnCount(); ++i)
-        for(int j=0; j<model->rowCount(); ++j) {
+
+    double max=std::numeric_limits<double>::min()+1;
+    double min=std::numeric_limits<double>::max()-1;
+    for(int i=0; i<model->rowCount(); ++i)
+        for(int j=0; j<model->columnCount(); ++j) {
             QModelIndex index=model->index(i, j);
             if(model->data(index)>max)
                 max=model->data(index).toDouble();
+            if(model->data(index)<min)
+                min=model->data(index).toDouble();
         }
     chart->axisY()->setMax(max);
+    chart->axisY()->setMin(min);
 }
 
 
@@ -106,15 +111,11 @@ void BoxChart::updateData(const QModelIndex& topLeft) {
     QBoxSet* set=buildSet(topLeft.column());
     series->insert(topLeft.column(), set);
 
-    double max=0;
-    for(int i=0; i<model->columnCount(); ++i)
-        for(int j=0; j<model->rowCount(); ++j) {
-            QModelIndex index=model->index(i, j);
-            if(model->data(index)>max)
-                max=model->data(index).toDouble();
-        }
-    chart->axisY()->setMax(max);
+    chart->axisY()->setMax(sortedList.last());
+    chart->axisY()->setMin(sortedList.first());
 }
+
+#include<iostream>
 
 QBoxSet* BoxChart::buildSet(int column) {
     int count=model->rowCount();
@@ -123,6 +124,7 @@ QBoxSet* BoxChart::buildSet(int column) {
         sortedList.append(model->data(model->index(i, column)).toDouble());
     qSort(sortedList.begin(), sortedList.end());
     QBoxSet* set=new QBoxSet(model->headerData(column, Qt::Horizontal).toString());
+
     set->setValue(QBoxSet::LowerExtreme, sortedList.first());
     set->setValue(QBoxSet::UpperExtreme, sortedList.last());
     set->setValue(QBoxSet::Median, median(0, count));
@@ -133,7 +135,7 @@ QBoxSet* BoxChart::buildSet(int column) {
 
 double BoxChart::median(int first, int last) {
     int count=last-first;
-    if (count%2)
+    if(count%2)
         return sortedList.at(count/2+first);
     else {
         qreal right=sortedList.at(count/2+first);

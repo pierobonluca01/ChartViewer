@@ -9,7 +9,7 @@ int main(int argc, char** argv) {
 
     QApplication app(argc, argv);
 
-    Model model(3, 3); /*TEST: 3x3*/
+    Model model;
     View view;
     Controller controller;
 
