@@ -22,7 +22,7 @@ void Labels::newLabels(size_t n) {
 }
 
 void Labels::insertLabel(size_t i) {
-    l.insert(l.begin()+i, "nuova"/*+std::to_string(l.size()+1)*/);
+    l.insert(l.begin()+i, "nuova");
 }
 
 void Labels::removeLabel(size_t i) {
@@ -31,7 +31,7 @@ void Labels::removeLabel(size_t i) {
 
 string& Labels::operator [](size_t i) {
     try {
-        if(i>l.size() /*|| i<0 size_t unsigned*/)
+        if(i>l.size())
             throw 0;
         return l[i];
     } catch(int err) {

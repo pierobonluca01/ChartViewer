@@ -17,10 +17,6 @@ QChart::ChartTheme Chart::getChartTheme() {
     return chart->theme();
 }
 
-//void Chart::scrollEvent(QWheelEvent* e) {
-//    //TODO: Implementare
-//}
-
 void Chart::setModel(QAbstractItemModel* m) {
     model=m;
     build();
@@ -87,10 +83,6 @@ BoxChart::BoxChart() {
     chart->legend()->setVisible(false);
 }
 
-BoxChart::~BoxChart() {
-    delete series;
-}
-
 void BoxChart::build() {
     series=new QBoxPlotSeries(this);
     for(int i=0; i<model->columnCount(); ++i) {
@@ -114,8 +106,6 @@ void BoxChart::updateData(const QModelIndex& topLeft) {
     chart->axisY()->setMax(sortedList.last());
     chart->axisY()->setMin(sortedList.first());
 }
-
-#include<iostream>
 
 QBoxSet* BoxChart::buildSet(int column) {
     int count=model->rowCount();

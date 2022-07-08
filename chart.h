@@ -24,7 +24,6 @@ public:
     QChart* getChart();
     void setChartTheme(QChart::ChartTheme);
     QChart::ChartTheme getChartTheme();
-    //void scrollEvent(QWheelEvent*); //TODO: Implementare
 };
 
 
@@ -57,7 +56,7 @@ private:
 
 public:
     BoxChart();
-    virtual ~BoxChart();
+    virtual ~BoxChart() =default;
 
     void build() override;
     void updateChart() override;

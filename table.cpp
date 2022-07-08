@@ -57,7 +57,7 @@ void Table::removeRow(size_t ir) {
 
 vector<double>& Table::operator [](size_t ir) {
     try {
-        if(ir>t.size() /*|| ir<0 size_t unsigned*/)
+        if(ir>t.size())
             throw 0;
         return t[ir];
     } catch(int err) {
