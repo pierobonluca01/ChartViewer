@@ -103,8 +103,18 @@ void BoxChart::updateData(const QModelIndex& topLeft) {
     QBoxSet* set=buildSet(topLeft.column());
     series->insert(topLeft.column(), set);
 
-    chart->axisY()->setMax(sortedList.last());
-    chart->axisY()->setMin(sortedList.first());
+    double max=std::numeric_limits<double>::min()+1;
+    double min=std::numeric_limits<double>::max()-1;
+    for(int i=0; i<model->rowCount(); ++i)
+        for(int j=0; j<model->columnCount(); ++j) {
+            QModelIndex index=model->index(i, j);
+            if(model->data(index)>max)
+                max=model->data(index).toDouble();
+            if(model->data(index)<min)
+                min=model->data(index).toDouble();
+        }
+    chart->axisY()->setMax(max+1);
+    chart->axisY()->setMin(min-1);
 }
 
 QBoxSet* BoxChart::buildSet(int column) {
