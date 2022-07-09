@@ -146,15 +146,15 @@ void View::addToolBar(QVBoxLayout* layout) {
     nuovo->setIcon(QIcon(":/toolbar/nuovo"));
     toolBar->addAction(nuovo);
 
-    QAction* apri=new QAction("apri", toolBar);
+    QAction* apri=new QAction("Apri", toolBar);
     apri->setIcon(QIcon(":/toolbar/apri"));
     toolBar->addAction(apri);
 
-    QAction* salva=new QAction("salva", toolBar);
+    QAction* salva=new QAction("Salva", toolBar);
     salva->setIcon(QIcon(":/toolbar/salva"));
     toolBar->addAction(salva);
 
-    QAction* salvacome=new QAction("salvacome", toolBar);
+    QAction* salvacome=new QAction("Salva con nome", toolBar);
     salvacome->setIcon(QIcon(":/toolbar/salvacome"));
     toolBar->addAction(salvacome);
 
