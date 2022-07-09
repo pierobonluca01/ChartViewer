@@ -115,7 +115,7 @@ bool Controller::open() {
     QFile file(fileName);
 
     if (!file.open(QIODevice::ReadOnly)) {
-        qWarning("Couldn't open save file.");
+        qWarning("\t[!] Impossibile aprire il file.");
         return false;
     }
 

@@ -172,6 +172,8 @@ size_t AddDialog::getNum() const {
     return num;
 }
 
+/*slots*/
+
 void AddDialog::updateNum() {
     QString numstring=numLine->text();
     if(numstring=="")
