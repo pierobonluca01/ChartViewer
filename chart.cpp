@@ -61,7 +61,7 @@ void BarChart::updateData(const QModelIndex& topLeft) {
     Q_UNUSED(topLeft);
 
     double max=std::numeric_limits<double>::min()+1;
-    double min=std::numeric_limits<double>::max()-1;
+    double min=0;
     for(int i=0; i<model->rowCount(); ++i)
         for(int j=0; j<model->columnCount(); ++j) {
             QModelIndex index=model->index(i, j);
