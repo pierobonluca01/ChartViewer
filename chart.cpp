@@ -211,12 +211,12 @@ void PieChart::sliceClicked(QPieSlice *s) {
 
 void PieChart::build() {
     mainSeries=new QPieSeries(this);
-    mainSeries->setName("PieChart");
+    mainSeries->setName("Pie Chart");
     subArray=new QPieSeries*[model->columnCount()];
     for(int i=0; i<model->columnCount(); ++i) {
         QPieSeries* subSeries=new QPieSeries(this);
         subArray[i]=subSeries;
-        subSeries->setName("PieChart | "+model->headerData(i, Qt::Horizontal).toString());
+        subSeries->setName("Pie Chart | "+model->headerData(i, Qt::Horizontal).toString());
         for(int j=0; j<model->rowCount(); ++j) {
             QModelIndex index=model->index(j, i);
             *subSeries<<new PieSlice(model->data(index).toDouble(), model->headerData(j, Qt::Vertical).toString(), mainSeries);
