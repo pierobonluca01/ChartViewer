@@ -135,13 +135,20 @@ QBoxSet* BoxChart::buildSet(int column) {
 
 double BoxChart::median(int first, int last) {
     int count=last-first;
+
+    if(!count) {
+        if(last)
+            return sortedList.at(last-1);
+        else
+            return sortedList.at(0);
+    }
+
     if(count%2)
         return sortedList.at(count/2+first);
-    else {
-        qreal right=sortedList.at(count/2+first);
-        qreal left=sortedList.at(count/2+first-1);
-        return (right+left)/2;
-    }
+
+    qreal right=sortedList.at(count/2+first);
+    qreal left=sortedList.at(count/2+first-1);
+    return (right+left)/2;
 }
 
 
